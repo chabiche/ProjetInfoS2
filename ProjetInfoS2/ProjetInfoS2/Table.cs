@@ -37,18 +37,24 @@ namespace ProjetInfoS2
             NbPlaceOccupee = _nbPlaceOccupee;
             Jumelable = _jumelable;
         }
+        public Table() { }
 
         //Méthodes
         public virtual void remplirTable(Table table, int nbConvives)
         {
-            if (nbConvives<=NbPlaceMax.table)
+            if (nbConvives<=table.NbPlaceMax)
             {
-                NbPlaceOccupee.table = nbConvives;
+                table.NbPlaceOccupee = nbConvives;
             }
             else
             {
                 Console.WriteLine("La table est trop petite pour accueillir tous les convives.");
             }
+        }
+
+        public virtual void viderTable(Table table)
+        {
+            table.NbPlaceOccupee = 0;
         }
 
     }// fin class Table
