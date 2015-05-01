@@ -43,6 +43,7 @@ namespace ProjetInfoS2
             DureePreparation = _dureePreparation;
             DureePresenceClient = _dureePresenceClient;
             HoraireLimiteService= new DateTime(maintenant.Year, maintenant.Month, maintenant.Day, 23, 0, 0);
+            HoraireLimiteService-=DureePreparation;
             TableRequise = _tableRequise;
         }
 
