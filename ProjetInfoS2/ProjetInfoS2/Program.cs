@@ -44,7 +44,8 @@ namespace ProjetInfoS2
                     Console.WriteLine(@"Bonjour et bienvenu !
 Que souhaitez-vous réaliser?
 
-1- Ajouter un cuisinier");
+1- Ajouter un cuisinier
+2- Faire une réservation");
                     Console.WriteLine(maintenant);
                     choix = int.Parse(Console.ReadLine());
                     break;
@@ -73,7 +74,7 @@ Que souhaitez-vous réaliser?
 
                 case 2:
                     Console.Clear();
-                    Console.WriteLine("Case 2");
+                    Console.WriteLine("Vous souhaitez entrer une réservation. Entrez la date ()");
                     break;
 
 
