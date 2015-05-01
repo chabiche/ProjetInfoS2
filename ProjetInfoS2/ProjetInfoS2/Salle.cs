@@ -27,8 +27,14 @@ namespace ProjetInfoS2
         //    get { return Reservations; }
         //    set { Reservations = value; }
         //}
+
+
+        //Constructeur
+        public Salle()
+        {
+           
+        }
         
         
-        
-    }
+    }// fin class salle
 }
