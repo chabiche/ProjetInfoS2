@@ -17,6 +17,18 @@ namespace ProjetInfoS2
             TimeSpan dureePreparationRapide = new TimeSpan(0, 10, 0);
             TimeSpan dureePresenceClientRapide = new TimeSpan(0, 20, 0);
             Formule formuleRapide = new Formule(dureePreparationRapide, dureePresenceClientRapide, true);
+            //FormuleNormale
+            TimeSpan dureePreparationNormal = new TimeSpan(0, 20, 0);
+            TimeSpan dureePresenceClientNormal = new TimeSpan(0, 50, 0);
+            Formule formuleNormale = new Formule(dureePreparationNormal, dureePresenceClientNormal, true);
+            //FormuleGastronomique
+            TimeSpan dureePreparationGastro = new TimeSpan(0, 30, 0);
+            TimeSpan dureePresenceClientGastro = new TimeSpan(1, 30, 0);
+            Formule formuleGastro = new Formule(dureePreparationGastro, dureePresenceClientGastro, true);
+            //FormuleSimpleConso
+            TimeSpan dureePreparationConso = new TimeSpan(0, 5, 0);
+            TimeSpan dureePresenceClientConso = new TimeSpan(0, 20, 0);
+            Formule formuleConso = new Formule(dureePreparationConso, dureePresenceClientConso, true);
 
             int choix = 0;
             bool menu=true;
