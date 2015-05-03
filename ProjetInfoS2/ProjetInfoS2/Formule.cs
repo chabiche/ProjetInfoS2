@@ -47,5 +47,12 @@ namespace ProjetInfoS2
             TableRequise = _tableRequise;
         }
 
+        //Méthodes
+        public override string ToString()
+        {
+            string formule = "Durée de préparation en cuisine: "+DureePreparation+"/nTemps de présence du client: "+DureePresenceClient;
+            return formule + base.ToString();
+        }
+
     }// fin class formule
 }

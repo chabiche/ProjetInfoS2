@@ -29,7 +29,7 @@ namespace ProjetInfoS2
             set { numClient = value; }
         }
         
-        private DateTime dateReservation;
+        public DateTime dateReservation;
 	    public DateTime DateReservation
 	    {
 		get { return dateReservation;}
@@ -59,6 +59,13 @@ namespace ProjetInfoS2
             DateReservation = DateReservation;
             NbConvives = _nbConvives;
             FormuleRetenue = _formuleRetenue;
+        }
+
+        //Méthodes
+        public override string ToString()
+        {
+            string resa= "/nNom du client: "+NomClient+"/nNuméro du client: "+NumClient+"/nDate de laa réservation:"+DateReservation+"/nNombre de convives: "+NbConvives+"/nFormule souhaitée: "+FormuleRetenue+"Table Réservée: "+Table;
+            return resa + base.ToString();
         }
 
     }// fin class réservation

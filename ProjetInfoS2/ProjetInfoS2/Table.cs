@@ -40,6 +40,20 @@ namespace ProjetInfoS2
         public Table() { }
 
         //Méthodes
+        public override string ToString()
+        {
+            string chaine = "Nombre de places maximum: " + NbPlaceMax + "/nNombre de places occupées: " + NbPlaceOccupee+"/nJumelable: ";
+            if (Jumelable==true)
+            {
+                chaine += "oui";
+            }
+            else
+	        {
+                chaine += "non";
+	        }
+            return chaine + base.ToString();
+        }
+
         public virtual void remplirTable(Table table, int nbConvives)
         {
             if (nbConvives<=table.NbPlaceMax)

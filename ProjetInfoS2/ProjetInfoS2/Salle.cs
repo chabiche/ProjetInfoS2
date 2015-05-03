@@ -14,19 +14,19 @@ namespace ProjetInfoS2
             set { tables = value; }
         }
 
-       // private List<Formule> formules;
-        //public List<Formule> Formules
-        //{
-        //    get { return Formules; }
-        //    set { Formules = value; }
-        //}
+        private List<Formule> formules;
+        public List<Formule> Formules
+        {
+            get { return Formules; }
+            set { Formules = value; }
+        }
 
-        //private List<Reservation> reservations;
-        //public List<Reservation> Reservations
-        //{
-        //    get { return Reservations; }
-        //    set { Reservations = value; }
-        //}
+        private List<Reservation> reservations;
+        public List<Reservation> Reservations
+        {
+            get { return Reservations; }
+            set { Reservations = value; }
+        }
 
 
         //Constructeur
@@ -34,6 +34,23 @@ namespace ProjetInfoS2
         {
            
         }
+
+        //Méthodes
+        public void afficheResaDate()
+        {
+            Console.WriteLine("Veuillez saisir la date pour laquelle vous souhaitez consulter les réservations");
+            DateTime date = DateTime.Parse(Console.ReadLine());
+            int i = 0;
+            while (reservations[i]!=null)
+            {
+                if (DateReservation.reservation[i]==date)
+                {
+                    Console.WriteLine(reservations[i]);
+                }
+                i++;
+            }
+
+        }//fin afficheResaDate
         
         
     }// fin class salle
