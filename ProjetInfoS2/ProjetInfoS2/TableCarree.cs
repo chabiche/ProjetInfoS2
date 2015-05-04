@@ -11,5 +11,6 @@ namespace ProjetInfoS2
         public TableCarree(): base (4, 0, true)
         {
         }
+
     }// fin class TableCarree
 }

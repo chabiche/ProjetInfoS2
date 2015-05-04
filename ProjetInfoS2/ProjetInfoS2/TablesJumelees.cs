@@ -16,6 +16,9 @@ namespace ProjetInfoS2
             NbPlaceOccupee = 0;
             Jumelable = true;
             //Les tables sont à nouveau jumelable afin de ne pas limiter à deux le nombre de tables jumelées
+            table1.remplirTable(table1.NbPlaceMax);
+            table2.remplirTable(table2.NbPlaceMax);
+            //Occupe les deux tables jumelées
         }
 
     }// fin class Table

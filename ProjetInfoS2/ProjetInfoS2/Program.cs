@@ -33,6 +33,21 @@ namespace ProjetInfoS2
             //CREATION DE LA CUISINE
             Cuisine C = new Cuisine();
 
+            //CREATION DE LA CUISINE
+            Salle restau = new Salle();
+
+            //CREATION DUNE TABLE
+            TableCarree table1 = new TableCarree();
+
+            //CREATION DUNE RESERVATION
+            DateTime dateBezard = new DateTime(2015, 5, 12, 19, 30, 0);
+            Reservation resa1= new Reservation(table1, "Bezard", 1, dateBezard, 4, formuleGastro);
+            restau.tables.Add(table1);
+            restau.formules.Add(formuleConso);
+            restau.formules.Add(formuleRapide);
+            restau.formules.Add(formuleNormale);
+            restau.formules.Add(formuleGastro);
+            restau.reservations.Add(resa1);
 
             int choix = 0;
             bool menu=true;
@@ -49,7 +64,7 @@ Que souhaitez-vous réaliser?
 1- Ajouter un cuisinier
 2- Faire une réservation
 3- Consulter les réservations");
-                        //Console.WriteLine(maintenant);
+                        Console.WriteLine(dateBezard);
                         choix = int.Parse(Console.ReadLine());
                         break;
 
@@ -88,7 +103,8 @@ Que souhaitez-vous réaliser?
                 case 3:
                     Console.Clear();
                     Console.WriteLine("Vous souhaitez consulter une réservation. Entrez une date (FORMAT)");
-                    //afficheResaDate();
+                    Console.WriteLine(resa1);
+                    restau.afficheResaDate();
                     Console.ReadLine();
                     choix = 0;
                     break;

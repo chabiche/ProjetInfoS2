@@ -8,14 +8,14 @@ namespace ProjetInfoS2
     class Reservation
     {
         //Variables d'instance
-        private Table table;
+        public Table table;
         public Table Table
         {
             get { return table; }
             set { table = value; }
         }
 
-        private string nomClient;
+        public string nomClient;
         public string NomClient
         {
             get { return nomClient; }
@@ -30,20 +30,20 @@ namespace ProjetInfoS2
         }
         
         public DateTime dateReservation;
-	    public DateTime DateReservation
-	    {
-		get { return dateReservation;}
-		set { dateReservation = value;}
-	    }
+        //public DateTime DateReservation
+        //{
+        //get { return dateReservation;}
+        //set { dateReservation = value;}
+        //}
 
-        private int nbConvives;
-        public int NbConvives
-        {
-            get { return nbConvives; }
-            set { nbConvives = value; }
-        }
+        public int nbConvives;
+        //public int NbConvives
+        //{
+        //    get { return nbConvives; }
+        //    set { nbConvives = value; }
+        //}
 
-        private Formule formuleRetenue;
+        public Formule formuleRetenue;
         public Formule FormuleRetenue
         {
             get { return formuleRetenue; }
@@ -56,16 +56,16 @@ namespace ProjetInfoS2
             Table = _table;
             NomClient = _nomClient;
             NumClient = _numClient;
-            DateReservation = DateReservation;
-            NbConvives = _nbConvives;
+            dateReservation = _dateReservation;
+            nbConvives = _nbConvives;
             FormuleRetenue = _formuleRetenue;
         }
 
         //Méthodes
         public override string ToString()
         {
-            string resa= "/nNom du client: "+NomClient+"/nNuméro du client: "+NumClient+"/nDate de laa réservation:"+DateReservation+"/nNombre de convives: "+NbConvives+"/nFormule souhaitée: "+FormuleRetenue+"Table Réservée: "+Table;
-            return resa + base.ToString();
+            string resa= "\nNom du client: "+NomClient+"\nNuméro du client: "+NumClient+"\nDate de la réservation:"+dateReservation+"\nNombre de convives: "+nbConvives+"\nFormule souhaitée: "+FormuleRetenue+"\nTable Réservée: "+Table;
+            return resa;
         }
 
     }// fin class réservation

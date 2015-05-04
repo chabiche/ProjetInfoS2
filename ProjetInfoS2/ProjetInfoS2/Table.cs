@@ -42,7 +42,7 @@ namespace ProjetInfoS2
         //Méthodes
         public override string ToString()
         {
-            string chaine = "Nombre de places maximum: " + NbPlaceMax + "/nNombre de places occupées: " + NbPlaceOccupee+"/nJumelable: ";
+            string chaine = "Nombre de places maximum: " + NbPlaceMax + "\nNombre de places occupées: " + NbPlaceOccupee+"\nJumelable: ";
             if (Jumelable==true)
             {
                 chaine += "oui";
@@ -51,14 +51,14 @@ namespace ProjetInfoS2
 	        {
                 chaine += "non";
 	        }
-            return chaine + base.ToString();
+            return chaine;
         }
 
-        public virtual void remplirTable(Table table, int nbConvives)
+        public virtual void remplirTable(int nbConvives)
         {
-            if (nbConvives<=table.NbPlaceMax)
+            if (nbConvives<=this.NbPlaceMax)
             {
-                table.NbPlaceOccupee = nbConvives;
+                this.NbPlaceOccupee = nbConvives;
             }
             else
             {
@@ -66,9 +66,9 @@ namespace ProjetInfoS2
             }
         }
 
-        public virtual void viderTable(Table table)
+        public virtual void viderTable()
         {
-            table.NbPlaceOccupee = 0;
+            this.NbPlaceOccupee = 0;
         }
 
     }// fin class Table
