@@ -30,9 +30,9 @@ namespace ProjetInfoS2
         }
         
         //Constructeur
-        public Cuisine(Cuisinier cuisto)
+        public Cuisine()
         {
-            Brigade.Add(cuisto);
+            Brigade = new List<Cuisinier>();
             NbCuistoTotal = Brigade.Count;
             NbCuistoDispo = NbCuistoTotal;
         }
@@ -44,6 +44,9 @@ namespace ProjetInfoS2
             Brigade.Add(cuisto);
             NbCuistoTotal = Brigade.Count;
             NbCuistoDispo++;
+            //Verifie que le cuisto est crée
+            Console.WriteLine(cuisto);
+            Console.ReadLine();
         }
 
     }// fin class cuisine

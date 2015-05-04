@@ -36,22 +36,23 @@ namespace ProjetInfoS2
         }
 
         //Méthodes
-        public void afficheResaDate()
-        {
-            Console.WriteLine("Veuillez saisir la date pour laquelle vous souhaitez consulter les réservations");
-            DateTime date = DateTime.Parse(Console.ReadLine());
-            int i = 0;
-            while (reservations[i]!=null)
-            {
-                if (DateReservation.reservation[i]==date)
-                {
-                    Console.WriteLine(reservations[i]);
-                }
-                i++;
-            }
+        /* public void afficheResaDate()
+         {
+             Console.WriteLine("Veuillez saisir la date pour laquelle vous souhaitez consulter les réservations");
+             DateTime date = DateTime.Parse(Console.ReadLine());
+             int i = 0;
+             while (Reservations[i]!=null)
+             {
+                 if (DateReservation.Reservations[i]==date)
+                 {
+                     Console.WriteLine(Reservations[i]);
+                 }
+                 i++;
+             }
+       
 
-        }//fin afficheResaDate
-        
-        
+         }//fin afficheResaDate
+          */
+
     }// fin class salle
 }

@@ -32,7 +32,7 @@ namespace ProjetInfoS2
         //Méthodes
         public override string ToString()
         {
-            string chaine = "Numéro du cuisinier: " + NoCuisinier + "/nDisponibilité: ";
+            string chaine = "Numéro du cuisinier: " + NoCuisinier + "\nDisponibilité: ";
             if (Disponible == true)
             {
                 chaine += "oui";
@@ -41,7 +41,7 @@ namespace ProjetInfoS2
             {
                 chaine += "non";
             }
-            return chaine + base.ToString();
+            return chaine;
         }
         
     }//Fin class Cuisinier

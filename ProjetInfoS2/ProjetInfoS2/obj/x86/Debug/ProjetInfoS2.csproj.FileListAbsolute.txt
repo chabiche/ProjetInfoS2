@@ -3,3 +3,8 @@ C:\Users\Charlotte\Documents\GitHub\ProjetInfoS2\ProjetInfoS2\ProjetInfoS2\bin\D
 C:\Users\Charlotte\Documents\GitHub\ProjetInfoS2\ProjetInfoS2\ProjetInfoS2\obj\x86\Debug\ProjetInfoS2.exe
 C:\Users\Charlotte\Documents\GitHub\ProjetInfoS2\ProjetInfoS2\ProjetInfoS2\obj\x86\Debug\ProjetInfoS2.pdb
 C:\Users\Charlotte\Documents\GitHub\ProjetInfoS2\ProjetInfoS2\ProjetInfoS2\obj\x86\Debug\ProjetInfoS2.csprojResolveAssemblyReference.cache
+C:\Users\Manon\Documents\GitHub\ProjetInfoS2\ProjetInfoS2\ProjetInfoS2\obj\x86\Debug\ProjetInfoS2.csprojResolveAssemblyReference.cache
+C:\Users\Manon\Documents\GitHub\ProjetInfoS2\ProjetInfoS2\ProjetInfoS2\obj\x86\Debug\ProjetInfoS2.exe
+C:\Users\Manon\Documents\GitHub\ProjetInfoS2\ProjetInfoS2\ProjetInfoS2\bin\Debug\ProjetInfoS2.exe
+C:\Users\Manon\Documents\GitHub\ProjetInfoS2\ProjetInfoS2\ProjetInfoS2\bin\Debug\ProjetInfoS2.pdb
+C:\Users\Manon\Documents\GitHub\ProjetInfoS2\ProjetInfoS2\ProjetInfoS2\obj\x86\Debug\ProjetInfoS2.pdb

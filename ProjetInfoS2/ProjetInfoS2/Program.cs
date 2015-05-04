@@ -30,28 +30,30 @@ namespace ProjetInfoS2
             TimeSpan dureePresenceClientConso = new TimeSpan(0, 20, 0);
             Formule formuleConso = new Formule(dureePreparationConso, dureePresenceClientConso, true);
 
+            //CREATION DE LA CUISINE
+            Cuisine C = new Cuisine();
+
+
             int choix = 0;
             bool menu=true;
             do
             {
-                
-            
-            switch (choix)
-            {
+                switch (choix)
+                {
 
-                case 0:
-                    Console.Clear();
-                    Console.WriteLine(@"Bonjour et bienvenu !
+                    case 0:
+                        Console.Clear();
+                        Console.WriteLine(@"Bonjour et bienvenue !
 Que souhaitez-vous réaliser?
 
 1- Ajouter un cuisinier
 2- Faire une réservation
 3- Consulter les réservations");
-                    //Console.WriteLine(maintenant);
-                    choix = int.Parse(Console.ReadLine());
-                    break;
+                        //Console.WriteLine(maintenant);
+                        choix = int.Parse(Console.ReadLine());
+                        break;
 
-                    //AJOUTER UN CUISINIER
+                //AJOUTER UN CUISINIER
                 case 1:
                     Console.Clear();
                     bool format = false;
@@ -66,9 +68,12 @@ Que souhaitez-vous réaliser?
                         {
                             Console.WriteLine("Veuillez saisir uniquement des chiffres, svp.");
                         }
-                    } while (format==false);
+                    } 
+                    while (format==false);
                     int noCuisto = int.Parse(chaine);
-                    //ajoutCuisto(noCuisto);
+                    C.ajoutCuisto(noCuisto);
+                    
+
                     choix = 0;
                     break;
 
@@ -76,18 +81,24 @@ Que souhaitez-vous réaliser?
                 case 2:
                     Console.Clear();
                     Console.WriteLine("Vous souhaitez entrer une réservation. Entrez la date ()");
+                    Console.ReadLine();
+                    choix = 0;
                     break;
 
                 case 3:
                     Console.Clear();
                     Console.WriteLine("Vous souhaitez consulter une réservation. Entrez une date (FORMAT)");
                     //afficheResaDate();
+                    Console.ReadLine();
+                    choix = 0;
                     break;
 
 
-                default:
+                default: //Verifier ce que ca fait
                     Console.Clear();
-                    Console.WriteLine("Coucou");
+                    Console.WriteLine("Erreur");
+                    Console.ReadLine();
+                    choix = 0;
                     break;
 
                     }//fin switch
