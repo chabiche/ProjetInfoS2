@@ -2,55 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization; 
 
 namespace ProjetInfoS2
 {
-    class Formule
+    public class Formule
     {
         //Variables d'instance
-        private TimeSpan dureePreparation; //en min
-        public TimeSpan DureePreparation
-        {
-            get { return dureePreparation; }
-            set { dureePreparation = value; }
-        }
+        public TimeSpan dureePreparation { get; set; } //en min
 
-        private TimeSpan dureePrensenceClient; //en min
-        public TimeSpan DureePresenceClient
-        {
-            get { return dureePrensenceClient; }
-            set { dureePrensenceClient = value; }
-        }
+        public TimeSpan dureePresenceClient { get; set; } //en min
 
-        private DateTime horaireLimiteService;
-        public DateTime HoraireLimiteService // en min
-        {
-            get { return horaireLimiteService; }
-            set { horaireLimiteService = value; }
-        }
+        public DateTime horaireLimiteService { get; set; }
 
-        private bool tableRequise;
-        public bool TableRequise
-        {
-            get { return tableRequise; }
-            set { tableRequise = value; }
-        }
+        public bool tableRequise { get; set; }
+        
         
         //Constructeur
         public Formule(TimeSpan _dureePreparation, TimeSpan _dureePresenceClient, bool _tableRequise)
         {
             DateTime maintenant = DateTime.Now;
-            DureePreparation = _dureePreparation;
-            DureePresenceClient = _dureePresenceClient;
-            HoraireLimiteService= new DateTime(maintenant.Year, maintenant.Month, maintenant.Day, 23, 0, 0);
-            HoraireLimiteService-=DureePreparation;
-            TableRequise = _tableRequise;
+            dureePreparation = _dureePreparation;
+            dureePresenceClient = _dureePresenceClient;
+            horaireLimiteService= new DateTime(maintenant.Year, maintenant.Month, maintenant.Day, 23, 0, 0);
+            horaireLimiteService-=dureePreparation;
+            tableRequise = _tableRequise;
         }
+
+        //constructeur par defaut
+        public Formule()
+        { }
 
         //Méthodes
         public override string ToString()
         {
-            string formule = "Durée de préparation en cuisine: "+DureePreparation+"\nTemps de présence du client: "+DureePresenceClient;
+            string formule = "Durée de préparation en cuisine: "+dureePreparation+"\nTemps de présence du client: "+dureePresenceClient;
             return formule;
         }
 

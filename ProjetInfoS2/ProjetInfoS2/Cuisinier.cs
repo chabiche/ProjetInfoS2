@@ -2,38 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization; 
 
 namespace ProjetInfoS2
 {
-    class Cuisinier
+    public class Cuisinier
     {
         //Variables d'instance
-        private int noCuisinier;
-        public int NoCuisinier
-        {
-            get { return noCuisinier; }
-            set { noCuisinier = value; }
-        }
+        public int noCuisinier { get; set; }
 
-        private bool diponible;
-        public bool Disponible
-        {
-            get { return diponible; }
-            set { diponible = value; }
-        }
+        public bool disponible { get; set; }
+
 
         //Constructeur
         public Cuisinier(int _noCuisinier)
         {
-            NoCuisinier = _noCuisinier;
-            Disponible = true;
+            noCuisinier = _noCuisinier;
+            disponible = true;
         }
 
         //Méthodes
         public override string ToString()
         {
-            string chaine = "Numéro du cuisinier: " + NoCuisinier + "\nDisponibilité: ";
-            if (Disponible == true)
+            string chaine = "Numéro du cuisinier: " + noCuisinier + "\nDisponibilité: ";
+            if (disponible == true)
             {
                 chaine += "oui";
             }

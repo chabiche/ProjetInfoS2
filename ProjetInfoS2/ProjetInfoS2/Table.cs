@@ -2,48 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization; 
 
 namespace ProjetInfoS2
 {
-    abstract class Table
+    public abstract class Table
     {
         //variables d'instances
-        protected int nbPlaceMax;
-        public int NbPlaceMax
-        {
-            get { return nbPlaceMax; }
-            set { nbPlaceMax = value; }
-        }
+        public int nbPlaceMax { get; set; }
 
-        protected int nbPlaceOccupee;
-        public int NbPlaceOccupee
-        {
-            get { return nbPlaceOccupee; }
-            set { nbPlaceOccupee = value; }
-        }
+        public int nbPlaceOccupee { get; set; }
 
-        protected bool jumelable;
-        public bool Jumelable
-        {
-            get { return jumelable; }
-            set { jumelable = value; }
-        }
-        
+        public bool jumelable { get; set; }
 
         //Constructeur
         public Table(int _nbPlaceMax, int _nbPlaceOccupee, bool _jumelable)
         {
-            NbPlaceMax = _nbPlaceMax;
-            NbPlaceOccupee = _nbPlaceOccupee;
-            Jumelable = _jumelable;
+            nbPlaceMax = _nbPlaceMax;
+            nbPlaceOccupee = _nbPlaceOccupee;
+            jumelable = _jumelable;
         }
         public Table() { }
 
         //Méthodes
         public override string ToString()
         {
-            string chaine = "Nombre de places maximum: " + NbPlaceMax + "\nNombre de places occupées: " + NbPlaceOccupee+"\nJumelable: ";
-            if (Jumelable==true)
+            string chaine = "Nombre de places maximum: " + nbPlaceMax + "\nNombre de places occupées: " + nbPlaceOccupee+"\nJumelable: ";
+            if (jumelable==true)
             {
                 chaine += "oui";
             }
@@ -56,19 +41,19 @@ namespace ProjetInfoS2
 
         public virtual void remplirTable(int nbConvives)
         {
-            if (nbConvives<=this.NbPlaceMax)
+            if (nbConvives<=this.nbPlaceMax)
             {
-                this.NbPlaceOccupee = nbConvives;
+                this.nbPlaceOccupee = nbConvives;
             }
             else
             {
-                Console.WriteLine("La table est trop petite pour accueillir tous les convives.");
+                Console.WriteLine("La table est trop petite pour accueillir toutes les convives.");
             }
         }
 
         public virtual void viderTable()
         {
-            this.NbPlaceOccupee = 0;
+            this.nbPlaceOccupee = 0;
         }
 
     }// fin class Table

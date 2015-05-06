@@ -2,48 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization; 
 
 namespace ProjetInfoS2
 {
     class Cuisine
     {
         //Varibles d'instance
-        private List<Cuisinier> brigade;
-        public List<Cuisinier> Brigade
-        {
-            get { return brigade; }
-            set { brigade = value; }
-        }
+        public List<Cuisinier> brigade { get; set; }
 
-        private int nbCuistoTotal;
-        public int NbCuistoTotal
-        {
-            get { return nbCuistoTotal; }
-            set { nbCuistoTotal = value; }
-        }
+        public int nbCuistoTotal { get; set; }
 
-        private int nbCuistoDispo;
-        public int NbCuistoDispo
-        {
-            get { return nbCuistoDispo; }
-            set { nbCuistoDispo = value; }
-        }
+        public int nbCuistoDispo { get; set; }
         
         //Constructeur
         public Cuisine()
         {
-            Brigade = new List<Cuisinier>();
-            NbCuistoTotal = Brigade.Count;
-            NbCuistoDispo = NbCuistoTotal;
+            brigade = new List<Cuisinier>();
+            nbCuistoTotal = brigade.Count;
+            nbCuistoDispo = nbCuistoTotal;
         }
 
         //Méthodes
         public void ajoutCuisto(int noCuisto)
         {
             Cuisinier cuisto = new Cuisinier(noCuisto);
-            Brigade.Add(cuisto);
-            NbCuistoTotal = Brigade.Count;
-            NbCuistoDispo++;
+            brigade.Add(cuisto);
+            nbCuistoTotal = brigade.Count;
+            nbCuistoDispo++;
             //Verifie que le cuisto est crée
             Console.WriteLine(cuisto);
             Console.ReadLine();

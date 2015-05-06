@@ -2,31 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization; 
 
 namespace ProjetInfoS2
 {
-    class Salle
+    public class Salle
     {
-        public List<Table> tables;
-        public List<Table> Tables
-        {
-            get { return tables; }
-            set { tables = value; }
-        }
+        public List<Table> tables{ get; set; }
 
-        public List<Formule> formules;
-        public List<Formule> Formules
-        {
-            get { return formules; }
-            set { formules = value; }
-        }
+        public List<Formule> formules { get; set; }
 
-        public List<Reservation> reservations;
-        public List<Reservation> Reservations
-        {
-            get { return reservations; }
-            set { reservations = value; }
-        }
+        public List<Reservation> reservations { get; set; }
 
 
         //Constructeur
@@ -44,6 +30,17 @@ namespace ProjetInfoS2
             return chaine;
         }
 
+        public void afficheFormule() //il faudrait rajouter nom de la formule dans les attributs
+        {
+            for (int i = 0; i < formules.Count; i++)
+            {
+                Console.WriteLine("Formule n°"+ (i+1)+" "+ formules[i]+ "\n");
+            }
+        
+        }
+
+
+
          public void afficheResaDate()
          {
              Console.WriteLine("Veuillez saisir la date pour laquelle vous souhaitez consulter les réservations");
@@ -60,12 +57,12 @@ namespace ProjetInfoS2
              DateTime date = new DateTime(year, month, day, hour, min, 0);
              Console.WriteLine(date);
              int i = 0;
-             while (i<Reservations.Count())
+             while (i<reservations.Count())
              {
-                 if (Reservations[i].dateReservation==date)
+                 if (reservations[i].dateReservation==date)
                  {
                      Console.WriteLine("Réservation n° {0}:",i+1);
-                     Console.WriteLine(Reservations[i]);
+                     Console.WriteLine(reservations[i]);
                  }
                  i++;
              }

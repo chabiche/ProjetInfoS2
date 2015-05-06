@@ -2,71 +2,87 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace ProjetInfoS2
 {
-    class Reservation
+    [Serializable]
+    public class Reservation
     {
         //Variables d'instance
-        public Table table;
-        public Table Table
-        {
-            get { return table; }
-            set { table = value; }
-        }
+        [XmlAttribute()]
+        public Table table { get; set; }
 
-        public string nomClient;
-        public string NomClient
-        {
-            get { return nomClient; }
-            set { nomClient = value; }
-        }
+        [XmlAttribute()]
+        public string nomClient { get; set; }
 
-        private int numClient;
-        public int NumClient
-        {
-            get { return numClient; }
-            set { numClient = value; }
-        }
-        
-        public DateTime dateReservation;
-        //public DateTime DateReservation
-        //{
-        //get { return dateReservation;}
-        //set { dateReservation = value;}
-        //}
+        [XmlAttribute()]
+        public int numClient { get; set; }
 
-        public int nbConvives;
-        //public int NbConvives
-        //{
-        //    get { return nbConvives; }
-        //    set { nbConvives = value; }
-        //}
+        [XmlAttribute()]
+        public DateTime dateReservation { get; set; }
 
-        public Formule formuleRetenue;
-        public Formule FormuleRetenue
-        {
-            get { return formuleRetenue; }
-            set { formuleRetenue = value; }
-        }
-        
+        [XmlAttribute()]
+        public int nbConvives { get; set; }
+
+        [XmlAttribute()]
+        public Formule formuleRetenue {get; set;}
+
         //Constructeur
         public Reservation(Table _table, string _nomClient, int _numClient, DateTime _dateReservation, int _nbConvives, Formule _formuleRetenue)
         {
-            Table = _table;
-            NomClient = _nomClient;
-            NumClient = _numClient;
+            table = _table;
+            nomClient = _nomClient;
+            numClient = _numClient;
             dateReservation = _dateReservation;
             nbConvives = _nbConvives;
-            FormuleRetenue = _formuleRetenue;
+            formuleRetenue = _formuleRetenue;
+        }
+        //constructeur par defaut
+        public Reservation()
+        {
         }
 
         //Méthodes
+        public void verifierResa()
+        { 
+        
+        
+        
+        }
+        public void validerResa()
+        { }
+
+
+        public void refuserResa()
+        { }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public override string ToString()
         {
-            string resa= "\nNom du client: "+NomClient+"\nNuméro du client: "+NumClient+"\nDate de la réservation:"+dateReservation+"\nNombre de convives: "+nbConvives+"\nFormule souhaitée: "+FormuleRetenue+"\nTable Réservée: "+Table;
+            string resa= "\nNom du client: "+nomClient+"\nNuméro du client: "+numClient+"\nDate de la réservation:"+dateReservation+"\nNombre de convives: "+nbConvives+"\nFormule souhaitée: "+formuleRetenue+"\nTable Réservée: "+table;
             return resa;
         }
+
+
+
+
+
+
+
 
     }// fin class réservation
 }

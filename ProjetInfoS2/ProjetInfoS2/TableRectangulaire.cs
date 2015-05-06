@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization; 
 
 namespace ProjetInfoS2
 {
-    class TableRectangulaire:Table
+    public class TableRectangulaire:Table
     {
 
         //Constructeur
