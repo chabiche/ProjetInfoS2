@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Formule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <nomFormule>Formule simple consomation</nomFormule>
+  <dureePreparation />
+  <dureePresenceClient />
+  <horaireLimiteService>2015-05-06T22:55:00</horaireLimiteService>
+  <tableRequise>true</tableRequise>
+</Formule><?xml version="1.0" encoding="utf-8"?>
+<Formule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <nomFormule>Formule simple consomation</nomFormule>
+  <dureePreparation />
+  <dureePresenceClient />
+  <horaireLimiteService>2015-05-06T22:55:00</horaireLimiteService>
+  <tableRequise>true</tableRequise>
+</Formule>

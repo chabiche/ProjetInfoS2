@@ -9,7 +9,7 @@ namespace ProjetInfoS2
     public class Bar:Table
     {
         //Constructeur
-        public Bar(): base (15, 0, false)
+        public Bar(): base (15, true, false)
         {
         }
 

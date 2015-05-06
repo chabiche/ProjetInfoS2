@@ -9,7 +9,7 @@ namespace ProjetInfoS2
     public class TableCarree:Table
     {
         //Constructeur
-        public TableCarree(): base (4, 0, true)
+        public TableCarree(): base (4, true, true)
         {
         }
 

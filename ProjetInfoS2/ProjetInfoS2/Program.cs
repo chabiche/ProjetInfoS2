@@ -18,51 +18,68 @@ namespace ProjetInfoS2
             //FormuleRapide
             TimeSpan dureePreparationRapide = new TimeSpan(0, 10, 0);
             TimeSpan dureePresenceClientRapide = new TimeSpan(0, 20, 0);
-            Formule formuleRapide = new Formule(dureePreparationRapide, dureePresenceClientRapide, true);
+            Formule formuleRapide = new Formule("Formule Rapide", dureePreparationRapide, dureePresenceClientRapide, true);
             //FormuleNormale
             TimeSpan dureePreparationNormal = new TimeSpan(0, 20, 0);
             TimeSpan dureePresenceClientNormal = new TimeSpan(0, 50, 0);
-            Formule formuleNormale = new Formule(dureePreparationNormal, dureePresenceClientNormal, true);
+            Formule formuleNormale = new Formule("Formule Normale", dureePreparationNormal, dureePresenceClientNormal, true);
             //FormuleGastronomique
             TimeSpan dureePreparationGastro = new TimeSpan(0, 30, 0);
             TimeSpan dureePresenceClientGastro = new TimeSpan(1, 30, 0);
-            Formule formuleGastro = new Formule(dureePreparationGastro, dureePresenceClientGastro, true);
+            Formule formuleGastro = new Formule("Formule Gastronomique", dureePreparationGastro, dureePresenceClientGastro, true);
             //FormuleSimpleConso
             TimeSpan dureePreparationConso = new TimeSpan(0, 5, 0);
             TimeSpan dureePresenceClientConso = new TimeSpan(0, 20, 0);
-            Formule formuleConso = new Formule(dureePreparationConso, dureePresenceClientConso, true);
+            Formule formuleConso = new Formule("Formule simple consomation", dureePreparationConso, dureePresenceClientConso, true);
+
+            //On crée une instance de XmlSerializer
+            XmlSerializer serializer = new XmlSerializer(typeof(Formule));
+
+            //Création d'un Stream Writer qui permet d'écrire dans un fichier. On lui spécifie le chemin
+            //et si le flux devrait mettre le contenu à la suite de notre document (true) ou s'il devrait
+            //l'écraser (false).
+            StreamWriter formule = new StreamWriter("Test.xml", true);
+
+            //On sérialise en spécifiant le flux d'écriture et l'objet à sérialiser.
+            serializer.Serialize(formule, formuleConso);
+
+            //IMPORTANT : On ferme le flux en tous temps !!!
+            formule.Close();
 
             //CREATION DE LA CUISINE
             Cuisine C = new Cuisine();
 
-            //CREATION DE LA CUISINE
+            //CREATION DE LA SALLE
             Salle restau = new Salle();
 
             //CREATION DUNE TABLE
             TableCarree table1 = new TableCarree();
 
+
             //CREATION DUNE RESERVATION
             DateTime dateBezard = new DateTime(2015, 5, 12, 19, 30, 0);
 
             //serialisation réservation
-            Reservation resa1 = new Reservation() 
-            {
-            table = table1,
-            nomClient = "Bezard",
-            numClient = 1,
-            dateReservation = dateBezard,
-            nbConvives = 4,
-            formuleRetenue=formuleGastro
-            };
+            Reservation resa1 = new Reservation(table1, "Bezard", 1, dateBezard, 4, formuleGastro);
+            //{
+            //table = table1,
+            //nomClient = "Bezard",
+            //numClient = 1,
+            //dateReservation = dateBezard,
+            //nbConvives = 4,
+            //formuleRetenue=formuleGastro
+            //};
 
-            //On crée une instance de XmlSerializer
-            XmlSerializer serializer = new XmlSerializer(typeof(Reservation));
+            ////On crée une instance de XmlSerializer
+            //XmlSerializer serializer = new XmlSerializer(typeof(Reservation));
 
-            using (TextWriter writer = new StreamWriter("file.xml"))
-            {
-                serializer.Serialize(writer, resa1);
-            }
-            
+
+            //using (TextWriter writer = new StreamWriter("test.xml"))
+            //{
+            //    serializer.Serialize(writer, resa1);
+            //}
+
+
             restau.tables.Add(table1);
             restau.formules.Add(formuleConso);
             restau.formules.Add(formuleRapide);
@@ -85,7 +102,6 @@ Que souhaitez-vous réaliser?
 1- Ajouter un cuisinier
 2- Faire une réservation
 3- Consulter les réservations");
-                        restau.afficheFormule();
                         Console.WriteLine(dateBezard);
                         choix = int.Parse(Console.ReadLine());
                         break;
@@ -119,13 +135,16 @@ Que souhaitez-vous réaliser?
                         Console.Clear();
                         DateTime dateResa;
                         int nbConvive;
+                        int formuleChoisie;
                         // pour la date et l'heure il faudrait tout rentrer dans la même variable --> je sais pas comment faire
                         Console.WriteLine("Vous souhaitez entrer une réservation. Entrez la date (FORMAT)");
                         dateResa = DateTime.Parse(Console.ReadLine());
                         Console.WriteLine("Entrez le nombre de personne souhaitant manger dans le restaurant.");
                         nbConvive = int.Parse(Console.ReadLine());
-                        Console.WriteLine("Entrez le type de formule retenue: /nVoici la liste de celles ci.");
-                        //appel de la méthode verifierResa
+                        Console.WriteLine("Entrez le numéro de la formule retenue: /nVoici la liste de celles ci.");
+                        restau.afficheFormule();
+                        formuleChoisie=int.Parse(Console.ReadLine());
+                        //appel de la méthode verifierResa(date&horaire, nbconvive,formule) --> dans reservation
                         choix = 0;
                         break;
 

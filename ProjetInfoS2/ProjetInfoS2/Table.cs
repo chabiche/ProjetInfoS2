@@ -11,23 +11,24 @@ namespace ProjetInfoS2
         //variables d'instances
         public int nbPlaceMax { get; set; }
 
-        public int nbPlaceOccupee { get; set; }
+        public bool disponible { get; set; }
 
         public bool jumelable { get; set; }
 
         //Constructeur
-        public Table(int _nbPlaceMax, int _nbPlaceOccupee, bool _jumelable)
+        public Table(int _nbPlaceMax, bool _disponible, bool _jumelable)
         {
             nbPlaceMax = _nbPlaceMax;
-            nbPlaceOccupee = _nbPlaceOccupee;
+            disponible = _disponible;
             jumelable = _jumelable;
         }
+        //Constructeur par defaut
         public Table() { }
 
         //Méthodes
         public override string ToString()
         {
-            string chaine = "Nombre de places maximum: " + nbPlaceMax + "\nNombre de places occupées: " + nbPlaceOccupee+"\nJumelable: ";
+            string chaine = "Nombre de places maximum: " + nbPlaceMax + "\nTable libre: " + disponible+"\nJumelable: ";
             if (jumelable==true)
             {
                 chaine += "oui";
@@ -43,7 +44,7 @@ namespace ProjetInfoS2
         {
             if (nbConvives<=this.nbPlaceMax)
             {
-                this.nbPlaceOccupee = nbConvives;
+                disponible = false;
             }
             else
             {
@@ -53,7 +54,7 @@ namespace ProjetInfoS2
 
         public virtual void viderTable()
         {
-            this.nbPlaceOccupee = 0;
+            disponible = true;
         }
 
     }// fin class Table

@@ -10,22 +10,21 @@ namespace ProjetInfoS2
     public class Reservation
     {
         //Variables d'instance
-        [XmlAttribute()]
+        //[XmlAttribute()]
         public Table table { get; set; }
 
-        [XmlAttribute()]
         public string nomClient { get; set; }
 
-        [XmlAttribute()]
+        
         public int numClient { get; set; }
 
-        [XmlAttribute()]
+       
         public DateTime dateReservation { get; set; }
 
-        [XmlAttribute()]
+        
         public int nbConvives { get; set; }
 
-        [XmlAttribute()]
+        
         public Formule formuleRetenue {get; set;}
 
         //Constructeur
@@ -41,15 +40,12 @@ namespace ProjetInfoS2
         //constructeur par defaut
         public Reservation()
         {
+            
+
         }
 
         //Méthodes
-        public void verifierResa()
-        { 
-        
-        
-        
-        }
+
         public void validerResa()
         { }
 

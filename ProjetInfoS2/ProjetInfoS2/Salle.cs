@@ -23,6 +23,7 @@ namespace ProjetInfoS2
             reservations = new List<Reservation>();
         }
 
+
         //Méthodes
         public override string ToString()
         {
@@ -34,7 +35,7 @@ namespace ProjetInfoS2
         {
             for (int i = 0; i < formules.Count; i++)
             {
-                Console.WriteLine("Formule n°"+ (i+1)+" "+ formules[i]+ "\n");
+                Console.WriteLine("n°"+(i+1) + " "+ formules[i]+ "\n");
             }
         
         }
@@ -67,6 +68,26 @@ namespace ProjetInfoS2
                  i++;
              }
          }//fin afficheResaDate
+
+         //voir si la reservation est possible
+        public void verifierResa(DateTime dateEtHeure, int nbconvive, Formule formuleChoisie)
+        { 
+            int i = 0;
+            while (i<tables.Count)
+            {
+                if (tables[i].disponible==true)
+                {
+                    if (tables[i].nbPlaceMax>nbconvive)
+                    {
+                        //créer la reservation
+                    }
+
+                    //regarder pour le jumelable
+                }
+            }
+        
+        
+        }
          
 
     }// fin class salle

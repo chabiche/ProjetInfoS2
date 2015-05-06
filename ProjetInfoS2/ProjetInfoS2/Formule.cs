@@ -9,6 +9,8 @@ namespace ProjetInfoS2
     public class Formule
     {
         //Variables d'instance
+        public string nomFormule;
+
         public TimeSpan dureePreparation { get; set; } //en min
 
         public TimeSpan dureePresenceClient { get; set; } //en min
@@ -19,14 +21,15 @@ namespace ProjetInfoS2
         
         
         //Constructeur
-        public Formule(TimeSpan _dureePreparation, TimeSpan _dureePresenceClient, bool _tableRequise)
+        public Formule(string nomFormule, TimeSpan dureePreparation, TimeSpan dureePresenceClient, bool tableRequise)
         {
+            this.nomFormule = nomFormule;
             DateTime maintenant = DateTime.Now;
-            dureePreparation = _dureePreparation;
-            dureePresenceClient = _dureePresenceClient;
+            this.dureePreparation = dureePreparation;
+            this.dureePresenceClient = dureePresenceClient;
             horaireLimiteService= new DateTime(maintenant.Year, maintenant.Month, maintenant.Day, 23, 0, 0);
             horaireLimiteService-=dureePreparation;
-            tableRequise = _tableRequise;
+            this.tableRequise = tableRequise;
         }
 
         //constructeur par defaut
@@ -36,7 +39,7 @@ namespace ProjetInfoS2
         //Méthodes
         public override string ToString()
         {
-            string formule = "Durée de préparation en cuisine: "+dureePreparation+"\nTemps de présence du client: "+dureePresenceClient;
+            string formule = nomFormule+"\nDurée de préparation en cuisine: "+dureePreparation+"\nTemps de présence du client: "+dureePresenceClient;
             return formule;
         }
 

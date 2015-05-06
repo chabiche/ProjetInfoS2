@@ -10,7 +10,7 @@ namespace ProjetInfoS2
     {
 
         //Constructeur
-        public TableRonde(): base (6, 0, false)
+        public TableRonde(): base (6, true, false)
         {
         }
 
