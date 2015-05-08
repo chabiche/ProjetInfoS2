@@ -14,6 +14,8 @@ namespace ProjetInfoS2
 
         public List<Reservation> reservations { get; set; }
 
+        Cuisine C = new Cuisine();
+
 
         //Constructeur
         public Salle()
@@ -21,6 +23,7 @@ namespace ProjetInfoS2
             tables = new List<Table>();
             formules = new List<Formule>();
             reservations = new List<Reservation>();
+            
         }
 
 
@@ -79,16 +82,67 @@ namespace ProjetInfoS2
                 {
                     if (tables[i].nbPlaceMax>nbconvive)
                     {
-                        //créer la reservation
+                        Console.WriteLine("Reservation possible sur la table "+ i);
+                        //controle des cuisiniers dispos
+
+                        ValiderResa(tables[i], dateEtHeure, nbconvive, formuleChoisie);
+                        //comment faire pour gerer le fait qu'une table n'est pas suffisament remplie?
                     }
 
-                    //regarder pour le jumelable
+                    else // cad qu'il n'y a pas de table dispo avec assez de place --> on regarde le jumelage
+                    {
+                        int j = i+1;
+                        while(j < tables.Count)
+                        {
+                            if (tables[i].jumelable==true && tables[i].jumelable==true)
+                            {
+                                Console.WriteLine(@"Il est possible d'effectuer un jumelable de table 
+afin de pouvoir placer tous les convives
+Possibilité d'association de la table: " + tables[i] + " et " + tables[j]
++". Voulez vous associer ces deux tables? (oui/non)");
+                                string reponse=Console.ReadLine();
+                                if (reponse=="oui")
+                                {
+                                    //jumelage de tables
+                                    TablesJumelees jumelage = new TablesJumelees(tables[i], tables[j]);
+                                    //serialisation
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Les deux tables n'ont pas été assemblées");
+                                }
+
+                            }
+                            
+                        }
+
+                        j++;
+                    } 
+                   
                 }
+                
+                else //aucune table n'est disponible
+	                {
+                        Console.WriteLine("Aucune table n'est disponible.");
+	                }
+                i++;
             }
         
         
         }
-         
+
+        public void ValiderResa(Table table, DateTime dateEtHeure, int nbconvive, Formule formuleChoisie)
+        {
+            //ATTENTION: il faut d'abord controller qu'on a bien des cuisiniers dispo!!!!!!!!
+
+            Console.WriteLine("Quel est le nom pour la réservation?");
+            string nomResa=Console.ReadLine();
+            //Il faut lui attribuer un numero de client pour pouvoir creer la résa
+            //création et sérialisation de la résa Reservation newResa= new Reservation(......)
+            //restau.reservations.Add(resa);
+
+        }
+
 
     }// fin class salle
 }

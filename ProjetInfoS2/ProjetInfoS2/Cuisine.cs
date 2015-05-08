@@ -35,5 +35,27 @@ namespace ProjetInfoS2
             Console.ReadLine();
         }
 
+        public bool VerifierCuisineDispo(int nbConvives)
+        {
+            //On regarde combien de cuisiniers sont disponibles
+            int nbDispo = 0;
+            for (int i = 0; i < brigade.Count; i++)
+            {
+                if (brigade[i].disponible==true)
+                {
+                    nbDispo++;
+                }
+            }
+
+            if (nbConvives>nbDispo)
+            {
+                Console.WriteLine("La cuisine est occupée, la reservation n'est pas possible. Veuillez essayer à une autre horaire");
+                //Ca serait trop cool de proposer un autre horraire pour que la reservation puisse être possible
+            }
+
+
+            return true;
+        }
+
     }// fin class cuisine
 }

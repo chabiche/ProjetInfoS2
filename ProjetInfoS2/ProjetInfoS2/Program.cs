@@ -136,15 +136,19 @@ Que souhaitez-vous réaliser?
                         DateTime dateResa;
                         int nbConvive;
                         int formuleChoisie;
+
                         // pour la date et l'heure il faudrait tout rentrer dans la même variable --> je sais pas comment faire
                         Console.WriteLine("Vous souhaitez entrer une réservation. Entrez la date (FORMAT)");
                         dateResa = DateTime.Parse(Console.ReadLine());
+                        Console.WriteLine("Entrez l'heure de la reservation");
+                        
                         Console.WriteLine("Entrez le nombre de personne souhaitant manger dans le restaurant.");
                         nbConvive = int.Parse(Console.ReadLine());
                         Console.WriteLine("Entrez le numéro de la formule retenue: /nVoici la liste de celles ci.");
                         restau.afficheFormule();
                         formuleChoisie=int.Parse(Console.ReadLine());
-                        //appel de la méthode verifierResa(date&horaire, nbconvive,formule) --> dans reservation
+                        //il faut rechercher la formule par son numéro pour pouvoir appeller verifierResa
+                        //restau.verifierResa(dateResa, nbConvive, formuleChoisie);
                         choix = 0;
                         break;
 

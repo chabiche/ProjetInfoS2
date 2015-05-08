@@ -24,7 +24,7 @@ namespace ProjetInfoS2
         //Méthodes
         public override string ToString()
         {
-            string chaine = "Numéro du cuisinier: " + noCuisinier + "\nDisponibilité: ";
+            string chaine = "Numéro du cuisinier: " + noCuisinier + "\nDisponible: ";
             if (disponible == true)
             {
                 chaine += "oui";
