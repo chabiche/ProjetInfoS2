@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization; 
@@ -56,6 +57,19 @@ namespace ProjetInfoS2
 
             return true;
         }
+
+        //serialisation de la liste des cuisiniers
+        public void SerialisationListCuisiniers(List<Cuisinier> listCuisiniers)
+        {
+            XmlSerializer x = new XmlSerializer(typeof(List<Cuisinier>));
+            StreamWriter writer = new StreamWriter("Test.xml", true);
+            x.Serialize(writer, listCuisiniers);
+            writer.Close();
+        }
+
+
+
+
 
     }// fin class cuisine
 }

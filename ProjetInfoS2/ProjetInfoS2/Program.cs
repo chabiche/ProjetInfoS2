@@ -14,7 +14,6 @@ namespace ProjetInfoS2
             DateTime maintenant = DateTime.Now;
 
             //CREATION DES FORMULES
-
             //FormuleRapide
             TimeSpan dureePreparationRapide = new TimeSpan(0, 10, 0);
             TimeSpan dureePresenceClientRapide = new TimeSpan(0, 20, 0);
@@ -32,19 +31,19 @@ namespace ProjetInfoS2
             TimeSpan dureePresenceClientConso = new TimeSpan(0, 20, 0);
             Formule formuleConso = new Formule("Formule simple consomation", dureePreparationConso, dureePresenceClientConso, true);
 
-            //On crée une instance de XmlSerializer
-            XmlSerializer serializer = new XmlSerializer(typeof(Formule));
+            ////On crée une instance de XmlSerializer
+            //XmlSerializer serializer = new XmlSerializer(typeof(Formule));
 
-            //Création d'un Stream Writer qui permet d'écrire dans un fichier. On lui spécifie le chemin
-            //et si le flux devrait mettre le contenu à la suite de notre document (true) ou s'il devrait
-            //l'écraser (false).
-            StreamWriter formule = new StreamWriter("Test.xml", true);
+            ////Création d'un Stream Writer qui permet d'écrire dans un fichier. On lui spécifie le chemin
+            ////et si le flux devrait mettre le contenu à la suite de notre document (true) ou s'il devrait
+            ////l'écraser (false).
+            //StreamWriter writer = new StreamWriter("Test.xml", true);
 
-            //On sérialise en spécifiant le flux d'écriture et l'objet à sérialiser.
-            serializer.Serialize(formule, formuleConso);
+            ////On sérialise en spécifiant le flux d'écriture et l'objet à sérialiser.
+            //serializer.Serialize(writer, formuleConso);
 
-            //IMPORTANT : On ferme le flux en tous temps !!!
-            formule.Close();
+            ////IMPORTANT : On ferme le flux en tous temps !!!
+            //writer.Close();
 
             //CREATION DE LA CUISINE
             Cuisine C = new Cuisine();
@@ -103,6 +102,10 @@ Que souhaitez-vous réaliser?
 2- Faire une réservation
 3- Consulter les réservations");
                         Console.WriteLine(dateBezard);
+                        restau.SerialisationListFormules(restau.formules);
+                        C.SerialisationListCuisiniers(C.brigade);
+                        restau.SerialisationListReservations(restau.reservations);
+                        restau.SerialisationListTables(restau.tables);
                         choix = int.Parse(Console.ReadLine());
                         break;
 

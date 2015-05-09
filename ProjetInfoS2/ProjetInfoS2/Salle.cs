@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization; 
@@ -141,6 +142,33 @@ Possibilité d'association de la table: " + tables[i] + " et " + tables[j]
             //création et sérialisation de la résa Reservation newResa= new Reservation(......)
             //restau.reservations.Add(resa);
 
+        }
+
+        //Serialisation de la liste de formules
+        public void SerialisationListFormules(List<Formule> listFormules)
+        {
+            XmlSerializer x = new XmlSerializer(typeof(List<Formule>));
+            StreamWriter writer = new StreamWriter("Test.xml", false);
+            x.Serialize(writer, listFormules);
+            writer.Close();
+        }
+
+        //serialisation de la liste des reservations
+        public void SerialisationListReservations(List<Reservation> listReservations)
+        {
+            XmlSerializer x = new XmlSerializer(typeof(List<Reservation>));
+            StreamWriter writer = new StreamWriter("Test.xml", true);
+            x.Serialize(writer, listReservations);
+            writer.Close();
+        }
+
+        //serialisation de la liste des tables
+        public void SerialisationListTables(List<Table> listTables)
+        {
+            XmlSerializer x = new XmlSerializer(typeof(List<Table>));
+            StreamWriter writer = new StreamWriter("Test.xml", true);
+            x.Serialize(writer, listTables);
+            writer.Close();
         }
 
 

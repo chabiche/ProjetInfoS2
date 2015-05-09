@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
@@ -10,21 +11,16 @@ namespace ProjetInfoS2
     public class Reservation
     {
         //Variables d'instance
-        //[XmlAttribute()]
         public Table table { get; set; }
 
         public string nomClient { get; set; }
 
-        
         public int numClient { get; set; }
-
        
         public DateTime dateReservation { get; set; }
-
         
         public int nbConvives { get; set; }
 
-        
         public Formule formuleRetenue {get; set;}
 
         //Constructeur
@@ -40,8 +36,6 @@ namespace ProjetInfoS2
         //constructeur par defaut
         public Reservation()
         {
-            
-
         }
 
         //Méthodes
