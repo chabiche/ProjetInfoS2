@@ -3,6 +3,7 @@ using System.IO; // A rajouter obligatoirement
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Xml.Serialization; // A rajouter obligatoirement
 
 namespace ProjetInfoS2
@@ -31,19 +32,58 @@ namespace ProjetInfoS2
             TimeSpan dureePresenceClientConso = new TimeSpan(0, 20, 0);
             Formule formuleConso = new Formule("Formule simple consomation", dureePreparationConso, dureePresenceClientConso, true);
 
-            ////On crée une instance de XmlSerializer
-            //XmlSerializer serializer = new XmlSerializer(typeof(Formule));
+            //Désérialisation:
+            XmlDocument doc = new XmlDocument();
+            doc.Load("test-doc.xml");
+            foreach (XmlNode xmlNode in doc.DocumentElement.ChildNodes[0].ChildNodes)
+                Console.WriteLine(doc.DocumentElement.InnerText);
+            Console.ReadKey();
+            //doc.DocumentElement.InnerText: affiche le texte entre> <
+            //xmlDoc.DocumentElement.Name: affiche le nom de la balise
+            //xmlDoc.DocumentElement.Attributes["name"].Value: affiche l'attribut
 
-            ////Création d'un Stream Writer qui permet d'écrire dans un fichier. On lui spécifie le chemin
-            ////et si le flux devrait mettre le contenu à la suite de notre document (true) ou s'il devrait
-            ////l'écraser (false).
-            //StreamWriter writer = new StreamWriter("Test.xml", true);
+            //XmlDocument xmlDoc = new XmlDocument();
+            //xmlDoc.Load("restaurant.xml");
+            //XmlNode rootNode = xmlDoc.CreateElement("formules");
+            //xmlDoc.AppendChild(rootNode);
 
-            ////On sérialise en spécifiant le flux d'écriture et l'objet à sérialiser.
-            //serializer.Serialize(writer, formuleConso);
+            //XmlNode userNode = xmlDoc.CreateElement("formule");
+            //XmlAttribute attribute = xmlDoc.CreateAttribute("age");
+            //attribute.Value = "42";
+            //userNode.Attributes.Append(attribute);
+            //userNode.InnerText = "John Doe";
+            //rootNode.AppendChild(userNode);
 
-            ////IMPORTANT : On ferme le flux en tous temps !!!
-            //writer.Close();
+            //userNode = xmlDoc.CreateElement("user");
+            //attribute = xmlDoc.CreateAttribute("age");
+            //attribute.Value = "39";
+            //userNode.Attributes.Append(attribute);
+            //userNode.InnerText = "Jane Doe";
+            //rootNode.AppendChild(userNode);
+
+            //xmlDoc.Save("restaurant.xml");
+
+            //XmlNodeList userNodes = xmlDoc.SelectNodes("//users/user");
+            //foreach (XmlNode userNode in userNodes)
+            //{
+            //    int age = int.Parse(userNode.Attributes["age"].Value);
+            //    userNode.Attributes["age"].Value = (age + 1).ToString();
+            //}
+            //xmlDoc.Save("test-doc.xml"); 
+
+            //On crée une instance de XmlSerializer
+            XmlSerializer serializer = new XmlSerializer(typeof(Formule));
+
+            //Création d'un Stream Writer qui permet d'écrire dans un fichier. On lui spécifie le chemin
+            //et si le flux devrait mettre le contenu à la suite de notre document (true) ou s'il devrait
+            //l'écraser (false).
+            StreamWriter writer = new StreamWriter("Test.xml", true);
+
+            //On sérialise en spécifiant le flux d'écriture et l'objet à sérialiser.
+            serializer.Serialize(writer, formuleConso);
+
+            //IMPORTANT : On ferme le flux en tous temps !!!
+            writer.Close();
 
             //CREATION DE LA CUISINE
             Cuisine C = new Cuisine();
