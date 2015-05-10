@@ -79,12 +79,6 @@ namespace ProjetInfoS2
                 }
             }    
             //Console.ReadKey();
-            
-            //doc.DocumentElement.InnerText: affiche le texte entre> <
-            //doc.DocumentElement.Name: affiche le nom de la balise
-            //doc.DocumentElement.InnerXml: écrit tout, avec les balises, sauf la première englobante
-            //doc.DocumentElement.OuterXml: écrit tout avec les balises, même la première englobante
-            //doc.DocumentElement.Attributes["name"].Value: affiche l'attribut
 
             //CREATION DES FORMULES
             //elles se créent à partir de la lecture du fichier xml, comme ça le logiciel s'adapte à chaque restaurant
@@ -97,6 +91,38 @@ namespace ProjetInfoS2
                 restau.formules.Add(formule);
             }
 
+            //Serialisation Reservation
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load("restaurant.xml");
+            XmlNodeList resaNodes = xmlDoc.SelectNodes("//Reservations");
+            XmlNode rootNode = xmlDoc.CreateElement("Reservation");
+            xmlDoc.AppendChild(rootNode);
+
+            XmlNode tableNode = xmlDoc.CreateElement("tableResa");
+            tableNode.InnerText = "";
+            rootNode.AppendChild(tableNode);
+            XmlNode nomClientNode = xmlDoc.CreateElement("nomClient");
+            nomClientNode.InnerText = "John Doe";
+            rootNode.AppendChild(nomClientNode);
+            XmlNode numClientNode = xmlDoc.CreateElement("numClient");
+            numClientNode.InnerText = "1";
+            rootNode.AppendChild(numClientNode);
+            XmlNode dateNode = xmlDoc.CreateElement("dateResa");
+            dateNode.InnerText = "11/06/2015 20:00:00";
+            rootNode.AppendChild(dateNode);
+            XmlNode nbConviveNode = xmlDoc.CreateElement("nbConvive");
+            nbConviveNode.InnerText = "4";
+            rootNode.AppendChild(nbConviveNode);
+            XmlNode formuleNode = xmlDoc.CreateElement("formuleResa");
+            formuleNode.InnerText = "Formule Gastronomique";
+            rootNode.AppendChild(formuleNode);
+            xmlDoc.Save("restaurant.xml");
+
+            //doc.DocumentElement.InnerText: affiche le texte entre> <
+            //doc.DocumentElement.Name: affiche le nom de la balise
+            //doc.DocumentElement.InnerXml: écrit tout, avec les balises, sauf la première englobante
+            //doc.DocumentElement.OuterXml: écrit tout avec les balises, même la première englobante
+            //doc.DocumentElement.Attributes["name"].Value: affiche l'attribut
            
             ////FormuleRapide
             //TimeSpan dureePreparationRapide = new TimeSpan(0, 10, 0);
