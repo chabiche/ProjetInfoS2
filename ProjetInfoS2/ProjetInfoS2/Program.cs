@@ -21,6 +21,7 @@ namespace ProjetInfoS2
             Salle restau = new Salle();
             
             //Désérialisation:
+            //le logiciel lit le fichier xml correspondant au restaurant
             XmlDocument doc = new XmlDocument();
             doc.Load("restaurant.xml");
             //partie 1
@@ -86,6 +87,7 @@ namespace ProjetInfoS2
             //doc.DocumentElement.Attributes["name"].Value: affiche l'attribut
 
             //CREATION DES FORMULES
+            //elles se créent à partir de la lecture du fichier xml, comme ça le logiciel s'adapte à chaque restaurant
             for (int i = 0; i < _nomFormule.Count(); i++)
             {
                 TimeSpan dureePreparation = new TimeSpan(_hDureePrepa[i], _minDureePrepa[i], _secDureePrepa[i]);
