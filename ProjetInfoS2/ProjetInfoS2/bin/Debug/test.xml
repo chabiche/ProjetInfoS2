@@ -4,28 +4,28 @@
     <nomFormule>Formule simple consomation</nomFormule>
     <dureePreparation />
     <dureePresenceClient />
-    <horaireLimiteService>2015-05-09T22:55:00</horaireLimiteService>
+    <horaireLimiteService>2015-05-10T22:55:00</horaireLimiteService>
     <tableRequise>true</tableRequise>
   </Formule>
   <Formule>
     <nomFormule>Formule Rapide</nomFormule>
     <dureePreparation />
     <dureePresenceClient />
-    <horaireLimiteService>2015-05-09T22:50:00</horaireLimiteService>
+    <horaireLimiteService>2015-05-10T22:50:00</horaireLimiteService>
     <tableRequise>true</tableRequise>
   </Formule>
   <Formule>
     <nomFormule>Formule Normale</nomFormule>
     <dureePreparation />
     <dureePresenceClient />
-    <horaireLimiteService>2015-05-09T22:40:00</horaireLimiteService>
+    <horaireLimiteService>2015-05-10T22:40:00</horaireLimiteService>
     <tableRequise>true</tableRequise>
   </Formule>
   <Formule>
     <nomFormule>Formule Gastronomique</nomFormule>
     <dureePreparation />
     <dureePresenceClient />
-    <horaireLimiteService>2015-05-09T22:30:00</horaireLimiteService>
+    <horaireLimiteService>2015-05-10T22:30:00</horaireLimiteService>
     <tableRequise>true</tableRequise>
   </Formule>
 </ArrayOfFormule><?xml version="1.0" encoding="utf-8"?>

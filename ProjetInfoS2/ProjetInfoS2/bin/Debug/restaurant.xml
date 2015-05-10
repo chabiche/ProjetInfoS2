@@ -1,0 +1,59 @@
+<?xml version = "1.0" encoding="UTF-8" standalone="yes" ?>
+<Formules>
+	<Formule>
+		<nomFormule>Formule Rapide</nomFormule>
+		<dureePreparation>
+			<heure1>00</heure1>
+			<min1>10</min1>
+			<sec1>00</sec1>
+		</dureePreparation>
+		<dureePresenceClient>
+			<heure2>00</heure2>
+			<min2>20</min2>
+			<sec2>00</sec2>
+		</dureePresenceClient>
+		<tableRequise>true</tableRequise>
+	</Formule>
+	<Formule>
+		<nomFormule>Formule Normale</nomFormule>
+		<dureePreparation>
+			<heure1>00</heure1>
+			<min1>20</min1>
+			<sec1>00</sec1>
+		</dureePreparation>
+		<dureePresenceClient>
+			<heure2>00</heure2>
+			<min2>50</min2>
+			<sec2>00</sec2>
+		</dureePresenceClient>
+		<tableRequise>true</tableRequise>
+	</Formule>
+	<Formule>
+		<nomFormule>Formule Gastronomique</nomFormule>
+		<dureePreparation>
+			<heure1>00</heure1>
+			<min1>30</min1>
+			<sec1>00</sec1>
+		</dureePreparation>
+		<dureePresenceClient>
+			<heure2>01</heure2>
+			<min2>30</min2>
+			<sec2>00</sec2>
+		</dureePresenceClient>
+		<tableRequise>true</tableRequise>
+	</Formule>
+	<Formule>
+		<nomFormule>Formule Conso</nomFormule>
+		<dureePreparation>
+			<heure1>00</heure1>
+			<min1>05</min1>
+			<sec1>00</sec1>
+		</dureePreparation>
+		<dureePresenceClient>
+			<heure2>00</heure2>
+			<min2>20</min2>
+			<sec2>00</sec2>
+		</dureePresenceClient>
+		<tableRequise>true</tableRequise>
+	</Formule>
+</Formules>

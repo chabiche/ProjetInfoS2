@@ -14,34 +14,105 @@ namespace ProjetInfoS2
         {
             DateTime maintenant = DateTime.Now;
 
-            //CREATION DES FORMULES
-            //FormuleRapide
-            TimeSpan dureePreparationRapide = new TimeSpan(0, 10, 0);
-            TimeSpan dureePresenceClientRapide = new TimeSpan(0, 20, 0);
-            Formule formuleRapide = new Formule("Formule Rapide", dureePreparationRapide, dureePresenceClientRapide, true);
-            //FormuleNormale
-            TimeSpan dureePreparationNormal = new TimeSpan(0, 20, 0);
-            TimeSpan dureePresenceClientNormal = new TimeSpan(0, 50, 0);
-            Formule formuleNormale = new Formule("Formule Normale", dureePreparationNormal, dureePresenceClientNormal, true);
-            //FormuleGastronomique
-            TimeSpan dureePreparationGastro = new TimeSpan(0, 30, 0);
-            TimeSpan dureePresenceClientGastro = new TimeSpan(1, 30, 0);
-            Formule formuleGastro = new Formule("Formule Gastronomique", dureePreparationGastro, dureePresenceClientGastro, true);
-            //FormuleSimpleConso
-            TimeSpan dureePreparationConso = new TimeSpan(0, 5, 0);
-            TimeSpan dureePresenceClientConso = new TimeSpan(0, 20, 0);
-            Formule formuleConso = new Formule("Formule simple consomation", dureePreparationConso, dureePresenceClientConso, true);
+            //CREATION DE LA CUISINE
+            Cuisine C = new Cuisine();
 
+            //CREATION DE LA SALLE
+            Salle restau = new Salle();
+            
             //Désérialisation:
             XmlDocument doc = new XmlDocument();
-            doc.Load("test-doc.xml");
-            foreach (XmlNode xmlNode in doc.DocumentElement.ChildNodes[0].ChildNodes)
-                Console.WriteLine(doc.DocumentElement.InnerText);
-            Console.ReadKey();
+            doc.Load("restaurant.xml");
+            //partie 1
+            XmlNodeList itemNodes = doc.SelectNodes("//Formules/Formule");
+            List<string> _nomFormule = new List<string>();
+            List<bool> _tableRequise = new List<bool>();
+            foreach (XmlNode itemNode in itemNodes)
+            {
+                XmlNode nomFormule = itemNode.SelectSingleNode("nomFormule");
+                XmlNode tableRequise = itemNode.SelectSingleNode("tableRequise");
+                if ((nomFormule != null) && (tableRequise != null))
+                {
+                    _nomFormule.Add(nomFormule.InnerText);
+                    bool tablereq = bool.Parse(tableRequise.InnerText);
+                    _tableRequise.Add(tablereq);
+                }
+            }
+            //partie 2
+            XmlNodeList dureePrepaNodes = doc.SelectNodes("//Formules/Formule/dureePreparation");
+            List<int> _hDureePrepa = new List<int>();
+            List<int> _minDureePrepa = new List<int>();
+            List<int> _secDureePrepa = new List<int>();
+            foreach (XmlNode dureeNode in dureePrepaNodes)
+            {
+                XmlNode hDureePrepa = dureeNode.SelectSingleNode("heure1");
+                XmlNode minDureePrepa = dureeNode.SelectSingleNode("min1");
+                XmlNode secDureePrepa = dureeNode.SelectSingleNode("sec1");
+                if ((hDureePrepa != null) && (minDureePrepa != null) && (secDureePrepa != null))
+                {
+                    int hdp = int.Parse(hDureePrepa.InnerText);
+                    _hDureePrepa.Add(hdp);
+                    int mdp = int.Parse(minDureePrepa.InnerText);
+                    _hDureePrepa.Add(mdp);
+                    int sdp = int.Parse(secDureePrepa.InnerText);
+                    _hDureePrepa.Add(sdp);
+                }
+            }
+            XmlNodeList dureePresenceNodes = doc.SelectNodes("//Formules/Formule/dureePresenceClient");
+            List<int> _hDureePresence = new List<int>();
+            List<int> _minDureePresence = new List<int>();
+            List<int> _secDureePresence = new List<int>();
+            foreach (XmlNode dureePNode in dureePresenceNodes)
+            {
+                XmlNode hDureePresence = dureePNode.SelectSingleNode("heure2");
+                XmlNode minDureePresence = dureePNode.SelectSingleNode("min2");
+                XmlNode secDureePresence = dureePNode.SelectSingleNode("sec2");
+                if ((hDureePresence != null) && (minDureePresence != null) && (secDureePresence != null))
+                {
+                    int hdpc = int.Parse(hDureePresence.InnerText);
+                    _hDureePrepa.Add(hdpc);
+                    int mdpc = int.Parse(minDureePresence.InnerText);
+                    _hDureePrepa.Add(mdpc);
+                    int sdpc = int.Parse(secDureePresence.InnerText);
+                    _hDureePrepa.Add(sdpc);
+                }
+            }    
+            //Console.ReadKey();
+            
             //doc.DocumentElement.InnerText: affiche le texte entre> <
-            //xmlDoc.DocumentElement.Name: affiche le nom de la balise
-            //xmlDoc.DocumentElement.Attributes["name"].Value: affiche l'attribut
+            //doc.DocumentElement.Name: affiche le nom de la balise
+            //doc.DocumentElement.InnerXml: écrit tout, avec les balises, sauf la première englobante
+            //doc.DocumentElement.OuterXml: écrit tout avec les balises, même la première englobante
+            //doc.DocumentElement.Attributes["name"].Value: affiche l'attribut
 
+            //CREATION DES FORMULES
+            for (int i = 0; i < _nomFormule.Count(); i++)
+            {
+                TimeSpan dureePreparation = new TimeSpan(_hDureePrepa[i], _minDureePrepa[i], _secDureePrepa[i]);
+                TimeSpan dureePresenceClient = new TimeSpan(_hDureePresence[i], _minDureePresence[i], _secDureePresence[i]);
+                Formule formule = new Formule(_nomFormule[i], dureePreparation, dureePresenceClient, _tableRequise[i]);
+                Console.WriteLine(formule);
+                restau.formules.Add(formule);
+            }
+
+           
+            ////FormuleRapide
+            //TimeSpan dureePreparationRapide = new TimeSpan(0, 10, 0);
+            //TimeSpan dureePresenceClientRapide = new TimeSpan(0, 20, 0);
+            //Formule formuleRapide = new Formule("Formule Rapide", dureePreparationRapide, dureePresenceClientRapide, true);
+            ////FormuleNormale
+            //TimeSpan dureePreparationNormal = new TimeSpan(0, 20, 0);
+            //TimeSpan dureePresenceClientNormal = new TimeSpan(0, 50, 0);
+            //Formule formuleNormale = new Formule("Formule Normale", dureePreparationNormal, dureePresenceClientNormal, true);
+            ////FormuleGastronomique
+            //TimeSpan dureePreparationGastro = new TimeSpan(0, 30, 0);
+            //TimeSpan dureePresenceClientGastro = new TimeSpan(1, 30, 0);
+            //Formule formuleGastro = new Formule("Formule Gastronomique", dureePreparationGastro, dureePresenceClientGastro, true);
+            ////FormuleSimpleConso
+            //TimeSpan dureePreparationConso = new TimeSpan(0, 5, 0);
+            //TimeSpan dureePresenceClientConso = new TimeSpan(0, 20, 0);
+            //Formule formuleConso = new Formule("Formule simple consomation", dureePreparationConso, dureePresenceClientConso, true);
+            
             //XmlDocument xmlDoc = new XmlDocument();
             //xmlDoc.Load("restaurant.xml");
             //XmlNode rootNode = xmlDoc.CreateElement("formules");
@@ -80,16 +151,12 @@ namespace ProjetInfoS2
             StreamWriter writer = new StreamWriter("Test.xml", true);
 
             //On sérialise en spécifiant le flux d'écriture et l'objet à sérialiser.
-            serializer.Serialize(writer, formuleConso);
+            //serializer.Serialize(writer, formuleConso);
 
             //IMPORTANT : On ferme le flux en tous temps !!!
             writer.Close();
 
-            //CREATION DE LA CUISINE
-            Cuisine C = new Cuisine();
-
-            //CREATION DE LA SALLE
-            Salle restau = new Salle();
+            
 
             //CREATION DUNE TABLE
             TableCarree table1 = new TableCarree();
@@ -99,7 +166,7 @@ namespace ProjetInfoS2
             DateTime dateBezard = new DateTime(2015, 5, 12, 19, 30, 0);
 
             //serialisation réservation
-            Reservation resa1 = new Reservation(table1, "Bezard", 1, dateBezard, 4, formuleGastro);
+            Reservation resa1 = new Reservation(table1, "Bezard", 1, dateBezard, 4, restau.formules[3]);
             //{
             //table = table1,
             //nomClient = "Bezard",
@@ -119,12 +186,12 @@ namespace ProjetInfoS2
             //}
 
 
-            restau.tables.Add(table1);
-            restau.formules.Add(formuleConso);
-            restau.formules.Add(formuleRapide);
-            restau.formules.Add(formuleNormale);
-            restau.formules.Add(formuleGastro);
-            restau.reservations.Add(resa1);
+            //restau.tables.Add(table1);
+            //restau.formules.Add(formuleConso);
+            //restau.formules.Add(formuleRapide);
+            //restau.formules.Add(formuleNormale);
+            //restau.formules.Add(formuleGastro);
+            //restau.reservations.Add(resa1);
 
             int choix = 0;
             bool menu = true;
