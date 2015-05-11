@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Xml.Serialization; 
 
 namespace ProjetInfoS2
@@ -10,6 +11,8 @@ namespace ProjetInfoS2
     public class Formule
     {
         //Variables d'instance
+        public int noFormule;
+
         public string nomFormule;
 
         public TimeSpan dureePreparation { get; set; } //en min
@@ -43,6 +46,7 @@ namespace ProjetInfoS2
             string formule = nomFormule+"\nDurée de préparation en cuisine: "+dureePreparation+"\nTemps de présence du client: "+dureePresenceClient;
             return formule;
         }
+
 
     }// fin class formule
 }

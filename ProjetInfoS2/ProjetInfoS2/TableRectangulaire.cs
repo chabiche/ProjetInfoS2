@@ -11,7 +11,7 @@ namespace ProjetInfoS2
     {
 
         //Constructeur
-        public TableRectangulaire(): base (6, true, true)
+        public TableRectangulaire(): base (6, true)
         {
         }
 

@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfFormule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Formule>
-    <nomFormule>Formule simple consomation</nomFormule>
-    <dureePreparation />
-    <dureePresenceClient />
-    <horaireLimiteService>2015-05-10T22:55:00</horaireLimiteService>
-    <tableRequise>true</tableRequise>
-  </Formule>
-  <Formule>
+    <noFormule>0</noFormule>
     <nomFormule>Formule Rapide</nomFormule>
     <dureePreparation />
     <dureePresenceClient />
-    <horaireLimiteService>2015-05-10T22:50:00</horaireLimiteService>
+    <horaireLimiteService>2015-05-11T22:50:00</horaireLimiteService>
     <tableRequise>true</tableRequise>
   </Formule>
   <Formule>
+    <noFormule>0</noFormule>
     <nomFormule>Formule Normale</nomFormule>
     <dureePreparation />
     <dureePresenceClient />
-    <horaireLimiteService>2015-05-10T22:40:00</horaireLimiteService>
+    <horaireLimiteService>2015-05-11T22:40:00</horaireLimiteService>
     <tableRequise>true</tableRequise>
   </Formule>
   <Formule>
+    <noFormule>0</noFormule>
     <nomFormule>Formule Gastronomique</nomFormule>
     <dureePreparation />
     <dureePresenceClient />
-    <horaireLimiteService>2015-05-10T22:30:00</horaireLimiteService>
+    <horaireLimiteService>2015-05-11T22:30:00</horaireLimiteService>
+    <tableRequise>true</tableRequise>
+  </Formule>
+  <Formule>
+    <noFormule>0</noFormule>
+    <nomFormule>Formule Conso</nomFormule>
+    <dureePreparation />
+    <dureePresenceClient />
+    <horaireLimiteService>2015-05-11T22:55:00</horaireLimiteService>
     <tableRequise>true</tableRequise>
   </Formule>
 </ArrayOfFormule><?xml version="1.0" encoding="utf-8"?>
-<ArrayOfCuisinier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfCuisinier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /><?xml version="1.0" encoding="utf-8"?>
+<ArrayOfReservation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /><?xml version="1.0" encoding="utf-8"?>
+<ArrayOfTable xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />

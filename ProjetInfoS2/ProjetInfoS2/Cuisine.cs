@@ -40,13 +40,13 @@ namespace ProjetInfoS2
         {
             //On regarde combien de cuisiniers sont disponibles
             int nbDispo = 0;
-            for (int i = 0; i < brigade.Count; i++)
-            {
-                if (brigade[i].disponible==true)
-                {
-                    nbDispo++;
-                }
-            }
+            //for (int i = 0; i < brigade.Count; i++)
+            //{
+            //    if (brigade[i].disponible==true)
+            //    {
+            //        nbDispo++;
+            //    }
+            //}
 
             if (nbConvives>nbDispo)
             {
@@ -56,15 +56,6 @@ namespace ProjetInfoS2
 
 
             return true;
-        }
-
-        //serialisation de la liste des cuisiniers
-        public void SerialisationListCuisiniers(List<Cuisinier> listCuisiniers)
-        {
-            XmlSerializer x = new XmlSerializer(typeof(List<Cuisinier>));
-            StreamWriter writer = new StreamWriter("Test.xml", true);
-            x.Serialize(writer, listCuisiniers);
-            writer.Close();
         }
 
 

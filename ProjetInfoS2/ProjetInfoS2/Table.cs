@@ -9,19 +9,19 @@ namespace ProjetInfoS2
 {
     public abstract class Table
     {
+        public List<Disponibilite> planningResa;
+
         //variables d'instances
         public int nbPlaceMax { get; set; }
-
-        public bool disponible { get; set; }
 
         public bool jumelable { get; set; }
 
         //Constructeur
-        public Table(int _nbPlaceMax, bool _disponible, bool _jumelable)
+        public Table(int _nbPlaceMax, bool _jumelable)
         {
             nbPlaceMax = _nbPlaceMax;
-            disponible = _disponible;
             jumelable = _jumelable;
+            planningResa = new List<Disponibilite>();
         }
         //Constructeur par defaut
         public Table() { }
@@ -29,7 +29,7 @@ namespace ProjetInfoS2
         //Méthodes
         public override string ToString()
         {
-            string chaine = "Nombre de places maximum: " + nbPlaceMax + "\nTable libre: " + disponible+"\nJumelable: ";
+            string chaine = "Nombre de places maximum: " + nbPlaceMax +"\nJumelable: ";
             if (jumelable==true)
             {
                 chaine += "oui";
@@ -41,22 +41,22 @@ namespace ProjetInfoS2
             return chaine;
         }
 
-        public virtual void remplirTable(int nbConvives)
-        {
-            if (nbConvives<=this.nbPlaceMax)
-            {
-                disponible = false;
-            }
-            else
-            {
-                Console.WriteLine("La table est trop petite pour accueillir toutes les convives.");
-            }
-        }
+        //public virtual void remplirTable(int nbConvives) //il faut refaire la methode avec le planningResa
+        //{
+        //    if (nbConvives<=this.nbPlaceMax)
+        //    {
+        //        disponible = false;
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("La table est trop petite pour accueillir toutes les convives.");
+        //    }
+        //}
 
-        public virtual void viderTable()
-        {
-            disponible = true;
-        }
+        //public virtual void viderTable()
+        //{
+        //    disponible = true;
+        //}
 
     }// fin class Table
 }

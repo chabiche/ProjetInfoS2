@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Xml.Serialization; 
 
 namespace ProjetInfoS2
@@ -79,7 +80,7 @@ namespace ProjetInfoS2
             int i = 0;
             while (i<tables.Count)
             {
-                if (tables[i].disponible==true)
+                if (tables[i].planningResa.)
                 {
                     if (tables[i].nbPlaceMax>nbconvive)
                     {
@@ -95,25 +96,29 @@ namespace ProjetInfoS2
                         int j = i+1;
                         while(j < tables.Count)
                         {
-                            if (tables[i].jumelable==true && tables[i].jumelable==true)
+                            if (tables[j].disponible==true)
                             {
-                                Console.WriteLine(@"Il est possible d'effectuer un jumelable de table 
+                                if (tables[i].jumelable == true && tables[j].jumelable == true)
+                                {
+                                    Console.WriteLine(@"Il est possible d'effectuer un jumelable de table 
 afin de pouvoir placer tous les convives
 Possibilité d'association de la table: " + tables[i] + " et " + tables[j]
-+". Voulez vous associer ces deux tables? (oui/non)");
-                                string reponse=Console.ReadLine();
-                                if (reponse=="oui")
-                                {
-                                    //jumelage de tables
-                                    TablesJumelees jumelage = new TablesJumelees(tables[i], tables[j]);
-                                    //serialisation
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Les deux tables n'ont pas été assemblées");
-                                }
+    + ". Voulez vous associer ces deux tables? (oui/non)");
+                                    string reponse = Console.ReadLine();
+                                    if (reponse == "oui")
+                                    {
+                                        //jumelage de tables
+                                        TablesJumelees jumelage = new TablesJumelees(tables[i], tables[j]);
+                                        //serialisation
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Les deux tables n'ont pas été assemblées");
+                                    }
 
+                                }
                             }
+                            
                             
                         }
 
@@ -144,33 +149,82 @@ Possibilité d'association de la table: " + tables[i] + " et " + tables[j]
 
         }
 
-        //Serialisation de la liste de formules
-        public void SerialisationListFormules(List<Formule> listFormules)
+        public void creationFormulesXml()
         {
-            XmlSerializer x = new XmlSerializer(typeof(List<Formule>));
-            StreamWriter writer = new StreamWriter("Test.xml", false);
-            x.Serialize(writer, listFormules);
-            writer.Close();
-        }
+              //Désérialisation:
+            //le logiciel lit le fichier xml correspondant au restaurant
 
-        //serialisation de la liste des reservations
-        public void SerialisationListReservations(List<Reservation> listReservations)
-        {
-            XmlSerializer x = new XmlSerializer(typeof(List<Reservation>));
-            StreamWriter writer = new StreamWriter("Test.xml", true);
-            x.Serialize(writer, listReservations);
-            writer.Close();
-        }
+           XmlDocument doc = new XmlDocument();
+            doc.Load("restaurant.xml");
+            //partie 1
+            XmlNodeList itemNodes = doc.SelectNodes("//Restaurant/Formules/Formule");
+            List<string> _nomFormule = new List<string>();
+            List<bool> _tableRequise = new List<bool>();
+            foreach (XmlNode itemNode in itemNodes)
+            {
+                XmlNode nomFormule = itemNode.SelectSingleNode("nomFormule");
+                XmlNode tableRequise = itemNode.SelectSingleNode("tableRequise");
+                if ((nomFormule != null) && (tableRequise != null))
+                {
+                    _nomFormule.Add(nomFormule.InnerText);
+                    bool tablereq = bool.Parse(tableRequise.InnerText);
+                    _tableRequise.Add(tablereq);
+                }
+            }
+            //partie 2
+            XmlNodeList dureePrepaNodes = doc.SelectNodes("//Restaurant/Formules/Formule/dureePreparation");
+            List<int> _hDureePrepa = new List<int>();
+            List<int> _minDureePrepa = new List<int>();
+            List<int> _secDureePrepa = new List<int>();
+            foreach (XmlNode dureeNode in dureePrepaNodes)
+            {
+                XmlNode hDureePrepa = dureeNode.SelectSingleNode("heure1");
+                XmlNode minDureePrepa = dureeNode.SelectSingleNode("min1");
+                XmlNode secDureePrepa = dureeNode.SelectSingleNode("sec1");
+                if ((hDureePrepa != null) && (minDureePrepa != null) && (secDureePrepa != null))
+                {
+                    int hdp = int.Parse(hDureePrepa.InnerText);
+                    _hDureePrepa.Add(hdp);
+                    int mdp = int.Parse(minDureePrepa.InnerText);
+                    _minDureePrepa.Add(mdp);
+                    int sdp = int.Parse(secDureePrepa.InnerText);
+                    _secDureePrepa.Add(sdp);
+                }
+            }
+            XmlNodeList dureePresenceNodes = doc.SelectNodes("//Restaurant/Formules/Formule/dureePresenceClient");
+            List<int> _hDureePresence = new List<int>();
+            List<int> _minDureePresence = new List<int>();
+            List<int> _secDureePresence = new List<int>();
+            foreach (XmlNode dureePNode in dureePresenceNodes)
+            {
+                XmlNode hDureePresence = dureePNode.SelectSingleNode("heure2");
+                XmlNode minDureePresence = dureePNode.SelectSingleNode("min2");
+                XmlNode secDureePresence = dureePNode.SelectSingleNode("sec2");
+                if ((hDureePresence != null) && (minDureePresence != null) && (secDureePresence != null))
 
-        //serialisation de la liste des tables
-        public void SerialisationListTables(List<Table> listTables)
-        {
-            XmlSerializer x = new XmlSerializer(typeof(List<Table>));
-            StreamWriter writer = new StreamWriter("Test.xml", true);
-            x.Serialize(writer, listTables);
-            writer.Close();
-        }
+                {
+                    int hdpc = int.Parse(hDureePresence.InnerText);
+                    _hDureePresence.Add(hdpc);
+                    int mdpc = int.Parse(minDureePresence.InnerText);
+                    _minDureePresence.Add(mdpc);
+                    int sdpc = int.Parse(secDureePresence.InnerText);
+                    _secDureePresence.Add(sdpc);
+                }
+            }    
 
+            //CREATION DES FORMULES
+            //elles se créent à partir de la lecture du fichier xml, comme ça le logiciel s'adapte à chaque restaurant
+            for (int i = 0; i < _nomFormule.Count(); i++)
+            {
+                TimeSpan dureePreparation = new TimeSpan(_hDureePrepa[i], _minDureePrepa[i], _secDureePrepa[i]);
+                TimeSpan dureePresenceClient = new TimeSpan(_hDureePresence[i], _minDureePresence[i], _secDureePresence[i]);
+                Formule formule = new Formule(_nomFormule[i], dureePreparation, dureePresenceClient, _tableRequise[i]);
+                Console.WriteLine(formule);
+                this.formules.Add(formule);
+            }
+
+            //Il faut peut etre quitter le doc
+        }
 
     }// fin class salle
 }
