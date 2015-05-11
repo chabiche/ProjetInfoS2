@@ -5,8 +5,16 @@ using System.Text;
 
 namespace ProjetInfoS2
 {
-    public class Disponibilite
+    public class Occupation
     {
+        private int noOccupation;
+
+        public int NoOccupation
+        {
+            get { return noOccupation; }
+            set { noOccupation = value; }
+        }
+        
         private DateTime dateDebutOccupee;
 
         public DateTime DateDebutOccupee
@@ -25,13 +33,13 @@ namespace ProjetInfoS2
         }
 
 
-        public Disponibilite()
+        public Occupation()
         {
             dateDebutOccupee = new DateTime();
             dateFinOccupee = new DateTime();
         }
 
-        public Disponibilite(DateTime dateDebut, TimeSpan duree)
+        public Occupation(DateTime dateDebut, TimeSpan duree)
         {
             dateDebutOccupee = new DateTime();
             dateFinOccupee = new DateTime();

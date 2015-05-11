@@ -9,7 +9,7 @@ namespace ProjetInfoS2
 {
     public abstract class Table
     {
-        public List<Disponibilite> planningResa;
+        public List<Occupation> planningResa;
 
         //variables d'instances
         public int nbPlaceMax { get; set; }
@@ -21,7 +21,7 @@ namespace ProjetInfoS2
         {
             nbPlaceMax = _nbPlaceMax;
             jumelable = _jumelable;
-            planningResa = new List<Disponibilite>();
+            planningResa = new List<Occupation>();
         }
         //Constructeur par defaut
         public Table() { }

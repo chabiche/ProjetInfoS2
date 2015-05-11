@@ -16,6 +16,14 @@ namespace ProjetInfoS2
 
         public List<Reservation> reservations { get; set; }
 
+        private List<Occupation> planning;
+
+        public List<Occupation> Planning
+        {
+            get { return planning; }
+            set { planning = value; }
+        }
+        
         Cuisine C = new Cuisine();
 
 
@@ -149,6 +157,83 @@ Possibilité d'association de la table: " + tables[i] + " et " + tables[j]
 
         }
 
+        public void creationOccupationsXml()
+        {
+            //Désérialisation:
+            //le logiciel lit le fichier xml correspondant au restaurant
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load("restaurant.xml");
+            //partie 1
+            XmlNodeList itemNodes = doc.SelectNodes("//Restaurant/Occupations/Occupation");
+            List<int> _noOccupation = new List<int>();
+            //List<bool> _tableRequise = new List<bool>();
+            foreach (XmlNode itemNode in itemNodes)
+            {
+                XmlNode noOccupation = itemNode.SelectSingleNode("noOccupation");
+               // XmlNode tableRequise = itemNode.SelectSingleNode("tableRequise");
+                if ((noOccupation != null))
+                {
+                    int noocc = int.Parse(noOccupation.InnerText);
+                    _noOccupation.Add(noocc);
+                  //  bool tablereq = bool.Parse(tableRequise.InnerText);
+                  //  _tableRequise.Add(tablereq);
+                }
+            }
+            ////partie 2
+            //XmlNodeList dureePrepaNodes = doc.SelectNodes("//Restaurant/Formules/Formule/dureePreparation");
+            //List<int> _hDureePrepa = new List<int>();
+            //List<int> _minDureePrepa = new List<int>();
+            //List<int> _secDureePrepa = new List<int>();
+            //foreach (XmlNode dureeNode in dureePrepaNodes)
+            //{
+            //    XmlNode hDureePrepa = dureeNode.SelectSingleNode("heure1");
+            //    XmlNode minDureePrepa = dureeNode.SelectSingleNode("min1");
+            //    XmlNode secDureePrepa = dureeNode.SelectSingleNode("sec1");
+            //    if ((hDureePrepa != null) && (minDureePrepa != null) && (secDureePrepa != null))
+            //    {
+            //        int hdp = int.Parse(hDureePrepa.InnerText);
+            //        _hDureePrepa.Add(hdp);
+            //        int mdp = int.Parse(minDureePrepa.InnerText);
+            //        _minDureePrepa.Add(mdp);
+            //        int sdp = int.Parse(secDureePrepa.InnerText);
+            //        _secDureePrepa.Add(sdp);
+            //    }
+            //}
+            //XmlNodeList dureePresenceNodes = doc.SelectNodes("//Restaurant/Formules/Formule/dureePresenceClient");
+            //List<int> _hDureePresence = new List<int>();
+            //List<int> _minDureePresence = new List<int>();
+            //List<int> _secDureePresence = new List<int>();
+            //foreach (XmlNode dureePNode in dureePresenceNodes)
+            //{
+            //    XmlNode hDureePresence = dureePNode.SelectSingleNode("heure2");
+            //    XmlNode minDureePresence = dureePNode.SelectSingleNode("min2");
+            //    XmlNode secDureePresence = dureePNode.SelectSingleNode("sec2");
+            //    if ((hDureePresence != null) && (minDureePresence != null) && (secDureePresence != null))
+            //    {
+            //        int hdpc = int.Parse(hDureePresence.InnerText);
+            //        _hDureePresence.Add(hdpc);
+            //        int mdpc = int.Parse(minDureePresence.InnerText);
+            //        _minDureePresence.Add(mdpc);
+            //        int sdpc = int.Parse(secDureePresence.InnerText);
+            //        _secDureePresence.Add(sdpc);
+            //    }
+            //}
+
+            ////CREATION DES FORMULES
+            ////elles se créent à partir de la lecture du fichier xml, comme ça le logiciel s'adapte à chaque restaurant
+            //for (int i = 0; i < _nomFormule.Count(); i++)
+            //{
+            //    TimeSpan dureePreparation = new TimeSpan(_hDureePrepa[i], _minDureePrepa[i], _secDureePrepa[i]);
+            //    TimeSpan dureePresenceClient = new TimeSpan(_hDureePresence[i], _minDureePresence[i], _secDureePresence[i]);
+            //    Formule formule = new Formule(_nomFormule[i], dureePreparation, dureePresenceClient, _tableRequise[i]);
+            //    Console.WriteLine(formule);
+            //    this.formules.Add(formule);
+            //}
+
+            ////Il faut peut etre quitter le doc
+        }
+
         public void creationFormulesXml()
         {
               //Désérialisation:
@@ -211,6 +296,82 @@ Possibilité d'association de la table: " + tables[i] + " et " + tables[j]
                     _secDureePresence.Add(sdpc);
                 }
             }    
+
+            //CREATION DES FORMULES
+            //elles se créent à partir de la lecture du fichier xml, comme ça le logiciel s'adapte à chaque restaurant
+            for (int i = 0; i < _nomFormule.Count(); i++)
+            {
+                TimeSpan dureePreparation = new TimeSpan(_hDureePrepa[i], _minDureePrepa[i], _secDureePrepa[i]);
+                TimeSpan dureePresenceClient = new TimeSpan(_hDureePresence[i], _minDureePresence[i], _secDureePresence[i]);
+                Formule formule = new Formule(_nomFormule[i], dureePreparation, dureePresenceClient, _tableRequise[i]);
+                Console.WriteLine(formule);
+                this.formules.Add(formule);
+            }
+
+            //Il faut peut etre quitter le doc
+        }
+
+        public void creationTablesXml()
+        {
+            //Désérialisat
+            //le logiciel lit le fichier xml correspondant au restaurant
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load("restaurant.xml");
+            //partie 1
+            XmlNodeList itemNodes = doc.SelectNodes("//Restaurant/Tables/TableCarre");
+            List<string> _nomFormule = new List<string>();
+            List<bool> _tableRequise = new List<bool>();
+            foreach (XmlNode itemNode in itemNodes)
+            {
+                XmlNode nomFormule = itemNode.SelectSingleNode("nomFormule");
+                XmlNode tableRequise = itemNode.SelectSingleNode("tableRequise");
+                if ((nomFormule != null) && (tableRequise != null))
+                {
+                    _nomFormule.Add(nomFormule.InnerText);
+                    bool tablereq = bool.Parse(tableRequise.InnerText);
+                    _tableRequise.Add(tablereq);
+                }
+            }
+            //partie 2
+            XmlNodeList dureePrepaNodes = doc.SelectNodes("//Restaurant/Formules/Formule/dureePreparation");
+            List<int> _hDureePrepa = new List<int>();
+            List<int> _minDureePrepa = new List<int>();
+            List<int> _secDureePrepa = new List<int>();
+            foreach (XmlNode dureeNode in dureePrepaNodes)
+            {
+                XmlNode hDureePrepa = dureeNode.SelectSingleNode("heure1");
+                XmlNode minDureePrepa = dureeNode.SelectSingleNode("min1");
+                XmlNode secDureePrepa = dureeNode.SelectSingleNode("sec1");
+                if ((hDureePrepa != null) && (minDureePrepa != null) && (secDureePrepa != null))
+                {
+                    int hdp = int.Parse(hDureePrepa.InnerText);
+                    _hDureePrepa.Add(hdp);
+                    int mdp = int.Parse(minDureePrepa.InnerText);
+                    _minDureePrepa.Add(mdp);
+                    int sdp = int.Parse(secDureePrepa.InnerText);
+                    _secDureePrepa.Add(sdp);
+                }
+            }
+            XmlNodeList dureePresenceNodes = doc.SelectNodes("//Restaurant/Formules/Formule/dureePresenceClient");
+            List<int> _hDureePresence = new List<int>();
+            List<int> _minDureePresence = new List<int>();
+            List<int> _secDureePresence = new List<int>();
+            foreach (XmlNode dureePNode in dureePresenceNodes)
+            {
+                XmlNode hDureePresence = dureePNode.SelectSingleNode("heure2");
+                XmlNode minDureePresence = dureePNode.SelectSingleNode("min2");
+                XmlNode secDureePresence = dureePNode.SelectSingleNode("sec2");
+                if ((hDureePresence != null) && (minDureePresence != null) && (secDureePresence != null))
+                {
+                    int hdpc = int.Parse(hDureePresence.InnerText);
+                    _hDureePresence.Add(hdpc);
+                    int mdpc = int.Parse(minDureePresence.InnerText);
+                    _minDureePresence.Add(mdpc);
+                    int sdpc = int.Parse(secDureePresence.InnerText);
+                    _secDureePresence.Add(sdpc);
+                }
+            }
 
             //CREATION DES FORMULES
             //elles se créent à partir de la lecture du fichier xml, comme ça le logiciel s'adapte à chaque restaurant
