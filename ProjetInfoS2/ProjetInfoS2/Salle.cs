@@ -53,6 +53,20 @@ namespace ProjetInfoS2
         
         }
 
+        public Formule retourneFormule(int noFormule)
+        {
+            Formule form=new Formule();
+            int i = 0;
+            while ((i + 1)!= noFormule)
+            {
+               form=formules[i+1];
+
+                i++;
+            }
+            return form;
+        
+        }
+
 
 
          public void afficheResaDate()
@@ -88,62 +102,72 @@ namespace ProjetInfoS2
             int i = 0;
             while (i<tables.Count)
             {
-                if (tables[i].planningResa.)
+                int k = 0;
+                
+                while (k<planning.Count)
                 {
-                    if (tables[i].nbPlaceMax>nbconvive)
+                    //l'heure de la résa n'est pas comprise dans le temps pendant lequel la table est occupée
+                    if (tables[i].planningResa[k].DateDebutOccupee < dateEtHeure && tables[i].planningResa[k].DateFinOccupee > dateEtHeure)
                     {
-                        Console.WriteLine("Reservation possible sur la table "+ i);
-                        //controle des cuisiniers dispos
-
-                        ValiderResa(tables[i], dateEtHeure, nbconvive, formuleChoisie);
-                        //comment faire pour gerer le fait qu'une table n'est pas suffisament remplie?
-                    }
-
-                    else // cad qu'il n'y a pas de table dispo avec assez de place --> on regarde le jumelage
-                    {
-                        int j = i+1;
-                        while(j < tables.Count)
+                        if (tables[i].nbPlaceMax > nbconvive)
                         {
-                            if (tables[j].disponible==true)
-                            {
-                                if (tables[i].jumelable == true && tables[j].jumelable == true)
-                                {
-                                    Console.WriteLine(@"Il est possible d'effectuer un jumelable de table 
-afin de pouvoir placer tous les convives
-Possibilité d'association de la table: " + tables[i] + " et " + tables[j]
-    + ". Voulez vous associer ces deux tables? (oui/non)");
-                                    string reponse = Console.ReadLine();
-                                    if (reponse == "oui")
-                                    {
-                                        //jumelage de tables
-                                        TablesJumelees jumelage = new TablesJumelees(tables[i], tables[j]);
-                                        //serialisation
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Les deux tables n'ont pas été assemblées");
-                                    }
+                            Console.WriteLine("Reservation possible sur la table " + i);
+                            //controle des cuisiniers dispos --> voir par rapport à l'horraire
 
-                                }
-                            }
-                            
-                            
+                            ValiderResa(tables[i], dateEtHeure, nbconvive, formuleChoisie);
+                            //comment faire pour gerer le fait qu'une table n'est pas suffisament remplie?
                         }
 
-                        j++;
-                    } 
-                   
+                        else // cad qu'il n'y a pas de table dispo avec assez de place --> on regarde le jumelage
+                        {
+                            int j = i + 1;
+                            while (j < tables.Count)
+                            {
+                                while (k<planning.Count)
+                                {
+                                    
+                                }
+                                if (tables[j].planningResa[k].DateDebutOccupee < dateEtHeure && tables[j].planningResa[k].DateFinOccupee > dateEtHeure)
+                                {
+                                    if (tables[i].jumelable == true && tables[j].jumelable == true)
+                                    {
+                                        Console.WriteLine(@"Il est possible d'effectuer un jumelable de table 
+afin de pouvoir placer tous les convives
+Possibilité d'association de la table: " + tables[i] + " et " + tables[j]
+        + ". Voulez vous associer ces deux tables? (oui/non)");
+                                        string reponse = Console.ReadLine();
+                                        if (reponse == "oui")
+                                        {
+                                            //jumelage de tables
+                                            TablesJumelees jumelage = new TablesJumelees(tables[i], tables[j]);
+                                            //serialisation
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Les deux tables n'ont pas été assemblées");
+                                        }
+
+                                    }
+                                }
+
+
+                            }
+
+                            j++;
+                        }
+
+                    }
+                       
+                    
+                    k++;
                 }
-                
-                else //aucune table n'est disponible
-	                {
-                        Console.WriteLine("Aucune table n'est disponible.");
-	                }
                 i++;
-            }
-        
+                    
+                }   
         
         }
+
+
 
         public void ValiderResa(Table table, DateTime dateEtHeure, int nbconvive, Formule formuleChoisie)
         {

@@ -48,19 +48,6 @@ namespace ProjetInfoS2
         { }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         public override string ToString()
         {
             string resa= "\nNom du client: "+nomClient+"\nNuméro du client: "+numClient+"\nDate de la réservation:"+dateReservation+"\nNombre de convives: "+nbConvives+"\nFormule souhaitée: "+formuleRetenue+"\nTable Réservée: "+table;

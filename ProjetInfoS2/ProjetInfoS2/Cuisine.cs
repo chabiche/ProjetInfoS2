@@ -10,11 +10,20 @@ namespace ProjetInfoS2
     class Cuisine
     {
         //Varibles d'instance
+
         public List<Cuisinier> brigade { get; set; }
 
         public int nbCuistoTotal { get; set; }
 
         public int nbCuistoDispo { get; set; }
+
+        private List<Occupation> planning;
+
+        public List<Occupation> Planning
+        {
+            get { return planning; }
+            set { planning = value; }
+        }
         
         //Constructeur
         public Cuisine()
@@ -36,23 +45,28 @@ namespace ProjetInfoS2
             Console.ReadLine();
         }
 
-        public bool VerifierCuisineDispo(int nbConvives)
+        public bool VerifierCuisineDispo(int nbConvives, DateTime dateEtHeure) //ca marche pas, pas la foi de le faire 
         {
             //On regarde combien de cuisiniers sont disponibles
-            int nbDispo = 0;
+            //int nbDispo = 0;
             //for (int i = 0; i < brigade.Count; i++)
             //{
-            //    if (brigade[i].disponible==true)
+            //    int k = 0;
+            //    while (k<planning.Count)
             //    {
-            //        nbDispo++;
+            //        if (brigade[i].planningCuisto[k].DateDebutOccupee < dateEtHeure && brigade[i].planningCuisto[k].DateFinOccupee > dateEtHeure)
+            //        {
+            //            nbDispo++;
+            //        }
             //    }
+                
             //}
 
-            if (nbConvives>nbDispo)
-            {
-                Console.WriteLine("La cuisine est occupée, la reservation n'est pas possible. Veuillez essayer à une autre horaire");
-                //Ca serait trop cool de proposer un autre horraire pour que la reservation puisse être possible
-            }
+            //if (nbConvives>nbDispo)
+            //{
+            //    Console.WriteLine("La cuisine est occupée, la reservation n'est pas possible. Veuillez essayer à une autre horaire");
+            //    //Ca serait trop cool de proposer un autre horraire pour que la reservation puisse être possible
+            //}
 
 
             return true;

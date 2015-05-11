@@ -9,7 +9,7 @@ namespace ProjetInfoS2
 {
     public class Cuisinier
     {
-        List<Occupation> planningCuisto;
+        public List<Occupation> planningCuisto;
 
         //Variables d'instance
         public int noCuisinier { get; set; }

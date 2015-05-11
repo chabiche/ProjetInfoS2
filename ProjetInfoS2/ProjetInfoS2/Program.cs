@@ -109,16 +109,23 @@ Que souhaitez-vous réaliser?
                         int formuleChoisie;
 
                         // pour la date et l'heure il faudrait tout rentrer dans la même variable --> je sais pas comment faire
-                        Console.WriteLine("Vous souhaitez entrer une réservation. Entrez la date (FORMAT)");
+                        Console.WriteLine("Vous souhaitez entrer une réservation. Entrez la date  et l'heure sous le format AAAA/MM/JJ hh:mm:ss");
                         dateResa = DateTime.Parse(Console.ReadLine());
-                        
                         Console.WriteLine("Entrez le nombre de personne souhaitant manger dans le restaurant.");
                         nbConvive = int.Parse(Console.ReadLine());
                         Console.WriteLine("Entrez le numéro de la formule retenue: \nVoici la liste de celles ci.");
                         restau.afficheFormule();
                         formuleChoisie=int.Parse(Console.ReadLine());
-                        //rechercheFormule(formuleChoisie) --> permet de retouver la formule par rapport au numéro rentré
-                        //restau.verifierResa(dateResa, nbConvive, formuleChoisie);
+                        Formule formuleResa = new Formule();
+                        formuleResa = restau.retourneFormule(formuleChoisie); //--> permet de retouver la formule par rapport au numéro rentré
+                        if (formuleResa != null)
+                        {
+                            restau.verifierResa(dateResa, nbConvive, formuleResa);
+                        }
+                        else
+                        {
+                            Console.WriteLine("La formule n'a pas été trouvée");
+                        }
                         choix = 0;
                         break;
 
