@@ -57,3 +57,68 @@
 		<tableRequise>true</tableRequise>
 	</Formule>
 </Formules>
+
+<Tables>
+	<TableCaree>
+		<nbPlaceMax>4</nbPlaceMax>
+		<disponible>true</disponible>
+		<jumelable>true</jumelable>
+		</TableCaree>
+	<TableCaree>
+		<nbPlaceMax>4</nbPlaceMax>
+		<disponible>true</disponible>
+		<jumelable>true</jumelable>
+	</TableCaree>
+	<TableCaree>
+		<nbPlaceMax>4</nbPlaceMax>
+		<disponible>true</disponible>
+		<jumelable>true</jumelable>
+	</TableCaree>
+		<TableRectangulaire>
+		<nbPlaceMax>6</nbPlaceMax>
+		<disponible>true</disponible>
+		<jumelable>true</jumelable>
+	</TableRectangulaire>
+	<TableRectangulaire>
+		<nbPlaceMax>6</nbPlaceMax>
+		<disponible>true</disponible>
+		<jumelable>true</jumelable>
+	</TableRectangulaire>
+	<TableRectangulaire>
+		<nbPlaceMax>6</nbPlaceMax>
+		<disponible>true</disponible>
+		<jumelable>true</jumelable>
+	</TableRectangulaire>
+	<TableRonde>
+		<nbPlaceMax>6</nbPlaceMax>
+		<disponible>true</disponible>
+		<jumelable>false</jumelable>
+	</TableRonde>
+</Tables>
+
+<Cuisiniers>
+	<Cuisinier>
+		<noCuisto>1</noCuisto>
+		<dispo>true</dispo>
+	</Cuisinier>
+	<Cuisinier>
+		<noCuisto>2</noCuisto>
+		<dispo>true</dispo>
+	</Cuisinier>
+	<Cuisinier>
+		<noCuisto>3</noCuisto>
+		<dispo>true</dispo>
+	</Cuisinier>
+	<Cuisinier>
+		<noCuisto>4</noCuisto>
+		<dispo>true</dispo>
+	</Cuisinier>
+	<Cuisinier>
+		<noCuisto>5</noCuisto>
+		<dispo>true</dispo>
+	</Cuisinier>
+	<Cuisinier>
+		<noCuisto>6</noCuisto>
+		<dispo>true</dispo>
+	</Cuisinier>
+</Cuisiniers>
