@@ -46,7 +46,7 @@
     <Compile Include="Bar.cs" />
     <Compile Include="Cuisine.cs" />
     <Compile Include="Cuisinier.cs" />
-    <Compile Include="Disponibilite.cs" />
+    <Compile Include="Occupation.cs" />
     <Compile Include="Formule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
