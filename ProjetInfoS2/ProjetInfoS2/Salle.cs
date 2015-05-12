@@ -107,7 +107,7 @@ namespace ProjetInfoS2
                 while (k<planning.Count)
                 {
                     //l'heure de la résa n'est pas comprise dans le temps pendant lequel la table est occupée
-                    if (tables[i].planningResa[k].DateDebutOccupee < dateEtHeure && tables[i].planningResa[k].DateFinOccupee > dateEtHeure)
+                    if (tables[i].planningResa[k].DateDebutOccupee > dateEtHeure && tables[i].planningResa[k].DateFinOccupee < dateEtHeure)
                     {
                         if (tables[i].nbPlaceMax > nbconvive)
                         {
@@ -125,30 +125,30 @@ namespace ProjetInfoS2
                             {
                                 while (k<planning.Count)
                                 {
-                                    
-                                }
-                                if (tables[j].planningResa[k].DateDebutOccupee < dateEtHeure && tables[j].planningResa[k].DateFinOccupee > dateEtHeure)
-                                {
-                                    if (tables[i].jumelable == true && tables[j].jumelable == true)
+                                    if (tables[j].planningResa[k].DateDebutOccupee > dateEtHeure && tables[j].planningResa[k].DateFinOccupee < dateEtHeure)
                                     {
-                                        Console.WriteLine(@"Il est possible d'effectuer un jumelable de table 
+                                        if (tables[i].jumelable == true && tables[j].jumelable == true)
+                                        {
+                                            Console.WriteLine(@"Il est possible d'effectuer un jumelable de table 
 afin de pouvoir placer tous les convives
 Possibilité d'association de la table: " + tables[i] + " et " + tables[j]
-        + ". Voulez vous associer ces deux tables? (oui/non)");
-                                        string reponse = Console.ReadLine();
-                                        if (reponse == "oui")
-                                        {
-                                            //jumelage de tables
-                                            TablesJumelees jumelage = new TablesJumelees(tables[i], tables[j]);
-                                            //serialisation
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Les deux tables n'ont pas été assemblées");
-                                        }
+            + ". Voulez vous associer ces deux tables? (oui/non)");
+                                            string reponse = Console.ReadLine();
+                                            if (reponse == "oui")
+                                            {
+                                                //jumelage de tables
+                                                TablesJumelees jumelage = new TablesJumelees(tables[i], tables[j]);
+                                                //serialisation
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Les deux tables n'ont pas été assemblées");
+                                            }
 
+                                        }
                                     }
                                 }
+                              
 
 
                             }
