@@ -288,6 +288,18 @@ namespace ProjetInfoS2
             //Désérialisation
             //le logiciel lit le fichier xml correspondant au restaurant
 
+            //CE QUE TU AVAIS MIS DANS LE XML
+        //<anneeOcc1>2015</anneeOcc1>
+        //<moisOcc1>06</moisOcc1>
+        //<jourOcc1>12</jourOcc1>
+        //<heureOcc1>19</heureOcc1>
+        //<minOcc1>30</minOcc1>
+        //<anneeOcc2>2015</anneeOcc2>
+        //<moisOcc2>06</moisOcc2>
+        //<jourOcc2>12</jourOcc2>
+        //<heureOcc2>20</heureOcc2>
+        //<minOcc2>20</minOcc2>
+
             XmlDocument doc = new XmlDocument();
             doc.Load("restaurant.xml");
             XmlNodeList tablecarreeNodes = doc.SelectNodes("//Restaurant/Tables/TableCarre");
@@ -307,6 +319,8 @@ namespace ProjetInfoS2
             }
             //Tables Carrées
             XmlNodeList occupationsNodes = doc.SelectNodes("//Restaurant/Tables/TableCarre/occupations");
+            //List<DateTime> _dateDebutOccupee = new List<DateTime>();
+            //List<DateTime> _dateFinOccupee = new List<DateTime>();
             List<int> _anneeOcc1 = new List<int>();
             List<int> _moisOcc1 = new List<int>();
             List<int> _jourOcc1 = new List<int>();
@@ -319,6 +333,8 @@ namespace ProjetInfoS2
             List<int> _minOcc2 = new List<int>();
             foreach (XmlNode occNode in occupationsNodes)
             {
+                //XmlNode dateDebutOccupee = occNode.SelectSingleNode("dateDebutOccupee");
+                //XmlNode dateFinOccupee = occNode.SelectSingleNode("dateFinOccupee");
                 XmlNode anneeOcc1 = occNode.SelectSingleNode("anneeOcc1");
                 XmlNode moisOcc1 = occNode.SelectSingleNode("moisOcc1");
                 XmlNode jourOcc1 = occNode.SelectSingleNode("jourOcc1");
@@ -329,6 +345,12 @@ namespace ProjetInfoS2
                 XmlNode jourOcc2 = occNode.SelectSingleNode("jourOcc2");
                 XmlNode hOcc2 = occNode.SelectSingleNode("heureOcc2");
                 XmlNode minOcc2 = occNode.SelectSingleNode("minOcc2");
+
+                //if (dateDebutOccupee != null)
+                //{
+                    
+                //}
+
                 if ((anneeOcc1 != null) && (moisOcc1 != null) && (jourOcc1 != null) && (hOcc1 != null) && (minOcc1 != null))
                 {
                     int annee1 = int.Parse(anneeOcc1.InnerText);
