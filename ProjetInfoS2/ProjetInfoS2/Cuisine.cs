@@ -45,31 +45,41 @@ namespace ProjetInfoS2
             Console.ReadLine();
         }
 
-        public bool VerifierCuisineDispo(int nbConvives, DateTime dateEtHeure) //ca marche pas, pas la foi de le faire 
+        public bool verifierCuisiniersDispo(int nbConvives, DateTime dateDeDebut, Formule formuleChoisie) //ca marche pas, pas la foi de le faire 
         {
-            //On regarde combien de cuisiniers sont disponibles
-            //int nbDispo = 0;
-            //for (int i = 0; i < brigade.Count; i++)
-            //{
-            //    int k = 0;
-            //    while (k<planning.Count)
-            //    {
-            //        if (brigade[i].planningCuisto[k].DateDebutOccupee < dateEtHeure && brigade[i].planningCuisto[k].DateFinOccupee > dateEtHeure)
-            //        {
-            //            nbDispo++;
-            //        }
-            //    }
+           // On regarde combien de cuisiniers sont disponibles
+            DateTime dateDeFin = dateDeDebut + formuleChoisie.dureePreparation;
+            int nbDispo = 0;
+            for (int i = 0; i < brigade.Count; i++) //on regarde les cuisiniers un par un
+            {
+                int k = 0;
+                while (k<planning.Count)//on regarde toutes les heures où les cuisiniers peuvent être occupés
+                {
+                    if (brigade[i].planningCuisto[k].DateDebutOccupee < dateDeDebut && brigade[i].planningCuisto[k].DateFinOccupee > dateDeDebut)
+                        if (brigade[i].planningCuisto[k].DateDebutOccupee > dateDeFin && brigade[i].planningCuisto[k].DateFinOccupee < dateDeFin)
+                        {
+                            {
+                                nbDispo++;
+
+                            }
+                        }
+
+                }
                 
-            //}
+            }
 
-            //if (nbConvives>nbDispo)
-            //{
-            //    Console.WriteLine("La cuisine est occupée, la reservation n'est pas possible. Veuillez essayer à une autre horaire");
-            //    //Ca serait trop cool de proposer un autre horraire pour que la reservation puisse être possible
-            //}
+            if (nbConvives>nbDispo)
+            {
+                Console.WriteLine("La cuisine est occupée, la reservation n'est pas possible. Veuillez essayer à une autre horaire");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Il y a assez de cuisiniers disponibles");
+                return true;
+            }
 
-
-            return true;
+            
         }
 
 

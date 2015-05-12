@@ -48,7 +48,7 @@ namespace ProjetInfoS2
         {
             for (int i = 0; i < formules.Count; i++)
             {
-                Console.WriteLine("n°"+(i+1) + " "+ formules[i]+ "\n");
+                Console.WriteLine("n°"+(i+1) + " "+ formules[i].nomFormule);
             }
         
         }
@@ -66,7 +66,6 @@ namespace ProjetInfoS2
             return form;
         
         }
-
 
 
          public void afficheResaDate()
@@ -96,83 +95,102 @@ namespace ProjetInfoS2
              }
          }//fin afficheResaDate
 
-         //voir si la reservation est possible
-        public void verifierResa(DateTime dateEtHeure, int nbconvive, Formule formuleChoisie)
-        { 
+
+        //voir si la reservation est possible
+        public bool verifierResa(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie)
+        {
+            DateTime dateDeFin = dateDeDebut + formuleChoisie.dureePreparation;
+            //pour l'instant on regarde si il y a une table dispo pour cette horraire
             int i = 0;
             while (i<tables.Count)
             {
-                int k = 0;
-                
-                while (k<planning.Count)
-                {
-                    //l'heure de la résa n'est pas comprise dans le temps pendant lequel la table est occupée
-                    if (tables[i].planningResa[k].DateDebutOccupee > dateEtHeure && tables[i].planningResa[k].DateFinOccupee < dateEtHeure)
+                    if (tables[i].nbPlaceMax > nbconvive)
                     {
-                        if (tables[i].nbPlaceMax > nbconvive)
+                        int k = 0;
+                        while (k < planning.Count)
                         {
-                            Console.WriteLine("Reservation possible sur la table " + i);
-                            //controle des cuisiniers dispos --> voir par rapport à l'horraire
-
-                            ValiderResa(tables[i], dateEtHeure, nbconvive, formuleChoisie);
-                            //comment faire pour gerer le fait qu'une table n'est pas suffisament remplie?
-                        }
-
-                        else // cad qu'il n'y a pas de table dispo avec assez de place --> on regarde le jumelage
-                        {
-                            int j = i + 1;
-                            while (j < tables.Count)
+                            //l'heure de la résa n'est pas comprise dans le temps pendant lequel la table est occupée
+                            if (tables[i].planningResa[k].DateDebutOccupee > dateDeDebut && tables[i].planningResa[k].DateFinOccupee < dateDeDebut)
                             {
-                                while (k<planning.Count)
+                                if (tables[i].planningResa[k].DateDebutOccupee > dateDeFin && tables[i].planningResa[k].DateFinOccupee < dateDeFin)
                                 {
-                                    if (tables[j].planningResa[k].DateDebutOccupee > dateEtHeure && tables[j].planningResa[k].DateFinOccupee < dateEtHeure)
+                                    bool cuisiniersDispo;
+                                    Console.WriteLine("Reservation possible sur la table " + i);
+                                    cuisiniersDispo = C.verifierCuisiniersDispo(nbconvive, dateDeDebut, formuleChoisie);
+                                    if (cuisiniersDispo == true)
                                     {
-                                        if (tables[i].jumelable == true && tables[j].jumelable == true)
-                                        {
-                                            Console.WriteLine(@"Il est possible d'effectuer un jumelable de table 
-afin de pouvoir placer tous les convives
-Possibilité d'association de la table: " + tables[i] + " et " + tables[j]
-            + ". Voulez vous associer ces deux tables? (oui/non)");
-                                            string reponse = Console.ReadLine();
-                                            if (reponse == "oui")
-                                            {
-                                                //jumelage de tables
-                                                TablesJumelees jumelage = new TablesJumelees(tables[i], tables[j]);
-                                                //serialisation
-                                            }
-                                            else
-                                            {
-                                                Console.WriteLine("Les deux tables n'ont pas été assemblées");
-                                            }
-
-                                        }
+                                        validerResa(tables[i], dateDeDebut, nbconvive, formuleChoisie);
+                                        return true;
                                     }
                                 }
-                              
-
-
                             }
-
-                            j++;
+                        k++;
                         }
+                    
+                   }
 
-                    }
-                       
-                    
-                    k++;
-                }
                 i++;
-                    
-                }   
-        
+            }
+
+            Console.WriteLine("La reservation n'est pas possible. Recommencez en tapant sur ENTREE.");
+            Console.ReadLine();
+            return false;
+
         }
 
+        ////jumelage
+
+//            i = 0;
+//            while (i<tables.Count)  // cad qu'il n'y a pas de table dispo avec assez de place --> on regarde le jumelage
+//            {
+//                            int j = i + 1;
+//                            while (j < tables.Count)
+//                            {
+//                                int k = 0;
+//                                while (k<planning.Count)
+//                                {
+//                                    if (tables[j].planningResa[k].DateDebutOccupee > dateEtHeure && tables[j].planningResa[k].DateFinOccupee < dateEtHeure)
+//                                    {
+//                                        if (tables[i].jumelable == true && tables[j].jumelable == true)
+//                                        {
+//                                            Console.WriteLine(@"Il est possible d'effectuer un jumelable de table 
+//afin de pouvoir placer tous les convives
+//Possibilité d'association de la table: " + tables[i] + " et " + tables[j]
+//            + ". Voulez vous associer ces deux tables? (oui/non)");
+//                                            string reponse = Console.ReadLine();
+//                                            if (reponse == "oui")
+//                                            {
+//                                                //jumelage de tables
+//                                                TablesJumelees jumelage = new TablesJumelees(tables[i], tables[j]);
+//                                                ValiderResa(jumelage, dateEtHeure, nbconvive, formuleChoisie);
+//                                                return true;
+
+//                                            }
+//                                            else
+//                                            {
+//                                                Console.WriteLine("Les deux tables n'ont pas été assemblées");
+//                                                Console.WriteLine("La reservation n'est pas possible. Recommencez en tapant sur ENTREE.");
+//                                                Console.ReadLine();
+//                                                return false;
 
 
-        public void ValiderResa(Table table, DateTime dateEtHeure, int nbconvive, Formule formuleChoisie)
+//                                            }
+//                                        }
+//                                    }
+//                                    k++;
+//                                }
+                                    
+//                                j++;
+//                            }
+
+                            
+//                         i++;
+
+//                    }
+
+
+        public void validerResa(Table table, DateTime dateEtHeure, int nbconvive, Formule formuleChoisie)
         {
-            //ATTENTION: il faut d'abord controller qu'on a bien des cuisiniers dispo!!!!!!!!
-
             Console.WriteLine("Quel est le nom pour la réservation?");
             string nomResa=Console.ReadLine();
             //Il faut lui attribuer un numero de client pour pouvoir creer la résa
