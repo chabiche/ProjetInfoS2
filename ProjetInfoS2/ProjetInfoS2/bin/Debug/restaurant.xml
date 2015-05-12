@@ -61,37 +61,54 @@
   <Tables>
     <TableCaree>
       <nbPlaceMax>4</nbPlaceMax>
-      <disponible>true</disponible>
+      <occupations>
+		<anneeOcc1>2015</anneeOcc1>
+		<moisOcc1>06</moisOcc1>
+		<jourOcc1>12</jourOcc1>
+		<heureOcc1>19</heureOcc1>
+		<minOcc1>30</minOcc1>
+		<anneeOcc2>2015</anneeOcc2>
+		<moisOcc2>06</moisOcc2>
+		<jourOcc2>12</jourOcc2>
+		<heureOcc2>20</heureOcc2>
+		<minOcc2>20</minOcc2>
+	  </occupations>
       <jumelable>true</jumelable>
     </TableCaree>
     <TableCaree>
       <nbPlaceMax>4</nbPlaceMax>
-      <disponible>true</disponible>
+      <occupations>
+	  </occupations>
       <jumelable>true</jumelable>
     </TableCaree>
     <TableCaree>
       <nbPlaceMax>4</nbPlaceMax>
-      <disponible>true</disponible>
+      <occupations>
+	  </occupations>
       <jumelable>true</jumelable>
     </TableCaree>
     <TableRectangulaire>
       <nbPlaceMax>6</nbPlaceMax>
-      <disponible>true</disponible>
+      <occupations>
+	  </occupations>
       <jumelable>true</jumelable>
     </TableRectangulaire>
     <TableRectangulaire>
       <nbPlaceMax>6</nbPlaceMax>
-      <disponible>true</disponible>
+      <occupations>
+	  </occupations>
       <jumelable>true</jumelable>
     </TableRectangulaire>
     <TableRectangulaire>
       <nbPlaceMax>6</nbPlaceMax>
-      <disponible>true</disponible>
+      <occupations>
+	  </occupations>
       <jumelable>true</jumelable>
     </TableRectangulaire>
     <TableRonde>
       <nbPlaceMax>6</nbPlaceMax>
-      <disponible>true</disponible>
+      <occupations>
+	  </occupations>
       <jumelable>false</jumelable>
     </TableRonde>
   </Tables>

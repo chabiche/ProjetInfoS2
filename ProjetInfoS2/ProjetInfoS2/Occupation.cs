@@ -27,17 +27,24 @@ namespace ProjetInfoS2
 
         public Occupation()
         {
-            dateDebutOccupee = new DateTime();
-            dateFinOccupee = new DateTime();
+            DateDebutOccupee = new DateTime();
+            DateFinOccupee = new DateTime();
+        }
+        public Occupation(DateTime datedebut, DateTime datefin)
+        {
+            DateDebutOccupee = new DateTime();
+            DateFinOccupee = new DateTime();
+            DateDebutOccupee = datedebut;
+            DateFinOccupee = datefin;
         }
 
         public Occupation(DateTime dateDebut, TimeSpan duree)
         {
-            dateDebutOccupee = new DateTime();
-            dateFinOccupee = new DateTime();
+            DateDebutOccupee = new DateTime();
+            DateFinOccupee = new DateTime();
 
-            dateDebutOccupee = dateDebut;
-            dateFinOccupee = dateDebut + duree;
+            DateDebutOccupee = dateDebut;
+            DateFinOccupee = dateDebut + duree;
         }
 
 

@@ -21,9 +21,9 @@ namespace ProjetInfoS2
             Salle restau = new Salle();
 
             //CHARGEMENT DES FORMULES A PARTIR DU FICHIER XML
-            restau.creationFormulesXml();
-          
-
+            //restau.creationFormulesXml();
+            restau.creationTablesXml();
+            Console.ReadLine();
             ////Serialisation Reservation
             //XmlNode resaNodes = doc.SelectSingleNode("//Restaurant/Reservations");
             //XmlNode noeudBase = doc.CreateElement("Reservation");
@@ -126,13 +126,13 @@ Que souhaitez-vous réaliser?
                         formuleResa = restau.retourneFormule(formuleChoisie); //--> permet de retouver la formule par rapport au numéro rentré
                         if (formuleResa != null)
                         {
-                            restau.verifierResa(dateResa, nbConvive, formuleResa);
+                           // restau.verifierResa(dateResa, nbConvive, formuleResa, C);
                         }
                         else
                         {
                             Console.WriteLine("La formule n'a pas été trouvée");
                         }
-                        restau.verifierResa(dateResa, nbConvive, formuleResa);
+                       // restau.verifierResa(dateResa, nbConvive, formuleResa, C);
                         choix = 0;
                         break;
 

@@ -14,5 +14,10 @@ namespace ProjetInfoS2
         {
         }
 
+        public void ajoutOccupation(Occupation occupation)
+        {
+            planningResa.Add(occupation);
+        }
+
     }// fin class TableCarree
 }

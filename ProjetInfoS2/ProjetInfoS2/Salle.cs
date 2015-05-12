@@ -24,7 +24,6 @@ namespace ProjetInfoS2
             set { planning = value; }
         }
         
-        Cuisine C = new Cuisine();
 
 
         //Constructeur
@@ -33,7 +32,7 @@ namespace ProjetInfoS2
             tables = new List<Table>();
             formules = new List<Formule>();
             reservations = new List<Reservation>();
-            
+            planning = new List<Occupation>();
         }
 
 
@@ -97,7 +96,7 @@ namespace ProjetInfoS2
 
 
         //voir si la reservation est possible
-        public bool verifierResa(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie)
+       /* public bool verifierResa(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie, Cuisine C)
         {
             DateTime dateDeFin = dateDeDebut + formuleChoisie.dureePreparation;
             //pour l'instant on regarde si il y a une table dispo pour cette horraire
@@ -136,7 +135,7 @@ namespace ProjetInfoS2
             Console.ReadLine();
             return false;
 
-        }
+        }*/
 
         ////jumelage
 
@@ -205,83 +204,6 @@ namespace ProjetInfoS2
             }
             wrResa.Close();
 
-        }
-
-        public void creationOccupationsXml()
-        {
-            //Désérialisation:
-            //le logiciel lit le fichier xml correspondant au restaurant
-
-            XmlDocument doc = new XmlDocument();
-            doc.Load("restaurant.xml");
-            //partie 1
-            XmlNodeList itemNodes = doc.SelectNodes("//Restaurant/Occupations/Occupation");
-            List<int> _noOccupation = new List<int>();
-            //List<bool> _tableRequise = new List<bool>();
-            foreach (XmlNode itemNode in itemNodes)
-            {
-                XmlNode noOccupation = itemNode.SelectSingleNode("noOccupation");
-               // XmlNode tableRequise = itemNode.SelectSingleNode("tableRequise");
-                if ((noOccupation != null))
-                {
-                    int noocc = int.Parse(noOccupation.InnerText);
-                    _noOccupation.Add(noocc);
-                  //  bool tablereq = bool.Parse(tableRequise.InnerText);
-                  //  _tableRequise.Add(tablereq);
-                }
-            }
-            ////partie 2
-            //XmlNodeList dureePrepaNodes = doc.SelectNodes("//Restaurant/Formules/Formule/dureePreparation");
-            //List<int> _hDureePrepa = new List<int>();
-            //List<int> _minDureePrepa = new List<int>();
-            //List<int> _secDureePrepa = new List<int>();
-            //foreach (XmlNode dureeNode in dureePrepaNodes)
-            //{
-            //    XmlNode hDureePrepa = dureeNode.SelectSingleNode("heure1");
-            //    XmlNode minDureePrepa = dureeNode.SelectSingleNode("min1");
-            //    XmlNode secDureePrepa = dureeNode.SelectSingleNode("sec1");
-            //    if ((hDureePrepa != null) && (minDureePrepa != null) && (secDureePrepa != null))
-            //    {
-            //        int hdp = int.Parse(hDureePrepa.InnerText);
-            //        _hDureePrepa.Add(hdp);
-            //        int mdp = int.Parse(minDureePrepa.InnerText);
-            //        _minDureePrepa.Add(mdp);
-            //        int sdp = int.Parse(secDureePrepa.InnerText);
-            //        _secDureePrepa.Add(sdp);
-            //    }
-            //}
-            //XmlNodeList dureePresenceNodes = doc.SelectNodes("//Restaurant/Formules/Formule/dureePresenceClient");
-            //List<int> _hDureePresence = new List<int>();
-            //List<int> _minDureePresence = new List<int>();
-            //List<int> _secDureePresence = new List<int>();
-            //foreach (XmlNode dureePNode in dureePresenceNodes)
-            //{
-            //    XmlNode hDureePresence = dureePNode.SelectSingleNode("heure2");
-            //    XmlNode minDureePresence = dureePNode.SelectSingleNode("min2");
-            //    XmlNode secDureePresence = dureePNode.SelectSingleNode("sec2");
-            //    if ((hDureePresence != null) && (minDureePresence != null) && (secDureePresence != null))
-            //    {
-            //        int hdpc = int.Parse(hDureePresence.InnerText);
-            //        _hDureePresence.Add(hdpc);
-            //        int mdpc = int.Parse(minDureePresence.InnerText);
-            //        _minDureePresence.Add(mdpc);
-            //        int sdpc = int.Parse(secDureePresence.InnerText);
-            //        _secDureePresence.Add(sdpc);
-            //    }
-            //}
-
-            ////CREATION DES FORMULES
-            ////elles se créent à partir de la lecture du fichier xml, comme ça le logiciel s'adapte à chaque restaurant
-            //for (int i = 0; i < _nomFormule.Count(); i++)
-            //{
-            //    TimeSpan dureePreparation = new TimeSpan(_hDureePrepa[i], _minDureePrepa[i], _secDureePrepa[i]);
-            //    TimeSpan dureePresenceClient = new TimeSpan(_hDureePresence[i], _minDureePresence[i], _secDureePresence[i]);
-            //    Formule formule = new Formule(_nomFormule[i], dureePreparation, dureePresenceClient, _tableRequise[i]);
-            //    Console.WriteLine(formule);
-            //    this.formules.Add(formule);
-            //}
-
-            ////Il faut peut etre quitter le doc
         }
 
         public void creationFormulesXml()
@@ -363,76 +285,216 @@ namespace ProjetInfoS2
 
         public void creationTablesXml()
         {
-            //Désérialisat
+            //Désérialisation
             //le logiciel lit le fichier xml correspondant au restaurant
 
             XmlDocument doc = new XmlDocument();
             doc.Load("restaurant.xml");
-            //partie 1
-            XmlNodeList itemNodes = doc.SelectNodes("//Restaurant/Tables/TableCarre");
-            List<string> _nomFormule = new List<string>();
-            List<bool> _tableRequise = new List<bool>();
-            foreach (XmlNode itemNode in itemNodes)
+            XmlNodeList tablecarreeNodes = doc.SelectNodes("//Restaurant/Tables/TableCarre");
+            List<int> _nbPlaceMax = new List<int>();
+            List<bool> _jumelable = new List<bool>();
+            foreach (XmlNode tcarreeNode in tablecarreeNodes)
             {
-                XmlNode nomFormule = itemNode.SelectSingleNode("nomFormule");
-                XmlNode tableRequise = itemNode.SelectSingleNode("tableRequise");
-                if ((nomFormule != null) && (tableRequise != null))
+                XmlNode nbPlaceMax = tcarreeNode.SelectSingleNode("nbPlaceMax");
+                XmlNode jumelable = tcarreeNode.SelectSingleNode("jumelable");
+                if ((nbPlaceMax != null) && (jumelable != null))
                 {
-                    _nomFormule.Add(nomFormule.InnerText);
-                    bool tablereq = bool.Parse(tableRequise.InnerText);
-                    _tableRequise.Add(tablereq);
+                    int place = int.Parse(nbPlaceMax.InnerText);
+                    _nbPlaceMax.Add(place);
+                    bool jum = bool.Parse(jumelable.InnerText);
+                    _jumelable.Add(jum);
                 }
             }
-            //partie 2
-            XmlNodeList dureePrepaNodes = doc.SelectNodes("//Restaurant/Formules/Formule/dureePreparation");
-            List<int> _hDureePrepa = new List<int>();
-            List<int> _minDureePrepa = new List<int>();
-            List<int> _secDureePrepa = new List<int>();
-            foreach (XmlNode dureeNode in dureePrepaNodes)
+            //Tables Carrées
+            XmlNodeList occupationsNodes = doc.SelectNodes("//Restaurant/Tables/TableCarre/occupations");
+            List<int> _anneeOcc1 = new List<int>();
+            List<int> _moisOcc1 = new List<int>();
+            List<int> _jourOcc1 = new List<int>();
+            List<int> _hOcc1 = new List<int>();
+            List<int> _minOcc1 = new List<int>();
+            List<int> _anneeOcc2 = new List<int>();
+            List<int> _moisOcc2 = new List<int>();
+            List<int> _jourOcc2 = new List<int>();
+            List<int> _hOcc2 = new List<int>();
+            List<int> _minOcc2 = new List<int>();
+            foreach (XmlNode occNode in occupationsNodes)
             {
-                XmlNode hDureePrepa = dureeNode.SelectSingleNode("heure1");
-                XmlNode minDureePrepa = dureeNode.SelectSingleNode("min1");
-                XmlNode secDureePrepa = dureeNode.SelectSingleNode("sec1");
-                if ((hDureePrepa != null) && (minDureePrepa != null) && (secDureePrepa != null))
+                XmlNode anneeOcc1 = occNode.SelectSingleNode("anneeOcc1");
+                XmlNode moisOcc1 = occNode.SelectSingleNode("moisOcc1");
+                XmlNode jourOcc1 = occNode.SelectSingleNode("jourOcc1");
+                XmlNode hOcc1 = occNode.SelectSingleNode("heureOcc1");
+                XmlNode minOcc1 = occNode.SelectSingleNode("minOcc1");
+                XmlNode anneeOcc2 = occNode.SelectSingleNode("anneeOcc2");
+                XmlNode moisOcc2 = occNode.SelectSingleNode("moisOcc2");
+                XmlNode jourOcc2 = occNode.SelectSingleNode("jourOcc2");
+                XmlNode hOcc2 = occNode.SelectSingleNode("heureOcc2");
+                XmlNode minOcc2 = occNode.SelectSingleNode("minOcc2");
+                if ((anneeOcc1 != null) && (moisOcc1 != null) && (jourOcc1 != null) && (hOcc1 != null) && (minOcc1 != null))
                 {
-                    int hdp = int.Parse(hDureePrepa.InnerText);
-                    _hDureePrepa.Add(hdp);
-                    int mdp = int.Parse(minDureePrepa.InnerText);
-                    _minDureePrepa.Add(mdp);
-                    int sdp = int.Parse(secDureePrepa.InnerText);
-                    _secDureePrepa.Add(sdp);
+                    int annee1 = int.Parse(anneeOcc1.InnerText);
+                    _anneeOcc1.Add(annee1);
+                    int mois1 = int.Parse(moisOcc1.InnerText);
+                    _moisOcc1.Add(mois1);
+                    int jour1 = int.Parse(jourOcc1.InnerText);
+                    _jourOcc1.Add(jour1);
+                    int heure1 = int.Parse(hOcc1.InnerText);
+                    _hOcc1.Add(heure1);
+                    int min1 = int.Parse(minOcc1.InnerText);
+                    _minOcc1.Add(min1);
+                    int annee2 = int.Parse(anneeOcc2.InnerText);
+                    _anneeOcc2.Add(annee2);
+                    int mois2 = int.Parse(moisOcc2.InnerText);
+                    _moisOcc2.Add(mois2);
+                    int jour2 = int.Parse(jourOcc2.InnerText);
+                    _jourOcc2.Add(jour2);
+                    int heure2 = int.Parse(hOcc2.InnerText);
+                    _hOcc2.Add(heure2);
+                    int min2 = int.Parse(minOcc2.InnerText);
+                    _minOcc2.Add(min2);
                 }
             }
-            XmlNodeList dureePresenceNodes = doc.SelectNodes("//Restaurant/Formules/Formule/dureePresenceClient");
-            List<int> _hDureePresence = new List<int>();
-            List<int> _minDureePresence = new List<int>();
-            List<int> _secDureePresence = new List<int>();
-            foreach (XmlNode dureePNode in dureePresenceNodes)
+            
+            //CREATION DES TABLES CAREES
+            //elles se créent à partir de la lecture du fichier xml, comme ça le logiciel s'adapte à chaque restaurant
+            for (int i = 0; i < _nbPlaceMax.Count(); i++)
             {
-                XmlNode hDureePresence = dureePNode.SelectSingleNode("heure2");
-                XmlNode minDureePresence = dureePNode.SelectSingleNode("min2");
-                XmlNode secDureePresence = dureePNode.SelectSingleNode("sec2");
-                if ((hDureePresence != null) && (minDureePresence != null) && (secDureePresence != null))
-                {
-                    int hdpc = int.Parse(hDureePresence.InnerText);
-                    _hDureePresence.Add(hdpc);
-                    int mdpc = int.Parse(minDureePresence.InnerText);
-                    _minDureePresence.Add(mdpc);
-                    int sdpc = int.Parse(secDureePresence.InnerText);
-                    _secDureePresence.Add(sdpc);
-                }
+                TableCarree table = new TableCarree();
+                int a=_anneeOcc1[i];
+                int m=_moisOcc1[i];
+                int j=_jourOcc1[i];
+                int h=_hOcc1[i];
+                int mi=_minOcc1[i];
+                int a2 = _anneeOcc2[i];
+                int m2 = _moisOcc2[i];
+                int j2 = _jourOcc2[i];
+                int h2 = _hOcc2[i];
+                int mi2 = _minOcc2[i];
+                DateTime hdebut = new DateTime(a, m, j, h, mi, 0);
+                DateTime hfin = new DateTime(a2, m2, j2, h2, mi2, 0);
+                Occupation occ = new Occupation(hdebut, hfin);
+                //TimeSpan dureePreparation = new TimeSpan(_hDureePrepa[i], _minDureePrepa[i], _secDureePrepa[i]);
+                //TimeSpan dureePresenceClient = new TimeSpan(_hDureePresence[i], _minDureePresence[i], _secDureePresence[i]);
+                //Formule formule = new Formule(_nomFormule[i], dureePreparation, dureePresenceClient, _tableRequise[i]);
+                Console.WriteLine(table);
+                this.tables.Add(table);
             }
 
-            //CREATION DES FORMULES
-            //elles se créent à partir de la lecture du fichier xml, comme ça le logiciel s'adapte à chaque restaurant
-            for (int i = 0; i < _nomFormule.Count(); i++)
+            //Tables Rectangulaires
+            XmlNodeList occupationNodes = doc.SelectNodes("//Restaurant/Tables/TableRectangulaire/occupations");
+            foreach (XmlNode occNode in occupationNodes)
             {
-                TimeSpan dureePreparation = new TimeSpan(_hDureePrepa[i], _minDureePrepa[i], _secDureePrepa[i]);
-                TimeSpan dureePresenceClient = new TimeSpan(_hDureePresence[i], _minDureePresence[i], _secDureePresence[i]);
-                Formule formule = new Formule(_nomFormule[i], dureePreparation, dureePresenceClient, _tableRequise[i]);
-                Console.WriteLine(formule);
-                this.formules.Add(formule);
+                XmlNode anneeOcc1 = occNode.SelectSingleNode("anneeOcc1");
+                XmlNode moisOcc1 = occNode.SelectSingleNode("moisOcc1");
+                XmlNode jourOcc1 = occNode.SelectSingleNode("jourOcc1");
+                XmlNode hOcc1 = occNode.SelectSingleNode("heureOcc1");
+                XmlNode minOcc1 = occNode.SelectSingleNode("minOcc1");
+                XmlNode anneeOcc2 = occNode.SelectSingleNode("anneeOcc2");
+                XmlNode moisOcc2 = occNode.SelectSingleNode("moisOcc2");
+                XmlNode jourOcc2 = occNode.SelectSingleNode("jourOcc2");
+                XmlNode hOcc2 = occNode.SelectSingleNode("heureOcc2");
+                XmlNode minOcc2 = occNode.SelectSingleNode("minOcc2");
+                if ((anneeOcc1 != null) && (moisOcc1 != null) && (jourOcc1 != null) && (hOcc1 != null) && (minOcc1 != null))
+                {
+                    int annee1 = int.Parse(anneeOcc1.InnerText);
+                    _anneeOcc1.Add(annee1);
+                    int mois1 = int.Parse(moisOcc1.InnerText);
+                    _moisOcc1.Add(mois1);
+                    int jour1 = int.Parse(jourOcc1.InnerText);
+                    _jourOcc1.Add(jour1);
+                    int heure1 = int.Parse(hOcc1.InnerText);
+                    _hOcc1.Add(heure1);
+                    int min1 = int.Parse(minOcc1.InnerText);
+                    _minOcc1.Add(min1);
+                    int annee2 = int.Parse(anneeOcc2.InnerText);
+                    _anneeOcc2.Add(annee2);
+                    int mois2 = int.Parse(moisOcc2.InnerText);
+                    _moisOcc2.Add(mois2);
+                    int jour2 = int.Parse(jourOcc2.InnerText);
+                    _jourOcc2.Add(jour2);
+                    int heure2 = int.Parse(hOcc2.InnerText);
+                    _hOcc2.Add(heure2);
+                    int min2 = int.Parse(minOcc2.InnerText);
+                    _minOcc2.Add(min2);
+                }
             }
+            for (int i = 0; i < _nbPlaceMax.Count(); i++)
+            {
+                TableRectangulaire table = new TableRectangulaire();
+                int a = _anneeOcc1[i];
+                int m = _moisOcc1[i];
+                int j = _jourOcc1[i];
+                int h = _hOcc1[i];
+                int mi = _minOcc1[i];
+                int a2 = _anneeOcc2[i];
+                int m2 = _moisOcc2[i];
+                int j2 = _jourOcc2[i];
+                int h2 = _hOcc2[i];
+                int mi2 = _minOcc2[i];
+                DateTime hdebut = new DateTime(a, m, j, h, mi, 0);
+                DateTime hfin = new DateTime(a2, m2, j2, h2, mi2, 0);
+                Occupation occ = new Occupation(hdebut, hfin);
+                Console.WriteLine(table);
+                this.tables.Add(table);
+            }
+
+            //Tables Rondes
+            XmlNodeList occupNodes = doc.SelectNodes("//Restaurant/Tables/TableRectangulaire/occupations");
+            foreach (XmlNode occNode in occupNodes)
+            {
+                XmlNode anneeOcc1 = occNode.SelectSingleNode("anneeOcc1");
+                XmlNode moisOcc1 = occNode.SelectSingleNode("moisOcc1");
+                XmlNode jourOcc1 = occNode.SelectSingleNode("jourOcc1");
+                XmlNode hOcc1 = occNode.SelectSingleNode("heureOcc1");
+                XmlNode minOcc1 = occNode.SelectSingleNode("minOcc1");
+                XmlNode anneeOcc2 = occNode.SelectSingleNode("anneeOcc2");
+                XmlNode moisOcc2 = occNode.SelectSingleNode("moisOcc2");
+                XmlNode jourOcc2 = occNode.SelectSingleNode("jourOcc2");
+                XmlNode hOcc2 = occNode.SelectSingleNode("heureOcc2");
+                XmlNode minOcc2 = occNode.SelectSingleNode("minOcc2");
+                if ((anneeOcc1 != null) && (moisOcc1 != null) && (jourOcc1 != null) && (hOcc1 != null) && (minOcc1 != null))
+                {
+                    int annee1 = int.Parse(anneeOcc1.InnerText);
+                    _anneeOcc1.Add(annee1);
+                    int mois1 = int.Parse(moisOcc1.InnerText);
+                    _moisOcc1.Add(mois1);
+                    int jour1 = int.Parse(jourOcc1.InnerText);
+                    _jourOcc1.Add(jour1);
+                    int heure1 = int.Parse(hOcc1.InnerText);
+                    _hOcc1.Add(heure1);
+                    int min1 = int.Parse(minOcc1.InnerText);
+                    _minOcc1.Add(min1);
+                    int annee2 = int.Parse(anneeOcc2.InnerText);
+                    _anneeOcc2.Add(annee2);
+                    int mois2 = int.Parse(moisOcc2.InnerText);
+                    _moisOcc2.Add(mois2);
+                    int jour2 = int.Parse(jourOcc2.InnerText);
+                    _jourOcc2.Add(jour2);
+                    int heure2 = int.Parse(hOcc2.InnerText);
+                    _hOcc2.Add(heure2);
+                    int min2 = int.Parse(minOcc2.InnerText);
+                    _minOcc2.Add(min2);
+                }
+            }
+            for (int i = 0; i < _nbPlaceMax.Count(); i++)
+            {
+                TableRonde table = new TableRonde();
+                int a = _anneeOcc1[i];
+                int m = _moisOcc1[i];
+                int j = _jourOcc1[i];
+                int h = _hOcc1[i];
+                int mi = _minOcc1[i];
+                int a2 = _anneeOcc2[i];
+                int m2 = _moisOcc2[i];
+                int j2 = _jourOcc2[i];
+                int h2 = _hOcc2[i];
+                int mi2 = _minOcc2[i];
+                DateTime hdebut = new DateTime(a, m, j, h, mi, 0);
+                DateTime hfin = new DateTime(a2, m2, j2, h2, mi2, 0);
+                Occupation occ = new Occupation(hdebut, hfin);
+                Console.WriteLine(table);
+                this.tables.Add(table);
+            }
+
 
             //Il faut peut etre quitter le doc
         }
