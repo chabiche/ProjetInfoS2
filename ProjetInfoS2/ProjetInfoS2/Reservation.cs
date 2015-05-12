@@ -14,8 +14,6 @@ namespace ProjetInfoS2
         public Table table { get; set; }
 
         public string nomClient { get; set; }
-
-        public int numClient { get; set; }
        
         public DateTime dateReservation { get; set; }
         
@@ -24,11 +22,10 @@ namespace ProjetInfoS2
         public Formule formuleRetenue {get; set;}
 
         //Constructeur
-        public Reservation(Table _table, string _nomClient, int _numClient, DateTime _dateReservation, int _nbConvives, Formule _formuleRetenue)
+        public Reservation(Table _table, string _nomClient, DateTime _dateReservation, int _nbConvives, Formule _formuleRetenue)
         {
             table = _table;
             nomClient = _nomClient;
-            numClient = _numClient;
             dateReservation = _dateReservation;
             nbConvives = _nbConvives;
             formuleRetenue = _formuleRetenue;
@@ -50,7 +47,7 @@ namespace ProjetInfoS2
 
         public override string ToString()
         {
-            string resa= "\nNom du client: "+nomClient+"\nNuméro du client: "+numClient+"\nDate de la réservation:"+dateReservation+"\nNombre de convives: "+nbConvives+"\nFormule souhaitée: "+formuleRetenue+"\nTable Réservée: "+table;
+            string resa= "\nNom du client: "+nomClient+"\nDate de la réservation:"+dateReservation+"\nNombre de convives: "+nbConvives+"\nFormule souhaitée: "+formuleRetenue+"\nTable Réservée: "+table;
             return resa;
         }
 

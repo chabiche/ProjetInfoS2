@@ -7,14 +7,6 @@ namespace ProjetInfoS2
 {
     public class Occupation
     {
-        private int noOccupation;
-
-        public int NoOccupation
-        {
-            get { return noOccupation; }
-            set { noOccupation = value; }
-        }
-        
         private DateTime dateDebutOccupee;
 
         public DateTime DateDebutOccupee

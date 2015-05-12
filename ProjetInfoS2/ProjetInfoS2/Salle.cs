@@ -189,13 +189,21 @@ namespace ProjetInfoS2
 //                    }
 
 
-        public void validerResa(Table table, DateTime dateEtHeure, int nbconvive, Formule formuleChoisie)
+        public void validerResa(Table table, DateTime dateResa, int nbconvive, Formule formuleChoisie)
         {
             Console.WriteLine("Quel est le nom pour la réservation?");
             string nomResa=Console.ReadLine();
-            //Il faut lui attribuer un numero de client pour pouvoir creer la résa
-            //création et sérialisation de la résa Reservation newResa= new Reservation(......)
-            //restau.reservations.Add(resa);
+            Reservation newResa = new Reservation(table, nomResa, dateResa, nbconvive,formuleChoisie);
+            reservations.Add(newResa);
+
+            //Serialization de la liste des réservations
+            XmlSerializer xsResa = new XmlSerializer(typeof(Reservation));
+            StreamWriter wrResa;
+            using (wrResa = new StreamWriter(@"..//..//Reservation.xml"))
+            {
+                xsResa.Serialize(wrResa, newResa);
+            }
+            wrResa.Close();
 
         }
 
