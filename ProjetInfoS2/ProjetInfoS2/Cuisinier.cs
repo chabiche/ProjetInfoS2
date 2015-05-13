@@ -29,7 +29,16 @@ namespace ProjetInfoS2
         public override string ToString()
         {
             string chaine = "Numéro du cuisinier: " + noCuisinier;
+            for (int i = 0; i < planningCuisto.Count; i++)
+            {
+                chaine += "\nOccupation:\n" + planningCuisto[i];
+            }
             return chaine;
+        }
+
+        public void ajoutOccupationCuisto(Occupation occupation)
+        {
+            planningCuisto.Add(occupation);
         }
         
     }//Fin class Cuisinier

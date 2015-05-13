@@ -47,6 +47,10 @@ namespace ProjetInfoS2
             DateFinOccupee = dateDebut + duree;
         }
 
+        public override string ToString()
+        {
+            return "Date de début : "+DateDebutOccupee+"\nDate de fin : "+DateFinOccupee;
+        }
 
     }
 }

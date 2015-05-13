@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Xml.Serialization; 
 
 namespace ProjetInfoS2
@@ -17,7 +18,7 @@ namespace ProjetInfoS2
 
         public int nbCuistoDispo { get; set; }
 
-        private List<Occupation> planning;
+        private List<Occupation> planning;// plus besoin non plus car les occupations sont intégré dans les cuisto
 
         public List<Occupation> Planning
         {
@@ -33,7 +34,18 @@ namespace ProjetInfoS2
             nbCuistoDispo = nbCuistoTotal;
         }
 
+
         //Méthodes
+        public override string ToString()
+        {
+            string chaine = "Nombre de Cuisiniers Total: "+nbCuistoTotal+"\nNombre de cuisiniers disponibles: "+nbCuistoDispo+"\nBrigade: \n";
+            for (int i = 0; i < brigade.Count; i++)
+            {
+                chaine += "\n"+brigade[i];
+            }
+            return chaine;
+        }
+
         public void ajoutCuisto(int noCuisto)
         {
             Cuisinier cuisto = new Cuisinier(noCuisto);
@@ -82,7 +94,61 @@ namespace ProjetInfoS2
             
         }
 
+        public void lecureXMLCuisto()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("restaurant.xml");
+           
+            //Cuisiniers
+            XmlNodeList itemNodes = doc.SelectNodes("//Restaurant/Cuisiniers/Cuisinier");
+            List<int> _noCuisto = new List<int>();
+            foreach (XmlNode itemNode in itemNodes)
+            {
+                XmlNode noCuisto = itemNode.SelectSingleNode("noCuisto");
+                if ((noCuisto != null))
+                {
+                    int nc = int.Parse(noCuisto.InnerText);
+                    _noCuisto.Add(nc);
+                }
+            }
+            XmlNodeList occupationsNodes = doc.SelectNodes("//Restaurant/Cuisiniers/Cuisinier/occupations");
+            List<DateTime> _dateDebutOccupee = new List<DateTime>();
+            List<DateTime> _dateFinOccupee = new List<DateTime>();
+            foreach (XmlNode occNode in occupationsNodes)
+            {
+                XmlNode dateDebutOccupee = occNode.SelectSingleNode("dateDebutOccupee");
+                XmlNode dateFinOccupee = occNode.SelectSingleNode("dateFinOccupee");
 
+                if (dateDebutOccupee != null)
+                {
+
+
+                    DateTime datedebut = Convert.ToDateTime(dateDebutOccupee.InnerText);
+                    Console.WriteLine(datedebut);
+                    _dateDebutOccupee.Add(datedebut);
+                    DateTime datefin = Convert.ToDateTime(dateFinOccupee.InnerText);
+                    Console.WriteLine(datefin);
+                    _dateFinOccupee.Add(datefin);
+                }
+            }
+
+            //CREATION DES CUISINIERS
+            for (int i = 0; i < _noCuisto.Count(); i++)
+            {
+                Cuisinier cuisto = new Cuisinier(_noCuisto[i]);
+                if (i<_dateDebutOccupee.Count)
+                {
+                     DateTime hdebut = new DateTime();
+                    hdebut = _dateDebutOccupee[i];
+                    DateTime hfin = new DateTime();
+                    hfin = _dateFinOccupee[i];
+                    Occupation occ = new Occupation(hdebut, hfin);
+                    cuisto.planningCuisto.Add(occ);
+                }
+                Console.WriteLine(cuisto);
+                this.brigade.Add(cuisto);
+            }
+        }
 
 
 

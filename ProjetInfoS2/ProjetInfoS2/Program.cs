@@ -21,9 +21,13 @@ namespace ProjetInfoS2
             Salle restau = new Salle();
 
             //CHARGEMENT DES FORMULES A PARTIR DU FICHIER XML
-            //restau.creationFormulesXml();
-            restau.creationTablesXml();
-            Console.ReadLine();
+           //restau.creationFormulesXml();
+           restau.creationTablesXml();
+           Console.WriteLine(restau);
+           Console.ReadLine();
+           C.lecureXMLCuisto();
+           Console.WriteLine(C);
+           Console.ReadLine();
             ////Serialisation Reservation
             //XmlNode resaNodes = doc.SelectSingleNode("//Restaurant/Reservations");
             //XmlNode noeudBase = doc.CreateElement("Reservation");
@@ -57,6 +61,7 @@ namespace ProjetInfoS2
             //doc.DocumentElement.OuterXml: écrit tout avec les balises, même la première englobante
             //doc.DocumentElement.Attributes["name"].Value: affiche l'attribut
 
+            
 
             int choix = 0;
             bool menu = true;
