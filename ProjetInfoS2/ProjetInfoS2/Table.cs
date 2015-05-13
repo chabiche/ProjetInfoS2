@@ -40,7 +40,7 @@ namespace ProjetInfoS2
 	        }
             for (int i = 0; i < planningResa.Count; i++)
             {
-                chaine += "\n" + planningResa[i];
+                chaine += "\n" + planningResa[i]+ "\n";
             }
             return chaine;
         }
@@ -61,11 +61,6 @@ namespace ProjetInfoS2
         //{
         //    disponible = true;
         //}
-
-        public void ajoutOccupation(Occupation occupation)
-        {
-            planningResa.Add(occupation);
-        }
 
     }// fin class Table
 }
