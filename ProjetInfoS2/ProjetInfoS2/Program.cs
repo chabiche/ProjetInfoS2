@@ -20,14 +20,11 @@ namespace ProjetInfoS2
             //CREATION DE LA SALLE
             Salle restau = new Salle();
 
-            //CHARGEMENT DES FORMULES A PARTIR DU FICHIER XML
-           //restau.creationFormulesXml();
+            //LECTURE DU FICHIER XML
+           restau.creationFormulesXml();
            restau.creationTablesXml();
-           Console.WriteLine(restau);
-           Console.ReadLine();
            C.lecureXMLCuisto();
-           Console.WriteLine(C);
-           Console.ReadLine();
+
             ////Serialisation Reservation
             //XmlNode resaNodes = doc.SelectSingleNode("//Restaurant/Reservations");
             //XmlNode noeudBase = doc.CreateElement("Reservation");

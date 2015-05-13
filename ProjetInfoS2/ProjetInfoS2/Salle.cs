@@ -310,9 +310,9 @@ namespace ProjetInfoS2
 
             XmlDocument doc = new XmlDocument();
             doc.Load("restaurant.xml");
-            XmlNodeList tablecarreeNodes = doc.SelectNodes("//Restaurant/Tables/TableCarees");
-            XmlNodeList tablerectNodes = doc.SelectNodes("//Restaurant/Tables/TableRectangulaires");
-            XmlNodeList tablerondeNodes = doc.SelectNodes("//Restaurant/Tables/TableRondes");
+            XmlNodeList tablecarreeNodes = doc.SelectNodes("//Restaurant/Tables/TableCarees/TableCaree");
+            XmlNodeList tablerectNodes = doc.SelectNodes("//Restaurant/Tables/TableRectangulaires/TableRectangulaire");
+            XmlNodeList tablerondeNodes = doc.SelectNodes("//Restaurant/Tables/TableRondes/TableRonde");
             int nbTableCarree = 0;
             int nbTableRect = 0;
             int nbTableRonde = 0;
