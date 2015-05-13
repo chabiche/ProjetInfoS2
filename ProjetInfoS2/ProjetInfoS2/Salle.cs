@@ -15,14 +15,6 @@ namespace ProjetInfoS2
         public List<Formule> formules { get; set; }
 
         public List<Reservation> reservations { get; set; }
-
-        private List<Occupation> planning;// plus utile car le planning est associé aux tables
-
-        public List<Occupation> Planning
-        {
-            get { return planning; }
-            set { planning = value; }
-        }
         
 
 
@@ -32,7 +24,6 @@ namespace ProjetInfoS2
             tables = new List<Table>();
             formules = new List<Formule>();
             reservations = new List<Reservation>();
-            planning = new List<Occupation>();// à enlever si t'es d'accord
         }
 
 
@@ -104,7 +95,7 @@ namespace ProjetInfoS2
 
 
         //voir si la reservation est possible
-       /* public bool verifierResa(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie, Cuisine C)
+        public bool verifierResa(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie, Cuisine C)
         {
             DateTime dateDeFin = dateDeDebut + formuleChoisie.dureePreparation;
             //pour l'instant on regarde si il y a une table dispo pour cette horraire
@@ -114,7 +105,7 @@ namespace ProjetInfoS2
                     if (tables[i].nbPlaceMax > nbconvive)
                     {
                         int k = 0;
-                        while (k < planning.Count)
+                        while (k < tables[i].planningResa.Count)
                         {
                             //l'heure de la résa n'est pas comprise dans le temps pendant lequel la table est occupée
                             if (tables[i].planningResa[k].DateDebutOccupee > dateDeDebut && tables[i].planningResa[k].DateFinOccupee < dateDeDebut)
@@ -143,7 +134,7 @@ namespace ProjetInfoS2
             Console.ReadLine();
             return false;
 
-        }*/
+        }
 
         ////jumelage
 
@@ -296,18 +287,6 @@ namespace ProjetInfoS2
             //Désérialisation
             //le logiciel lit le fichier xml correspondant au restaurant
 
-            //CE QUE TU AVAIS MIS DANS LE XML
-        //<anneeOcc1>2015</anneeOcc1>
-        //<moisOcc1>06</moisOcc1>
-        //<jourOcc1>12</jourOcc1>
-        //<heureOcc1>19</heureOcc1>
-        //<minOcc1>30</minOcc1>
-        //<anneeOcc2>2015</anneeOcc2>
-        //<moisOcc2>06</moisOcc2>
-        //<jourOcc2>12</jourOcc2>
-        //<heureOcc2>20</heureOcc2>
-        //<minOcc2>20</minOcc2>
-
             XmlDocument doc = new XmlDocument();
             doc.Load("restaurant.xml");
             XmlNodeList tablecarreeNodes = doc.SelectNodes("//Restaurant/Tables/TableCarees/TableCaree");
@@ -324,7 +303,7 @@ namespace ProjetInfoS2
             {
                 nbTableRect++;
             }
-            foreach (XmlNode tablerect in tablerondeNodes)
+            foreach (XmlNode tableronde in tablerondeNodes)
             {
                 nbTableRonde++;
             }
@@ -332,69 +311,28 @@ namespace ProjetInfoS2
             Console.WriteLine(nbTableRect);
             Console.WriteLine(nbTableRonde);
             Console.ReadLine();
+
             //Tables Carrées
-            XmlNodeList occupationsNodes = doc.SelectNodes("//Restaurant/Tables/TableCaree/occupations");
+            XmlNodeList occupationsNodes = doc.SelectNodes("//Restaurant/Tables/TableCarees/TableCaree/occupations/occupation");
             List<DateTime> _dateDebutOccupee = new List<DateTime>();
             List<DateTime> _dateFinOccupee = new List<DateTime>();
-            //List<int> _anneeOcc1 = new List<int>();
-            //List<int> _moisOcc1 = new List<int>();
-            //List<int> _jourOcc1 = new List<int>();
-            //List<int> _hOcc1 = new List<int>();
-            //List<int> _minOcc1 = new List<int>();
-            //List<int> _anneeOcc2 = new List<int>();
-            //List<int> _moisOcc2 = new List<int>();
-            //List<int> _jourOcc2 = new List<int>();
-            //List<int> _hOcc2 = new List<int>();
-            //List<int> _minOcc2 = new List<int>();
-            foreach (XmlNode occNode in occupationsNodes)
+            
+            foreach (XmlNode occNode in occupationsNodes) 
             {
                 XmlNode dateDebutOccupee = occNode.SelectSingleNode("dateDebutOccupee");
                 XmlNode dateFinOccupee = occNode.SelectSingleNode("dateFinOccupee");
-                //XmlNode anneeOcc1 = occNode.SelectSingleNode("anneeOcc1");
-                //XmlNode moisOcc1 = occNode.SelectSingleNode("moisOcc1");
-                //XmlNode jourOcc1 = occNode.SelectSingleNode("jourOcc1");
-                //XmlNode hOcc1 = occNode.SelectSingleNode("heureOcc1");
-                //XmlNode minOcc1 = occNode.SelectSingleNode("minOcc1");
-                //XmlNode anneeOcc2 = occNode.SelectSingleNode("anneeOcc2");
-                //XmlNode moisOcc2 = occNode.SelectSingleNode("moisOcc2");
-                //XmlNode jourOcc2 = occNode.SelectSingleNode("jourOcc2");
-                //XmlNode hOcc2 = occNode.SelectSingleNode("heureOcc2");
-                //XmlNode minOcc2 = occNode.SelectSingleNode("minOcc2");
 
+                int count = 0;
                 if (dateDebutOccupee != null)
                 {
-                
                 DateTime datedebut = Convert.ToDateTime(dateDebutOccupee.InnerText);
-                Console.WriteLine(datedebut);
                 _dateDebutOccupee.Add(datedebut);
                 DateTime datefin = Convert.ToDateTime(dateFinOccupee.InnerText);
-                Console.WriteLine(datefin);
                 _dateFinOccupee.Add(datefin);
+                count++;
                 }
+                
 
-            //    if ((anneeOcc1 != null) && (moisOcc1 != null) && (jourOcc1 != null) && (hOcc1 != null) && (minOcc1 != null))
-            //    {
-            //        int annee1 = int.Parse(anneeOcc1.InnerText);
-            //        _anneeOcc1.Add(annee1);
-            //        int mois1 = int.Parse(moisOcc1.InnerText);
-            //        _moisOcc1.Add(mois1);
-            //        int jour1 = int.Parse(jourOcc1.InnerText);
-            //        _jourOcc1.Add(jour1);
-            //        int heure1 = int.Parse(hOcc1.InnerText);
-            //        _hOcc1.Add(heure1);
-            //        int min1 = int.Parse(minOcc1.InnerText);
-            //        _minOcc1.Add(min1);
-            //        int annee2 = int.Parse(anneeOcc2.InnerText);
-            //        _anneeOcc2.Add(annee2);
-            //        int mois2 = int.Parse(moisOcc2.InnerText);
-            //        _moisOcc2.Add(mois2);
-            //        int jour2 = int.Parse(jourOcc2.InnerText);
-            //        _jourOcc2.Add(jour2);
-            //        int heure2 = int.Parse(hOcc2.InnerText);
-            //        _hOcc2.Add(heure2);
-            //        int min2 = int.Parse(minOcc2.InnerText);
-            //        _minOcc2.Add(min2);
-            //    }
             }
             
             //CREATION DES TABLES CAREES
@@ -402,16 +340,7 @@ namespace ProjetInfoS2
             for (int i = 0; i < nbTableCarree; i++)
             {
                 TableCarree table = new TableCarree();
-                //int a=_anneeOcc1[i];
-                //int m=_moisOcc1[i];
-                //int j=_jourOcc1[i];
-                //int h=_hOcc1[i];
-                //int mi=_minOcc1[i];
-                //int a2 = _anneeOcc2[i];
-                //int m2 = _moisOcc2[i];
-                //int j2 = _jourOcc2[i];
-                //int h2 = _hOcc2[i];
-                //int mi2 = _minOcc2[i];
+
                 if (i < _dateDebutOccupee.Count)
                 {
                     DateTime hdebut = new DateTime();
@@ -419,76 +348,37 @@ namespace ProjetInfoS2
                     DateTime hfin = new DateTime();
                     hfin = _dateFinOccupee[i];
                     Occupation occ = new Occupation(hdebut, hfin);
-                    table.ajoutOccupation(occ);
+                    table.planningResa.Add(occ);
+                    for (int j = 0; j < table.planningResa.Count; j++)
+                    {
+                        Console.WriteLine(table.planningResa[j]);
+                    }
                 }
-
-                Console.WriteLine(table);
                 this.tables.Add(table);
             }
 
+
             //Tables Rectangulaires
-            XmlNodeList occupationNodes = doc.SelectNodes("//Restaurant/Tables/TableRectangulaires/TableRectangulaire/occupations");
+            XmlNodeList occupationNodes = doc.SelectNodes("//Restaurant/Tables/TableRectangulaires/TableRectangulaire/occupations/occupation");
+
             foreach (XmlNode occNode in occupationNodes)
             {
                 XmlNode dateDebutOccupee = occNode.SelectSingleNode("dateDebutOccupee");
                 XmlNode dateFinOccupee = occNode.SelectSingleNode("dateFinOccupee");
-                //XmlNode anneeOcc1 = occNode.SelectSingleNode("anneeOcc1");
-                //XmlNode moisOcc1 = occNode.SelectSingleNode("moisOcc1");
-                //XmlNode jourOcc1 = occNode.SelectSingleNode("jourOcc1");
-                //XmlNode hOcc1 = occNode.SelectSingleNode("heureOcc1");
-                //XmlNode minOcc1 = occNode.SelectSingleNode("minOcc1");
-                //XmlNode anneeOcc2 = occNode.SelectSingleNode("anneeOcc2");
-                //XmlNode moisOcc2 = occNode.SelectSingleNode("moisOcc2");
-                //XmlNode jourOcc2 = occNode.SelectSingleNode("jourOcc2");
-                //XmlNode hOcc2 = occNode.SelectSingleNode("heureOcc2");
-                //XmlNode minOcc2 = occNode.SelectSingleNode("minOcc2");
-                //if ((anneeOcc1 != null) && (moisOcc1 != null) && (jourOcc1 != null) && (hOcc1 != null) && (minOcc1 != null))
-                //{
-                //    int annee1 = int.Parse(anneeOcc1.InnerText);
-                //    _anneeOcc1.Add(annee1);
-                //    int mois1 = int.Parse(moisOcc1.InnerText);
-                //    _moisOcc1.Add(mois1);
-                //    int jour1 = int.Parse(jourOcc1.InnerText);
-                //    _jourOcc1.Add(jour1);
-                //    int heure1 = int.Parse(hOcc1.InnerText);
-                //    _hOcc1.Add(heure1);
-                //    int min1 = int.Parse(minOcc1.InnerText);
-                //    _minOcc1.Add(min1);
-                //    int annee2 = int.Parse(anneeOcc2.InnerText);
-                //    _anneeOcc2.Add(annee2);
-                //    int mois2 = int.Parse(moisOcc2.InnerText);
-                //    _moisOcc2.Add(mois2);
-                //    int jour2 = int.Parse(jourOcc2.InnerText);
-                //    _jourOcc2.Add(jour2);
-                //    int heure2 = int.Parse(hOcc2.InnerText);
-                //    _hOcc2.Add(heure2);
-                //    int min2 = int.Parse(minOcc2.InnerText);
-                //    _minOcc2.Add(min2);
-                //}
+
                 if (dateDebutOccupee != null)
                 {
 
                     DateTime datedebut = Convert.ToDateTime(dateDebutOccupee.InnerText);
-                    Console.WriteLine(datedebut);
                     _dateDebutOccupee.Add(datedebut);
                     DateTime datefin = Convert.ToDateTime(dateFinOccupee.InnerText);
-                    Console.WriteLine(datefin);
                     _dateFinOccupee.Add(datefin);
                 }
             }
             for (int i = 0; i < nbTableRect; i++)
             {
                 TableRectangulaire table = new TableRectangulaire();
-                //int a = _anneeOcc1[i];
-                //int m = _moisOcc1[i];
-                //int j = _jourOcc1[i];
-                //int h = _hOcc1[i];
-                //int mi = _minOcc1[i];
-                //int a2 = _anneeOcc2[i];
-                //int m2 = _moisOcc2[i];
-                //int j2 = _jourOcc2[i];
-                //int h2 = _hOcc2[i];
-                //int mi2 = _minOcc2[i];
+
                 if (i<_dateDebutOccupee.Count)
                 {
                     DateTime hdebut = new DateTime();
@@ -496,7 +386,7 @@ namespace ProjetInfoS2
                 DateTime hfin = new DateTime();
                 hfin = _dateFinOccupee[i];
                 Occupation occ = new Occupation(hdebut, hfin);
-                table.ajoutOccupation(occ);
+                table.planningResa.Add(occ);
                 }
                 
                 Console.WriteLine(table);
@@ -504,68 +394,25 @@ namespace ProjetInfoS2
             }
 
             //Tables Rondes
-            XmlNodeList occupNodes = doc.SelectNodes("//Restaurant/Tables/TableRondes/TableRonde/occupations");
+            XmlNodeList occupNodes = doc.SelectNodes("//Restaurant/Tables/TableRondes/TableRonde/occupations/occupation");
             foreach (XmlNode occNode in occupNodes)
             {
                 XmlNode dateDebutOccupee = occNode.SelectSingleNode("dateDebutOccupee");
                 XmlNode dateFinOccupee = occNode.SelectSingleNode("dateFinOccupee");
-                //XmlNode anneeOcc1 = occNode.SelectSingleNode("anneeOcc1");
-                //XmlNode moisOcc1 = occNode.SelectSingleNode("moisOcc1");
-                //XmlNode jourOcc1 = occNode.SelectSingleNode("jourOcc1");
-                //XmlNode hOcc1 = occNode.SelectSingleNode("heureOcc1");
-                //XmlNode minOcc1 = occNode.SelectSingleNode("minOcc1");
-                //XmlNode anneeOcc2 = occNode.SelectSingleNode("anneeOcc2");
-                //XmlNode moisOcc2 = occNode.SelectSingleNode("moisOcc2");
-                //XmlNode jourOcc2 = occNode.SelectSingleNode("jourOcc2");
-                //XmlNode hOcc2 = occNode.SelectSingleNode("heureOcc2");
-                //XmlNode minOcc2 = occNode.SelectSingleNode("minOcc2");
-                //if ((anneeOcc1 != null) && (moisOcc1 != null) && (jourOcc1 != null) && (hOcc1 != null) && (minOcc1 != null))
-                //{
-                //    int annee1 = int.Parse(anneeOcc1.InnerText);
-                //    _anneeOcc1.Add(annee1);
-                //    int mois1 = int.Parse(moisOcc1.InnerText);
-                //    _moisOcc1.Add(mois1);
-                //    int jour1 = int.Parse(jourOcc1.InnerText);
-                //    _jourOcc1.Add(jour1);
-                //    int heure1 = int.Parse(hOcc1.InnerText);
-                //    _hOcc1.Add(heure1);
-                //    int min1 = int.Parse(minOcc1.InnerText);
-                //    _minOcc1.Add(min1);
-                //    int annee2 = int.Parse(anneeOcc2.InnerText);
-                //    _anneeOcc2.Add(annee2);
-                //    int mois2 = int.Parse(moisOcc2.InnerText);
-                //    _moisOcc2.Add(mois2);
-                //    int jour2 = int.Parse(jourOcc2.InnerText);
-                //    _jourOcc2.Add(jour2);
-                //    int heure2 = int.Parse(hOcc2.InnerText);
-                //    _hOcc2.Add(heure2);
-                //    int min2 = int.Parse(minOcc2.InnerText);
-                //    _minOcc2.Add(min2);
-                //}
+
                 if (dateDebutOccupee != null)
                 {
 
                     DateTime datedebut = Convert.ToDateTime(dateDebutOccupee.InnerText);
-                    Console.WriteLine(datedebut);
                     _dateDebutOccupee.Add(datedebut);
                     DateTime datefin = Convert.ToDateTime(dateFinOccupee.InnerText);
-                    Console.WriteLine(datefin);
                     _dateFinOccupee.Add(datefin);
                 }
             }
             for (int i = 0; i < nbTableRonde; i++)
             {
                 TableRonde table = new TableRonde();
-                //int a = _anneeOcc1[i];
-                //int m = _moisOcc1[i];
-                //int j = _jourOcc1[i];
-                //int h = _hOcc1[i];
-                //int mi = _minOcc1[i];
-                //int a2 = _anneeOcc2[i];
-                //int m2 = _moisOcc2[i];
-                //int j2 = _jourOcc2[i];
-                //int h2 = _hOcc2[i];
-                //int mi2 = _minOcc2[i];
+
                 if (i < _dateDebutOccupee.Count)
                 {
                     DateTime hdebut = new DateTime();
@@ -573,15 +420,118 @@ namespace ProjetInfoS2
                     DateTime hfin = new DateTime();
                     hfin = _dateFinOccupee[i];
                     Occupation occ = new Occupation(hdebut, hfin);
-                    table.ajoutOccupation(occ);
+                    table.planningResa.Add(occ);
                 }
 
-                Console.WriteLine(table);
                 this.tables.Add(table); 
             }
 
 
             //Il faut peut etre quitter le doc
+        }
+
+        public void creationReservationXml()
+        {
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load("restaurant.xml");
+            //partie 1
+
+            XmlNodeList itemNodes = doc.SelectNodes("//Restaurant/Reservations/Reservation");
+            List<int> _noTable = new List<int>();
+            List<string> _nomClient = new List<string>();
+            List<int> _nbConvive = new List<int>();
+            List<string> _nomFormule = new List<string>();
+            List<DateTime> _dateResa = new List<DateTime>();
+
+            foreach (XmlNode itemNode in itemNodes)
+            {
+                XmlNode noTable = itemNode.SelectSingleNode("tableResa");
+                XmlNode nomClient = itemNode.SelectSingleNode("nomClient");
+                XmlNode dateResa = itemNode.SelectSingleNode("dateResa");
+                XmlNode nbConvive = itemNode.SelectSingleNode("nbConvive");
+                XmlNode nomFormule = itemNode.SelectSingleNode("formuleResa");
+
+                if (nomClient != null)
+                {
+
+                    _nomFormule.Add(nomFormule.InnerText);
+                    _nomClient.Add(nomClient.InnerText);
+                    int notable = int.Parse(noTable.InnerText);
+                    _noTable.Add(notable);
+                    int nbconvive = int.Parse(nbConvive.InnerText);
+                    _nbConvive.Add(nbconvive);
+                    DateTime dateresa = Convert.ToDateTime(dateResa.InnerText);
+                    _dateResa.Add(dateresa);
+
+                }
+            }
+        
+            //CREATION RESERVATIONS
+
+            for (int i = 0; i < _nomClient.Count(); i++)
+            {
+
+                Reservation newResa = new Reservation() ;
+                Formule formuleChoisie=new Formule();
+                int j=0;
+                while (j<formules.Count)
+			        {
+                        for (int k = 0; k < formules.Count; k++)
+			            {
+			                if (_nomFormule[i].Equals(formules[k].nomFormule))
+	                        {
+		                        formuleChoisie=formules[k];
+	                        }
+			            }
+                        j++;
+                    }
+
+                j = 0;
+                while (j < tables.Count)
+			        { 
+  
+			            if (j==_noTable[i])
+	                     {
+                            if (tables[j].nbPlaceMax==4)
+	                            {
+		                            TableCarree tableResa = new TableCarree();
+                                    tableResa=tables[j] as TableCarree;
+                                    newResa = new Reservation(tableResa, _nomClient[i], _dateResa[i], _nbConvive[i], formuleChoisie);
+                                    
+	                            }
+                            else
+                            {
+                                if (tables[j].nbPlaceMax == 6)
+                                {
+                                    TableRectangulaire tableResa = new TableRectangulaire();
+                                    tableResa = tables[j] as TableRectangulaire;
+                                    newResa = new Reservation(tableResa, _nomClient[i], _dateResa[i], _nbConvive[i], formuleChoisie);
+
+                                }
+                                else
+                                {
+                                    TableRonde tableResa = new TableRonde();
+                                    tableResa = tables[j] as TableRonde;
+                                    newResa = new Reservation(tableResa, _nomClient[i], _dateResa[i], _nbConvive[i], formuleChoisie);
+
+                                }
+                            
+                            }
+                        
+	                     }
+                j++;
+			        }
+	          
+
+                
+                this.reservations.Add(newResa);
+                Console.WriteLine("Réservation : " + newResa);
+                Console.ReadLine();
+            }
+        
+        
+        
         }
 
     }// fin class salle

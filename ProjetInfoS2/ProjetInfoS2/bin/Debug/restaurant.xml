@@ -63,20 +63,28 @@
 		<TableCaree>
 		  <nbPlaceMax>4</nbPlaceMax>
 		  <occupations>
-			<dateDebutOccupee>2015/06/12 19:30:00</dateDebutOccupee>
-			<dateFinOccupee>2015/06/12 20:20:00</dateFinOccupee>
+		  	<occupation>
+				<dateDebutOccupee>2015/06/12 19:30:00</dateDebutOccupee>
+				<dateFinOccupee>2015/06/12 20:20:00</dateFinOccupee>
+		  	</occupation>
 		  </occupations>
 		  <jumelable>true</jumelable>
 		</TableCaree>
 		<TableCaree>
 		  <nbPlaceMax>4</nbPlaceMax>
 		  <occupations>
+			<occupation>
+				<dateDebutOccupee>2015/06/12 20:30:00</dateDebutOccupee>
+				<dateFinOccupee>2015/06/12 21:00:00</dateFinOccupee>
+			</occupation>
 		  </occupations>
 		  <jumelable>true</jumelable>
 		</TableCaree>
 		<TableCaree>
 		  <nbPlaceMax>4</nbPlaceMax>
 		  <occupations>
+		  	<occupation>
+		  	</occupation>
 		  </occupations>
 		  <jumelable>true</jumelable>
 		</TableCaree>
@@ -85,26 +93,34 @@
 		<TableRectangulaire>
 		  <nbPlaceMax>6</nbPlaceMax>
 		  <occupations>
+		  	<occupation>
+		  	</occupation>
 		  </occupations>
 		  <jumelable>true</jumelable>
 		</TableRectangulaire>
 		<TableRectangulaire>
 		  <nbPlaceMax>6</nbPlaceMax>
 		  <occupations>
+		  	<occupation>
+		  	</occupation>
 		  </occupations>
 		  <jumelable>true</jumelable>
 		</TableRectangulaire>
 		<TableRectangulaire>
 		  <nbPlaceMax>6</nbPlaceMax>
 		  <occupations>
+		  	<occupation>
+		  	</occupation>
 		  </occupations>
 		  <jumelable>true</jumelable>
 		</TableRectangulaire>
 	</TableRectangulaires>
 	<TableRondes>
 		<TableRonde>
-		  <nbPlaceMax>6</nbPlaceMax>
+		  <nbPlaceMax>5</nbPlaceMax>
 		  <occupations>
+		  	<occupation>
+		  	</occupation>
 		  </occupations>
 		  <jumelable>false</jumelable>
 		</TableRonde>
@@ -113,13 +129,9 @@
   <Cuisiniers>
     <Cuisinier>
       <noCuisto>1</noCuisto>
-	  <occupations>
-		<dateDebutOccupee>2015/06/12 19:30:00</dateDebutOccupee>
-		<dateFinOccupee>2015/06/12 19:50:00</dateFinOccupee>
-	</occupations>
 	<occupations>
-		<dateDebutOccupee>2015/07/12 19:30:00</dateDebutOccupee>
-		<dateFinOccupee>2015/07/12 19:50:00</dateFinOccupee>
+		<dateDebutOccupee>2015/07/12 20:00:00</dateDebutOccupee>
+		<dateFinOccupee>2015/07/12 20:20:00</dateFinOccupee>
 	</occupations>
     </Cuisinier>
     <Cuisinier>
@@ -150,33 +162,29 @@
   </Cuisiniers>
   <Reservations>
     <Reservation>
-      <tableResa>23</tableResa>
+      <tableResa>1</tableResa>
       <nomClient>John Doe</nomClient>
-      <numClient>1</numClient>
       <dateResa>11/06/2015 20:00:00</dateResa>
       <nbConvive>4</nbConvive>
       <formuleResa>Formule Gastronomique</formuleResa>
     </Reservation>
     <Reservation>
-      <tableResa>23</tableResa>
-      <nomClient>John Doe</nomClient>
-      <numClient>1</numClient>
+      <tableResa>2</tableResa>
+      <nomClient>manon</nomClient>
       <dateResa>11/06/2015 20:00:00</dateResa>
       <nbConvive>4</nbConvive>
       <formuleResa>Formule Gastronomique</formuleResa>
     </Reservation>
     <Reservation>
-      <tableResa>23</tableResa>
-      <nomClient>John Doe</nomClient>
-      <numClient>1</numClient>
+      <tableResa>5</tableResa>
+      <nomClient>charlotte</nomClient>
       <dateResa>11/06/2015 20:00:00</dateResa>
       <nbConvive>4</nbConvive>
       <formuleResa>Formule Gastronomique</formuleResa>
     </Reservation>
     <Reservation>
-      <tableResa>23</tableResa>
-      <nomClient>John Doe</nomClient>
-      <numClient>1</numClient>
+      <tableResa>3</tableResa>
+      <nomClient>caca</nomClient>
       <dateResa>11/06/2015 20:00:00</dateResa>
       <nbConvive>4</nbConvive>
       <formuleResa>Formule Gastronomique</formuleResa>

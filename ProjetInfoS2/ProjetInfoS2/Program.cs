@@ -24,6 +24,11 @@ namespace ProjetInfoS2
            restau.creationFormulesXml();
            restau.creationTablesXml();
            C.lecureXMLCuisto();
+           restau.creationReservationXml();
+           //Console.WriteLine(C);
+           //Console.ReadLine();
+           //Console.WriteLine(restau);
+
 
             ////Serialisation Reservation
             //XmlNode resaNodes = doc.SelectSingleNode("//Restaurant/Reservations");

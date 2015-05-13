@@ -121,13 +121,9 @@ namespace ProjetInfoS2
 
                 if (dateDebutOccupee != null)
                 {
-
-
                     DateTime datedebut = Convert.ToDateTime(dateDebutOccupee.InnerText);
-                    Console.WriteLine(datedebut);
                     _dateDebutOccupee.Add(datedebut);
                     DateTime datefin = Convert.ToDateTime(dateFinOccupee.InnerText);
-                    Console.WriteLine(datefin);
                     _dateFinOccupee.Add(datefin);
                 }
             }
@@ -145,7 +141,6 @@ namespace ProjetInfoS2
                     Occupation occ = new Occupation(hdebut, hfin);
                     cuisto.planningCuisto.Add(occ);
                 }
-                Console.WriteLine(cuisto);
                 this.brigade.Add(cuisto);
             }
         }
