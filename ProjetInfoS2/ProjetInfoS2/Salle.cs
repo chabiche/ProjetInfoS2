@@ -95,7 +95,7 @@ namespace ProjetInfoS2
 
 
         //voir si la reservation est possible
-       /* public bool verifierResa(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie, Cuisine C)
+        public bool verifierResa(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie, Cuisine C)
         {
             DateTime dateDeFin = dateDeDebut + formuleChoisie.dureePreparation;
             //pour l'instant on regarde si il y a une table dispo pour cette horraire
@@ -105,7 +105,7 @@ namespace ProjetInfoS2
                     if (tables[i].nbPlaceMax > nbconvive)
                     {
                         int k = 0;
-                        while (k < planning.Count)
+                        while (k < tables[i].planningResa.Count)
                         {
                             //l'heure de la résa n'est pas comprise dans le temps pendant lequel la table est occupée
                             if (tables[i].planningResa[k].DateDebutOccupee > dateDeDebut && tables[i].planningResa[k].DateFinOccupee < dateDeDebut)
@@ -134,7 +134,7 @@ namespace ProjetInfoS2
             Console.ReadLine();
             return false;
 
-        }*/
+        }
 
         ////jumelage
 
