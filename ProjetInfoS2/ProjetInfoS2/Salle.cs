@@ -266,6 +266,7 @@ namespace ProjetInfoS2
             string nomResa=Console.ReadLine();
             Console.WriteLine("Quel est le numéro du client?");
             string noClient = Console.ReadLine();
+            int numClient = int.Parse(noClient);
             int i=0;
             string noTable="";
             //Recherche du numéro de la table
@@ -289,7 +290,7 @@ namespace ProjetInfoS2
                 j++;
             }
             //Création de la réservation dans le programme
-            Reservation newResa = new Reservation(table, nomResa, dateResa, nbconvive,formuleChoisie);
+            Reservation newResa = new Reservation(table, nomResa, numClient, dateResa, nbconvive,formuleChoisie);
             reservations.Add(newResa);
 
             //Modification du fichier XML: Ajout de la réservation
@@ -547,6 +548,7 @@ namespace ProjetInfoS2
             XmlNodeList itemNodes = doc.SelectNodes("//Restaurant/Reservations/Reservation");
             List<int> _noTable = new List<int>();
             List<string> _nomClient = new List<string>();
+            List<int> _numClient = new List<int>();
             List<int> _nbConvive = new List<int>();
             List<string> _nomFormule = new List<string>();
             List<DateTime> _dateResa = new List<DateTime>();
@@ -555,6 +557,7 @@ namespace ProjetInfoS2
             {
                 XmlNode noTable = itemNode.SelectSingleNode("tableResa");
                 XmlNode nomClient = itemNode.SelectSingleNode("nomClient");
+                XmlNode numClient = itemNode.SelectSingleNode("numClient");
                 XmlNode dateResa = itemNode.SelectSingleNode("dateResa");
                 XmlNode nbConvive = itemNode.SelectSingleNode("nbConvive");
                 XmlNode nomFormule = itemNode.SelectSingleNode("formuleResa");
@@ -563,6 +566,8 @@ namespace ProjetInfoS2
                 {
 
                     _nomFormule.Add(nomFormule.InnerText);
+                    int noclient = int.Parse(numClient.InnerText);
+                    _numClient.Add(noclient);
                     _nomClient.Add(nomClient.InnerText);
                     int notable = int.Parse(noTable.InnerText);
                     _noTable.Add(notable);
@@ -603,7 +608,7 @@ namespace ProjetInfoS2
 	                            {
 		                            TableCarree tableResa = new TableCarree();
                                     tableResa=tables[j] as TableCarree;
-                                    newResa = new Reservation(tableResa, _nomClient[i], _dateResa[i], _nbConvive[i], formuleChoisie);
+                                    newResa = new Reservation(tableResa, _nomClient[i], _numClient[i], _dateResa[i], _nbConvive[i], formuleChoisie);
                                     
 	                            }
                             else
@@ -612,14 +617,14 @@ namespace ProjetInfoS2
                                 {
                                     TableRectangulaire tableResa = new TableRectangulaire();
                                     tableResa = tables[j] as TableRectangulaire;
-                                    newResa = new Reservation(tableResa, _nomClient[i], _dateResa[i], _nbConvive[i], formuleChoisie);
+                                    newResa = new Reservation(tableResa, _nomClient[i], _numClient[i], _dateResa[i], _nbConvive[i], formuleChoisie);
 
                                 }
                                 else
                                 {
                                     TableRonde tableResa = new TableRonde();
                                     tableResa = tables[j] as TableRonde;
-                                    newResa = new Reservation(tableResa, _nomClient[i], _dateResa[i], _nbConvive[i], formuleChoisie);
+                                    newResa = new Reservation(tableResa, _nomClient[i], _numClient[i], _dateResa[i], _nbConvive[i], formuleChoisie);
 
                                 }
                             

@@ -14,6 +14,8 @@ namespace ProjetInfoS2
         public Table table { get; set; }
 
         public string nomClient { get; set; }
+
+        public int numClient { get; set; } 
        
         public DateTime dateReservation { get; set; }
         
@@ -22,10 +24,11 @@ namespace ProjetInfoS2
         public Formule formuleRetenue {get; set;}
 
         //Constructeur
-        public Reservation(Table _table, string _nomClient, DateTime _dateReservation, int _nbConvives, Formule _formuleRetenue)
+        public Reservation(Table _table, string _nomClient, int _numClient, DateTime _dateReservation, int _nbConvives, Formule _formuleRetenue)
         {
             table = _table;
             nomClient = _nomClient;
+            numClient = _numClient;
             dateReservation = _dateReservation;
             nbConvives = _nbConvives;
             formuleRetenue = _formuleRetenue;
