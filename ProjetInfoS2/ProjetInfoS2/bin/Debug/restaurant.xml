@@ -59,105 +59,105 @@
     </Formule>
   </Formules>
   <Tables>
-  <TableCarees>
-		<TableCaree>
-		  <nbPlaceMax>4</nbPlaceMax>
-		  <occupations>
-		  	<occupation>
-				<dateDebutOccupee>2015/06/12 19:30:00</dateDebutOccupee>
-				<dateFinOccupee>2015/06/12 20:20:00</dateFinOccupee>
-		  	</occupation>
-		  </occupations>
-		  <jumelable>true</jumelable>
-		</TableCaree>
-		<TableCaree>
-		  <nbPlaceMax>4</nbPlaceMax>
-		  <occupations>
-			<occupation>
-				<dateDebutOccupee>2015/06/12 20:30:00</dateDebutOccupee>
-				<dateFinOccupee>2015/06/12 21:00:00</dateFinOccupee>
-			</occupation>
-		  </occupations>
-		  <jumelable>true</jumelable>
-		</TableCaree>
-		<TableCaree>
-		  <nbPlaceMax>4</nbPlaceMax>
-		  <occupations>
-		  	<occupation>
-		  	</occupation>
-		  </occupations>
-		  <jumelable>true</jumelable>
-		</TableCaree>
-	</TableCarees>
-	<TableRectangulaires>
-		<TableRectangulaire>
-		  <nbPlaceMax>6</nbPlaceMax>
-		  <occupations>
-		  	<occupation>
-		  	</occupation>
-		  </occupations>
-		  <jumelable>true</jumelable>
-		</TableRectangulaire>
-		<TableRectangulaire>
-		  <nbPlaceMax>6</nbPlaceMax>
-		  <occupations>
-		  	<occupation>
-		  	</occupation>
-		  </occupations>
-		  <jumelable>true</jumelable>
-		</TableRectangulaire>
-		<TableRectangulaire>
-		  <nbPlaceMax>6</nbPlaceMax>
-		  <occupations>
-		  	<occupation>
-		  	</occupation>
-		  </occupations>
-		  <jumelable>true</jumelable>
-		</TableRectangulaire>
-	</TableRectangulaires>
-	<TableRondes>
-		<TableRonde>
-		  <nbPlaceMax>5</nbPlaceMax>
-		  <occupations>
-		  	<occupation>
-		  	</occupation>
-		  </occupations>
-		  <jumelable>false</jumelable>
-		</TableRonde>
-	</TableRondes>
+    <TableCarees>
+      <TableCaree>
+        <nbPlaceMax>4</nbPlaceMax>
+        <occupations>
+          <occupation>
+            <dateDebutOccupee>2015/06/12 19:30:00</dateDebutOccupee>
+            <dateFinOccupee>2015/06/12 20:20:00</dateFinOccupee>
+          </occupation>
+        </occupations>
+        <jumelable>true</jumelable>
+      </TableCaree>
+      <TableCaree>
+        <nbPlaceMax>4</nbPlaceMax>
+        <occupations>
+          <occupation>
+            <dateDebutOccupee>2015/06/12 20:30:00</dateDebutOccupee>
+            <dateFinOccupee>2015/06/12 21:00:00</dateFinOccupee>
+          </occupation>
+        </occupations>
+        <jumelable>true</jumelable>
+      </TableCaree>
+      <TableCaree>
+        <nbPlaceMax>4</nbPlaceMax>
+        <occupations>
+          <occupation>
+          </occupation>
+        </occupations>
+        <jumelable>true</jumelable>
+      </TableCaree>
+    </TableCarees>
+    <TableRectangulaires>
+      <TableRectangulaire>
+        <nbPlaceMax>6</nbPlaceMax>
+        <occupations>
+          <occupation>
+          </occupation>
+        </occupations>
+        <jumelable>true</jumelable>
+      </TableRectangulaire>
+      <TableRectangulaire>
+        <nbPlaceMax>6</nbPlaceMax>
+        <occupations>
+          <occupation>
+          </occupation>
+        </occupations>
+        <jumelable>true</jumelable>
+      </TableRectangulaire>
+      <TableRectangulaire>
+        <nbPlaceMax>6</nbPlaceMax>
+        <occupations>
+          <occupation>
+          </occupation>
+        </occupations>
+        <jumelable>true</jumelable>
+      </TableRectangulaire>
+    </TableRectangulaires>
+    <TableRondes>
+      <TableRonde>
+        <nbPlaceMax>5</nbPlaceMax>
+        <occupations>
+          <occupation>
+          </occupation>
+        </occupations>
+        <jumelable>false</jumelable>
+      </TableRonde>
+    </TableRondes>
   </Tables>
   <Cuisiniers>
     <Cuisinier>
       <noCuisto>1</noCuisto>
-	<occupations>
-		<dateDebutOccupee>2015/07/12 20:00:00</dateDebutOccupee>
-		<dateFinOccupee>2015/07/12 20:20:00</dateFinOccupee>
-	</occupations>
+      <occupations>
+        <dateDebutOccupee>2015/07/12 20:00:00</dateDebutOccupee>
+        <dateFinOccupee>2015/07/12 20:20:00</dateFinOccupee>
+      </occupations>
     </Cuisinier>
     <Cuisinier>
       <noCuisto>2</noCuisto>
       <occupations>
-	</occupations>
+      </occupations>
     </Cuisinier>
     <Cuisinier>
       <noCuisto>3</noCuisto>
       <occupations>
-	</occupations>
+      </occupations>
     </Cuisinier>
     <Cuisinier>
       <noCuisto>4</noCuisto>
       <occupations>
-	</occupations>
+      </occupations>
     </Cuisinier>
     <Cuisinier>
       <noCuisto>5</noCuisto>
       <occupations>
-	</occupations>
+      </occupations>
     </Cuisinier>
     <Cuisinier>
       <noCuisto>6</noCuisto>
       <occupations>
-	</occupations>
+      </occupations>
     </Cuisinier>
   </Cuisiniers>
   <Reservations>
@@ -189,7 +189,24 @@
       <nbConvive>4</nbConvive>
       <formuleResa>Formule Gastronomique</formuleResa>
     </Reservation>
+    <Reservation>
+      <tableResa>0</tableResa>
+      <nomClient>Nicolas</nomClient>
+      <numClient>0556986355</numClient>
+      <dateResa>15/05/2015</dateResa>
+      <nbConvive>2</nbConvive>
+      <formuleResa>Formule Rapide</formuleResa>
+    </Reservation>
+    <Reservation>
+      <tableResa>0</tableResa>
+      <nomClient>
+      </nomClient>
+      <numClient>0542265455</numClient>
+      <dateResa>15/05/2015 21:00:00</dateResa>
+      <nbConvive>2</nbConvive>
+      <formuleResa>Formule Rapide</formuleResa>
+    </Reservation>
   </Reservations>
-<Occupations>
-</Occupations>
+  <Occupations>
+  </Occupations>
 </Restaurant>

@@ -11,7 +11,7 @@ namespace ProjetInfoS2
     public class Formule
     {
         //Variables d'instance
-        public int noFormule;
+        //public int noFormule;
 
         public string nomFormule;
 

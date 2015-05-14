@@ -25,37 +25,14 @@ namespace ProjetInfoS2
            restau.creationTablesXml();
            C.lecureXMLCuisto();
            restau.creationReservationXml();
+           DateTime dateresa=new DateTime(2015, 05, 15, 21, 00, 00);
+           restau.validerResa(restau.tables[0], dateresa, 2, restau.formules[0]);
            //Console.WriteLine(C);
            //Console.ReadLine();
            //Console.WriteLine(restau);
 
 
-            ////Serialisation Reservation
-            //XmlNode resaNodes = doc.SelectSingleNode("//Restaurant/Reservations");
-            //XmlNode noeudBase = doc.CreateElement("Reservation");
-            //XmlNode tableNode = doc.CreateElement("tableResa");
-            //tableNode.InnerText = "23";
-            //noeudBase.AppendChild(tableNode);
-
-            //resaNodes.AppendChild(noeudBase);
             
-            //XmlNode nomClientNode = doc.CreateElement("nomClient");
-            //nomClientNode.InnerText = "John Doe";
-            //noeudBase.AppendChild(nomClientNode);
-            //XmlNode numClientNode = doc.CreateElement("numClient");
-            //numClientNode.InnerText = "1";
-            //noeudBase.AppendChild(numClientNode);
-            //XmlNode dateNode = doc.CreateElement("dateResa");
-            //dateNode.InnerText = "11/06/2015 20:00:00";
-            //noeudBase.AppendChild(dateNode);
-            //XmlNode nbConviveNode = doc.CreateElement("nbConvive");
-            //nbConviveNode.InnerText = "4";
-            //noeudBase.AppendChild(nbConviveNode);
-            //XmlNode formuleNode = doc.CreateElement("formuleResa");
-            //formuleNode.InnerText = "Formule Gastronomique";
-            //noeudBase.AppendChild(formuleNode);
-
-            //doc.Save("restaurant.xml");
 
             //doc.DocumentElement.InnerText: affiche le texte entre> <
             //doc.DocumentElement.Name: affiche le nom de la balise

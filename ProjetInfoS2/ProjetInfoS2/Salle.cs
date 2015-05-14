@@ -219,14 +219,67 @@ namespace ProjetInfoS2
 
         public void validerResa(Table table, DateTime dateResa, int nbconvive, Formule formuleChoisie)
         {
-            Console.WriteLine("Quel est le nom pour la réservation?");
+            Console.WriteLine("Quel est le nom du client pour la réservation?");
             string nomResa=Console.ReadLine();
+            Console.WriteLine("Quel est le numéro du client?");
+            string noClient = Console.ReadLine();
+            int i=0;
+            string noTable="";
+            //Recherche du numéro de la table
+            while (i<tables.Count)
+            {
+                if (tables[i]==table)
+                {
+                    noTable = i.ToString(); 
+                }
+                i++;
+            }
+            //Recherche du nom de la formule choisie
+            int j = 0;
+            string nomFormule = "";
+            while (j < formules.Count)
+            {
+                if (formules[j] == formuleChoisie)
+                {
+                    nomFormule = formules[j].nomFormule.ToString();
+                }
+                j++;
+            }
+            //Création de la réservation dans le preogramme
             Reservation newResa = new Reservation(table, nomResa, dateResa, nbconvive,formuleChoisie);
             reservations.Add(newResa);
 
-            //Serialization de la liste des réservations
+            //Modification du fichier XML: Ajout de la résa
+            XmlDocument doc = new XmlDocument();
+            doc.Load("restaurant.xml");
+            XmlNode resaNodes = doc.SelectSingleNode("//Restaurant/Reservations");
+            XmlNode noeudBase = doc.CreateElement("Reservation");
+            XmlNode tableNode = doc.CreateElement("tableResa");
+            tableNode.InnerText = noTable;
+            noeudBase.AppendChild(tableNode);
 
+            resaNodes.AppendChild(noeudBase);
 
+            XmlNode nomClientNode = doc.CreateElement("nomClient");
+            nomClientNode.InnerText = nomResa;
+            noeudBase.AppendChild(nomClientNode);
+            XmlNode numClientNode = doc.CreateElement("numClient");
+            numClientNode.InnerText = noClient;
+            noeudBase.AppendChild(numClientNode);
+            XmlNode dateNode = doc.CreateElement("dateResa");
+            //DateTime dt = DateTime.ParseExact(dateResa, "yyyyMMdd hhmmss", CultureInfo.InvariantCulture);
+           // dt.ToString("yyyyMMdd");
+            string date = dateResa.ToString();
+            dateNode.InnerText = date;
+            noeudBase.AppendChild(dateNode);
+            XmlNode nbConviveNode = doc.CreateElement("nbConvive");
+            nbConviveNode.InnerText = nbconvive.ToString();
+            noeudBase.AppendChild(nbConviveNode);
+            XmlNode formuleNode = doc.CreateElement("formuleResa");
+            formuleNode.InnerText = nomFormule;
+            noeudBase.AppendChild(formuleNode);
+
+            doc.Save("restaurant.xml");
         }
 
         public void creationFormulesXml()
