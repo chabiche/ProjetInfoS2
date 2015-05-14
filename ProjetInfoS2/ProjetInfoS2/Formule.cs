@@ -43,7 +43,8 @@ namespace ProjetInfoS2
         //Méthodes
         public override string ToString()
         {
-            string formule = "- "+nomFormule+"\nDurée de préparation en cuisine: "+dureePreparation+"\nTemps de présence du client: "+dureePresenceClient+"\n";
+            string formule = "- "+nomFormule+"\nDurée de préparation en cuisine: "+dureePreparation.Hours+" heures et "+dureePreparation.Minutes
+                + " minutes \nTemps de présence du client: " + dureePresenceClient.Hours + " heures et " + dureePresenceClient.Minutes + " minutes\n";
             return formule;
         }
 

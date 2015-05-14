@@ -78,9 +78,22 @@ namespace ProjetInfoS2
 
          public void afficheResaDate()
          {
-             
-             Console.WriteLine("Vous souhaitez consulter une réservation. Entrez la date sous le format AAAA/MM/JJ:");
-             DateTime dateConsult = DateTime.Parse(Console.ReadLine());
+             bool ok = false;
+             DateTime dateConsult = new DateTime();
+             Console.WriteLine("Vous souhaitez consulter une réservation. \nEntrez la date sous le format AAAA/MM/JJ:");
+             while (ok == false)
+             {
+                 try
+                 {
+                     dateConsult = DateTime.Parse(Console.ReadLine());
+                     ok = true;
+                 }
+                 catch (Exception)
+                 {
+                     Console.WriteLine("Le format n'est pas bon veuillez recommencer la saisie.");
+                     ok = false;
+                 }
+             }
              int annee = dateConsult.Year;
              int mois = dateConsult.Month;
              int day = dateConsult.Day;
@@ -111,10 +124,39 @@ namespace ProjetInfoS2
 
          public void afficheResaDateHeure()
          {
-             Console.WriteLine("Vous souhaitez consulter une réservation. Entrez la date sous le format AAAA/MM/JJ:");
-             DateTime dateConsult = DateTime.Parse(Console.ReadLine());
+             bool ok = false;
+             DateTime dateConsult = new DateTime();
+             Console.WriteLine("Vous souhaitez consulter une réservation.\n Entrez la date sous le format AAAA/MM/JJ:");
+             while (ok == false)
+             {
+                 try
+                 {
+                     dateConsult = DateTime.Parse(Console.ReadLine());
+                     ok = true;
+                 }
+                 catch (Exception)
+                 {
+                     Console.WriteLine("Le format n'est pas bon veuillez recommencer la saisie.");
+                     ok = false;
+                 }
+             }
+             
+             ok = false;
+             TimeSpan heureConsult = new TimeSpan();
              Console.WriteLine("Entrez l'heure sous le format hh:mm:");
-             TimeSpan heureConsult = TimeSpan.Parse(Console.ReadLine());
+             while (ok == false)
+             {
+                 try
+                 {
+                     heureConsult = TimeSpan.Parse(Console.ReadLine());
+                     ok = true;
+                 }
+                 catch (Exception)
+                 {
+                     Console.WriteLine("Le format n'est pas bon veuillez recommencer la saisie.");
+                     ok = false;
+                 }
+             }
              dateConsult = dateConsult + heureConsult;
 
              int i = 0;
@@ -136,6 +178,20 @@ namespace ProjetInfoS2
              }
          }// fin afficheDateHeure
 
+         public int rechercheNombrePlaceMax()
+         {
+             int nbPlacesMax=0;
+             for (int i = 0; i < tables.Count; i++)
+             {
+                 if (tables[i].nbPlaceMax>nbPlacesMax)
+                 {
+                     nbPlacesMax = tables[i].nbPlaceMax;
+                 }
+             }
+
+             return nbPlacesMax;
+         }
+
 
         //voir si la reservation est possible
         public bool verifierResa(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie, Cuisine C)
@@ -149,24 +205,29 @@ namespace ProjetInfoS2
             int mois = dateDeDebut.Month;
             int jour = dateDeDebut.Day;
 
-            while (i < tables.Count)
+            int nbMaxPlaceTable=rechercheNombrePlaceMax();
+
+            if (nbconvive<=nbMaxPlaceTable) //on regarde si les convives rentrent sur une seule table
             {
-                    if (tables[i].nbPlaceMax >= nbconvive)
+                while (i < tables.Count) //on parcoure la liste des tables
+                {
+                    if (tables[i].nbPlaceMax >= nbconvive) //on regarde si la table peut accueillir toute les personnes
                     {
                         int k = 0;
-                        while (k < tables[i].planningResa.Count)
+                        while (k < tables[i].planningResa.Count)//parcoure la liste des occupations
                         {
                             int comparaisonDebut = DateTime.Compare(dateDeDebut, tables[i].planningResa[k].DateDebutOccupee);
                             int comparaisonFin = DateTime.Compare(dateDeFin, tables[i].planningResa[k].DateFinOccupee);
 
                             //l'heure de la résa n'est pas comprise dans le temps pendant lequel la table est occup
-                            if ((comparaisonDebut < 0 && comparaisonFin< 0)||(comparaisonDebut>0 && comparaisonFin>0))//la date n'est pas la même
+                            if ((comparaisonDebut < 0 && comparaisonFin < 0) || (comparaisonDebut > 0 && comparaisonFin > 0))//la date n'est pas la même
                             {
                                 bool cuisiniersDispo;
+                                Console.WriteLine("Reservation possible sur la table " + i);
                                 cuisiniersDispo = C.verifierCuisiniersDispo(nbconvive, dateDeDebut, formuleChoisie);
                                 if (cuisiniersDispo == true)
                                 {
-                                    
+
                                     validerResa(tables[i], dateDeDebut, nbconvive, formuleChoisie);
                                     return true;
                                 }
@@ -174,16 +235,16 @@ namespace ProjetInfoS2
                             }
                             else
                             {
-                                if ((comparaisonDebut < 0 && comparaisonFin> 0)||(comparaisonDebut>0 && comparaisonFin<0))
+                                if ((comparaisonDebut < 0 && comparaisonFin > 0) || (comparaisonDebut > 0 && comparaisonFin < 0))
                                 {
                                     bool cuisiniersDispo;
-                                Console.WriteLine("Reservation possible sur la table " + i);
-                                cuisiniersDispo = C.verifierCuisiniersDispo(nbconvive, dateDeDebut, formuleChoisie);
+                                    Console.WriteLine("Reservation possible sur la table " + i);
+                                    cuisiniersDispo = C.verifierCuisiniersDispo(nbconvive, dateDeDebut, formuleChoisie);
                                     if (cuisiniersDispo == true)
                                     {
                                         validerResa(tables[i], dateDeDebut, nbconvive, formuleChoisie);
                                         return true;
-                                    }   
+                                    }
 
                                 }
                                 else
@@ -197,11 +258,30 @@ namespace ProjetInfoS2
 
                             k++;
                         }
-                    
-                   }
 
-                i++;
+                    }
+
+                    i++;
+                }
             }
+            else // le nombre de convive ne rentre pas sur une seule table --> jumelage
+            {
+                if (nbconvive<nbMaxPlaceTable+4)
+                {
+                    jumelage(dateDeDebut, nbconvive, formuleChoisie, C);
+                }
+                else
+                {
+                    Console.WriteLine(@"La reservation n'est pas possible. 
+Le restaurant n'accepte pas autant de personnes sur une même table.
+Recommencez en tapant sur ENTREE.");
+                    Console.ReadLine();
+                    return false;
+
+                }
+                    
+            }
+
 
             Console.WriteLine("La reservation n'est pas possible. Recommencez en tapant sur ENTREE.");
             Console.ReadLine();
@@ -258,6 +338,153 @@ namespace ProjetInfoS2
 //                         i++;
 
 //                    }
+
+
+        public bool jumelage(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie, Cuisine C)
+        {
+            DateTime dateDeFin = dateDeDebut + formuleChoisie.dureePresenceClient;
+            int i = 0;
+            while (i < tables.Count) //on parcoure la liste des tables
+            {
+                int k = 0;
+                if (tables[i].jumelable == true)//on verifie si la premiere table est jumelable
+                {
+                    while (k < tables[k].planningResa.Count) //on verifie qu'elle est dispo
+                    {
+                        int comparaisonDebut1 = DateTime.Compare(dateDeDebut, tables[i].planningResa[k].DateDebutOccupee);
+                        int comparaisonFin1 = DateTime.Compare(dateDeFin, tables[i].planningResa[k].DateFinOccupee);
+                        //l'heure de la résa n'est pas comprise dans le temps pendant lequel la table est occup
+                        int j = i + 1;
+
+                        if ((comparaisonDebut1 < 0 && comparaisonFin1 < 0) || (comparaisonDebut1 > 0 && comparaisonFin1 > 0))//la date n'est pas la même
+                        {
+                            while (j < tables.Count) //on parcoure une deuxieme fois la liste pour trouver une deuxieme table jumelable et dispo
+                            {
+                                if (tables[j].jumelable == true)//on verifie si la deuxième table est jumelable
+                                {
+                                    int l = 0;
+                                    while (l < tables[l].planningResa.Count) //on verifie qu'elle est dispo
+                                    {
+                                        int comparaisonDebut2 = DateTime.Compare(dateDeDebut, tables[j].planningResa[l].DateDebutOccupee);
+                                        int comparaisonFin2 = DateTime.Compare(dateDeFin, tables[j].planningResa[l].DateFinOccupee);
+
+                                        if ((comparaisonDebut2 < 0 && comparaisonFin2 < 0) || (comparaisonDebut2 > 0 && comparaisonFin2 > 0))
+                                        //la date n'est pas la même
+                                        {
+                                            //ON JUMELE LES TABLES
+                                            TablesJumelees newjumellee = new TablesJumelees(tables[i], tables[j]);
+
+                                            bool cuisiniersDispo;
+                                            cuisiniersDispo = C.verifierCuisiniersDispo(nbconvive, dateDeDebut, formuleChoisie);
+                                            if (cuisiniersDispo == true)
+                                            {
+                                                validerResa(newjumellee, dateDeDebut, nbconvive, formuleChoisie);
+                                                return true;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if ((comparaisonDebut2 < 0 && comparaisonFin2 > 0) || (comparaisonDebut2 > 0 && comparaisonFin2 < 0))
+                                            //la date est la même mais l'horraire n'est pas simultané
+                                            {
+                                                //ON JUMELE LES TABLES
+                                                TablesJumelees newjumellee = new TablesJumelees(tables[i], tables[j]);
+
+                                                bool cuisiniersDispo;
+                                                cuisiniersDispo = C.verifierCuisiniersDispo(nbconvive, dateDeDebut, formuleChoisie);
+                                                if (cuisiniersDispo == true)
+                                                {
+                                                    validerResa(newjumellee, dateDeDebut, nbconvive, formuleChoisie);
+                                                    return true;
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("La reservation n'est pas possible. Recommencez en tapant sur ENTREE.");
+                                                Console.ReadLine();
+                                                return false;
+                                            }
+                                        }
+
+
+                                        l++;
+                                    }
+
+
+                                }
+                                j++;
+                            }
+                        }
+                        
+                        else
+                        {
+                            if ((comparaisonDebut1 < 0 && comparaisonFin1 > 0) || (comparaisonDebut1 > 0 && comparaisonFin1 < 0))
+                                //la date est la même mais les horaires ne se mélangent pas
+                                {
+                                    if (tables[j].jumelable == true)//on verifie si la deuxième table est jumelable
+                                    {
+                                        int m = 0;
+                                        while (m < tables[m].planningResa.Count) //on verifie qu'elle est dispo
+                                        {
+                                            int comparaisonDebut2 = DateTime.Compare(dateDeDebut, tables[j].planningResa[m].DateDebutOccupee);
+                                            int comparaisonFin2 = DateTime.Compare(dateDeFin, tables[j].planningResa[m].DateFinOccupee);
+
+                                            if ((comparaisonDebut2 < 0 && comparaisonFin2 < 0) || (comparaisonDebut2 > 0 && comparaisonFin2 > 0))
+                                            //la date n'est pas la même
+                                            {
+                                                //ON JUMELE LES TABLES
+                                                TablesJumelees newjumellee = new TablesJumelees(tables[i], tables[j]);
+
+                                                bool cuisiniersDispo;
+                                                cuisiniersDispo = C.verifierCuisiniersDispo(nbconvive, dateDeDebut, formuleChoisie);
+                                                if (cuisiniersDispo == true)
+                                                {
+                                                    validerResa(newjumellee, dateDeDebut, nbconvive, formuleChoisie);
+                                                    return true;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if ((comparaisonDebut2 < 0 && comparaisonFin2 > 0) || (comparaisonDebut2 > 0 && comparaisonFin2 < 0))
+                                                //la date est la même mais l'horraire n'est pas simultané
+                                                {
+                                                    //ON JUMELE LES TABLES
+                                                    TablesJumelees newjumellee = new TablesJumelees(tables[i], tables[j]);
+
+                                                    bool cuisiniersDispo;
+                                                    cuisiniersDispo = C.verifierCuisiniersDispo(nbconvive, dateDeDebut, formuleChoisie);
+                                                    if (cuisiniersDispo == true)
+                                                    {
+                                                        validerResa(newjumellee, dateDeDebut, nbconvive, formuleChoisie);
+                                                        return true;
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("La reservation n'est pas possible. Recommencez en tapant sur ENTREE.");
+                                                    Console.ReadLine();
+                                                    return false;
+                                                }
+                                            }
+                                            k++;
+
+                                        }
+
+                                    }
+                                }
+                            }
+                           
+                        }
+                        k++;
+                    }
+                    i++;
+                }
+            Console.WriteLine("La reservation n'est pas possible. Recommencez en tapant sur ENTREE.");
+            Console.ReadLine();
+            return false;
+            }
 
 
         public void validerResa(Table table, DateTime dateResa, int nbconvive, Formule formuleChoisie)
@@ -322,6 +549,9 @@ namespace ProjetInfoS2
             noeudBase.AppendChild(formuleNode);
 
             doc.Save("restaurant.xml");
+
+            Console.WriteLine("La réservation a été réalisée avec succès!");
+
         }//fin validerResa
 
         public void creationFormulesXml()
@@ -566,8 +796,8 @@ namespace ProjetInfoS2
                 {
 
                     _nomFormule.Add(nomFormule.InnerText);
-                    int noclient = int.Parse(numClient.InnerText);
-                    _numClient.Add(noclient);
+                    int numclient = int.Parse(numClient.InnerText);
+                    _numClient.Add(numclient);
                     _nomClient.Add(nomClient.InnerText);
                     int notable = int.Parse(noTable.InnerText);
                     _noTable.Add(notable);

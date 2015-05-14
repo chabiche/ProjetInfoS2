@@ -30,15 +30,6 @@ namespace ProjetInfoS2
            //restau.validerResa(restau.tables[0], dateresa, 2, restau.formules[0]);
            //Console.WriteLine(C);
            //Console.ReadLine();
-           Console.WriteLine(restau);
-
-            //doc.DocumentElement.InnerText: affiche le texte entre> <
-            //doc.DocumentElement.Name: affiche le nom de la balise
-            //doc.DocumentElement.InnerXml: écrit tout, avec les balises, sauf la première englobante
-            //doc.DocumentElement.OuterXml: écrit tout avec les balises, même la première englobante
-            //doc.DocumentElement.Attributes["name"].Value: affiche l'attribut
-
-            
 
             int choix = 0;
             bool menu = true;
@@ -46,8 +37,7 @@ namespace ProjetInfoS2
             {
                 switch (choix)
                 {
-
-                    case 0:
+                        case 0:
                         Console.Clear();
                         Console.WriteLine(@"Bonjour et bienvenue !
 Que souhaitez-vous réaliser?
@@ -59,9 +49,23 @@ Que souhaitez-vous réaliser?
 
 * Pour quitter le programme: 99 *
 
-Rentrez le chiffre correspondant à l'action que vous souhaitez réaliser");
+Entrez le chiffre correspondant à l'action que vous souhaitez réaliser");
 
-                        choix = int.Parse(Console.ReadLine());
+                        bool ok = false;
+                        while (ok == false)
+                        {
+                            try
+                            {
+                                choix = int.Parse(Console.ReadLine());
+                                ok = true;
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Veuillez entrer un chiffre s'il vous plait.");
+                                ok = false;
+                            }
+                        }
+                        
                         break;
 
                     //AJOUTER UN CUISINIER
@@ -95,20 +99,60 @@ Rentrez le chiffre correspondant à l'action que vous souhaitez réaliser");
 
                     case 2:
                         Console.Clear();
-                        DateTime dateResa;
-                        int nbConvive;
-                        int formuleChoisie;
-                        TimeSpan heureResa;
-       
-                        Console.WriteLine("Vous souhaitez entrer une réservation. Entrez la date sous le format AAAA/MM/JJ:");
-                        dateResa = DateTime.Parse(Console.ReadLine());
+                        DateTime dateResa = new DateTime();;
+                        int nbConvive=new int();
+                        int formuleChoisie=new int();
+                        TimeSpan heureResa= new TimeSpan();
+                        ok = false;
 
+                        Console.WriteLine("Vous souhaitez entrer une réservation. \nEntrez la date sous le format AAAA/MM/JJ:");
+                        while (ok==false)
+                        {
+                            try
+                            {
+                                dateResa = DateTime.Parse(Console.ReadLine());
+                                ok = true;
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Le format n'est pas bon veuillez recommencer la saisie.");
+                                ok = false;
+                            }
+                        }
+                        ok = false;
                         Console.WriteLine("Entrez l'heure sous le format hh:mm:");
-                        heureResa = TimeSpan.Parse(Console.ReadLine());
+                        while (ok == false)
+                        {
+                            try
+                            {
+                                heureResa = TimeSpan.Parse(Console.ReadLine());
+                                ok = true;
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Le format n'est pas bon veuillez recommencer la saisie.");
+                                ok = false;
+                            }
+                        }
+                        
                         dateResa = dateResa + heureResa;
 
                         Console.WriteLine("Entrez le nombre de personne souhaitant manger dans le restaurant");
-                        nbConvive = int.Parse(Console.ReadLine());
+                        ok = false;
+                        while (ok == false)
+                        {
+                            try
+                            {
+                                nbConvive = int.Parse(Console.ReadLine());
+                                ok = true;
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Le format n'est pas bon veuillez recommencer la saisie.");
+                                ok = false;
+                            }
+                        }
+                        
 
                         Formule formuleResa = new Formule();
                         bool pb = false;
@@ -121,19 +165,32 @@ Rentrez le chiffre correspondant à l'action que vous souhaitez réaliser");
 
                             Console.WriteLine("Entrez le numéro de la formule retenue: \nVoici la liste de celles ci.");
                             restau.afficheFormule();
-                            formuleChoisie = int.Parse(Console.ReadLine());
+                            ok = false;
+                            while (ok == false)
+                            {
+                                try
+                                {
+                                    formuleChoisie = int.Parse(Console.ReadLine());
+                                    ok = true;
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Entrez un numéro s'il vous plait.");
+                                    ok = false;
+                                }
+                            }
+                            
 
                             formuleResa = restau.retourneFormule(formuleChoisie); //--> permet de retouver la formule par rapport au numéro rentré
-                           
+                            Console.WriteLine(formuleResa);
                             pb = true;
                         } while (formuleResa.dureePreparation == null);
                         if (formuleResa.dureePreparation != null)
                         {
                             restau.verifierResa(dateResa, nbConvive, formuleResa, C);
-                            Console.WriteLine("La réservation a été réalisée avec succès!");
                         }
 
-                        Console.WriteLine("Appuvez sur ENTREE afin de retoourner au menu");
+                        Console.WriteLine("Appuvez sur ENTREE afin de retourner au menu");
                         Console.ReadLine();
                         choix = 0;// permet de retourner au menu
                         break;
@@ -144,7 +201,7 @@ Rentrez le chiffre correspondant à l'action que vous souhaitez réaliser");
                         
                         restau.afficheResaDate();
 
-                        Console.WriteLine("Appuvez sur ENTREE afin de retoourner au menu");
+                        Console.WriteLine("Appuvez sur ENTREE afin de retourner au menu");
                         Console.ReadLine();
                         choix = 0;// permet de retourner au menu
                         break;
@@ -154,7 +211,7 @@ Rentrez le chiffre correspondant à l'action que vous souhaitez réaliser");
                         
                         restau.afficheResaDateHeure();
 
-                        Console.WriteLine("Appuvez sur ENTREE afin de retoourner au menu");
+                        Console.WriteLine("Appuvez sur ENTREE afin de retourner au menu");
                         Console.ReadLine();
                         choix = 0;// permet de retourner au menu
                         break;
@@ -163,9 +220,9 @@ Rentrez le chiffre correspondant à l'action que vous souhaitez réaliser");
                         menu = false;
                         break;
 
-                    default: //Verifier ce que ca fait
+                    default: 
                         Console.Clear();
-                        Console.WriteLine("Erreur");
+                        Console.WriteLine("Le chiffre saisi n'est pas présent dans le menu. \nAppuyez sur une touche pour recommencer");
                         Console.ReadLine();
                         choix = 0;
                         break;
