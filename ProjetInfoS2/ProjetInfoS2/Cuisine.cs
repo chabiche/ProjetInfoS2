@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace ProjetInfoS2
 {
-    class Cuisine
+    public class Cuisine
     {
         //Varibles d'instance
 
@@ -64,19 +64,34 @@ namespace ProjetInfoS2
             int nbDispo = 0;
             for (int i = 0; i < brigade.Count; i++) //on regarde les cuisiniers un par un
             {
-                int k = 0;
-                while (k<planning.Count)//on regarde toutes les heures où les cuisiniers peuvent être occupés
+                if (brigade[i].planningCuisto.Count==0)
                 {
-                    if (brigade[i].planningCuisto[k].DateDebutOccupee < dateDeDebut && brigade[i].planningCuisto[k].DateFinOccupee > dateDeDebut)
-                        if (brigade[i].planningCuisto[k].DateDebutOccupee > dateDeFin && brigade[i].planningCuisto[k].DateFinOccupee < dateDeFin)
+                    nbDispo++;
+                }
+                else
+                {
+                    int k = 0;
+                    while (k < brigade[i].planningCuisto.Count)//on regarde toutes les heures où les cuisiniers peuvent être occupés
+                    {
+                        int comparaisonDebut = DateTime.Compare(dateDeDebut, brigade[i].planningCuisto[k].DateDebutOccupee);
+                        int comparaisonFin = DateTime.Compare(dateDeFin, brigade[i].planningCuisto[k].DateFinOccupee);
+                        if ((comparaisonDebut < 0 && comparaisonFin < 0) || (comparaisonDebut > 0 && comparaisonFin > 0))//la date n'est pas la même
                         {
+                            nbDispo++;
+                        }
+                        else
+                        {
+                            if ((comparaisonDebut < 0 && comparaisonFin > 0) || (comparaisonDebut > 0 && comparaisonFin < 0))
                             {
                                 nbDispo++;
 
                             }
-                        }
 
+                        }
+                        k++;
+                    }
                 }
+                
                 
             }
 

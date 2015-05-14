@@ -117,23 +117,23 @@ Que souhaitez-vous réaliser?
                         TimeSpan heureResa;
                         
 
-                        // pour la date et l'heure il faudrait tout rentrer dans la même variable --> je sais pas comment faire
+                         //pour la date et l'heure il faudrait tout rentrer dans la même variable --> je sais pas comment faire
                         Console.WriteLine("Vous souhaitez entrer une réservation. Entrez la date  et l'heure sous le format AAAA/MM/JJ");
                         dateResa = DateTime.Parse(Console.ReadLine());
                         Console.WriteLine("Entrez l'heure sous le format hh:mm");
                         heureResa = TimeSpan.Parse(Console.ReadLine());
                         dateResa = dateResa + heureResa;
-                        Console.WriteLine(dateResa);
-                        Console.WriteLine("Entrez le nombre de personne souhaitant manger dans le restaurant");
-                        nbConvive = int.Parse(Console.ReadLine());
-                        Console.WriteLine("Entrez le numéro de la formule retenue: \nVoici la liste de celles ci.");
-                        restau.afficheFormule();
-                        formuleChoisie=int.Parse(Console.ReadLine());
+                        //Console.WriteLine(dateResa);
+                        //Console.WriteLine("Entrez le nombre de personne souhaitant manger dans le restaurant");
+                        //nbConvive = int.Parse(Console.ReadLine());
+                        //Console.WriteLine("Entrez le numéro de la formule retenue: \nVoici la liste de celles ci.");
+                        //restau.afficheFormule();
+                        //formuleChoisie=int.Parse(Console.ReadLine());
                         Formule formuleResa = new Formule();
-                        formuleResa = restau.retourneFormule(formuleChoisie); //--> permet de retouver la formule par rapport au numéro rentré
-                        if (formuleResa != null)
+                        formuleResa = restau.retourneFormule(1); //--> permet de retouver la formule par rapport au numéro rentré
+                        if (formuleResa.dureePreparation != null)
                         {
-                           // restau.verifierResa(dateResa, nbConvive, formuleResa, C);
+                            restau.verifierResa(dateResa, 4, formuleResa, C);
                         }
                         else
                         {

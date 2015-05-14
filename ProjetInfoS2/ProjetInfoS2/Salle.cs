@@ -55,10 +55,12 @@ namespace ProjetInfoS2
         {
             Formule form=new Formule();
             int i = 0;
-            while ((i + 1)!= noFormule)
+            while (i<formules.Count)
             {
-               form=formules[i+1];
-
+                if (noFormule==i)
+                {
+                    form = formules[i];
+                }
                 i++;
             }
             return form;
@@ -97,32 +99,60 @@ namespace ProjetInfoS2
         //voir si la reservation est possible
         public bool verifierResa(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie, Cuisine C)
         {
-            DateTime dateDeFin = dateDeDebut + formuleChoisie.dureePreparation;
+            DateTime dateDeFin = dateDeDebut + formuleChoisie.dureePresenceClient;
             //pour l'instant on regarde si il y a une table dispo pour cette horraire
             int i = 0;
-            while (i<tables.Count)
+
+            int heureDebut = dateDeDebut.Hour;
+            int min = dateDeDebut.Minute;
+            int mois = dateDeDebut.Month;
+            int jour = dateDeDebut.Day;
+
+            while (i < tables.Count)
             {
-                    if (tables[i].nbPlaceMax > nbconvive)
+                    if (tables[i].nbPlaceMax >= nbconvive)
                     {
                         int k = 0;
                         while (k < tables[i].planningResa.Count)
                         {
-                            //l'heure de la résa n'est pas comprise dans le temps pendant lequel la table est occupée
-                            if (tables[i].planningResa[k].DateDebutOccupee > dateDeDebut && tables[i].planningResa[k].DateFinOccupee < dateDeDebut)
+                            int comparaisonDebut = DateTime.Compare(dateDeDebut, tables[i].planningResa[k].DateDebutOccupee);
+                            int comparaisonFin = DateTime.Compare(dateDeFin, tables[i].planningResa[k].DateFinOccupee);
+                            //l'heure de la résa n'est pas comprise dans le temps pendant lequel la table est occup
+                            if ((comparaisonDebut < 0 && comparaisonFin< 0)||(comparaisonDebut>0 && comparaisonFin>0))//la date n'est pas la même
                             {
-                                if (tables[i].planningResa[k].DateDebutOccupee > dateDeFin && tables[i].planningResa[k].DateFinOccupee < dateDeFin)
+                                bool cuisiniersDispo;
+                                cuisiniersDispo = C.verifierCuisiniersDispo(nbconvive, dateDeDebut, formuleChoisie);
+                                if (cuisiniersDispo == true)
+                                {
+                                    validerResa(tables[i], dateDeDebut, nbconvive, formuleChoisie);
+                                    return true;
+                                }
+
+                            }
+                            else
+                            {
+                                if ((comparaisonDebut < 0 && comparaisonFin> 0)||(comparaisonDebut>0 && comparaisonFin<0))
                                 {
                                     bool cuisiniersDispo;
-                                    Console.WriteLine("Reservation possible sur la table " + i);
-                                    cuisiniersDispo = C.verifierCuisiniersDispo(nbconvive, dateDeDebut, formuleChoisie);
+                                Console.WriteLine("Reservation possible sur la table " + i);
+                                cuisiniersDispo = C.verifierCuisiniersDispo(nbconvive, dateDeDebut, formuleChoisie);
                                     if (cuisiniersDispo == true)
                                     {
                                         validerResa(tables[i], dateDeDebut, nbconvive, formuleChoisie);
                                         return true;
-                                    }
+                                    }   
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine("La reservation n'est pas possible. Recommencez en tapant sur ENTREE.");
+                                    Console.ReadLine();
+                                    return false;
                                 }
                             }
-                        k++;
+
+
+                            k++;
                         }
                     
                    }
@@ -195,13 +225,7 @@ namespace ProjetInfoS2
             reservations.Add(newResa);
 
             //Serialization de la liste des réservations
-            XmlSerializer xsResa = new XmlSerializer(typeof(Reservation));
-            StreamWriter wrResa;
-            using (wrResa = new StreamWriter(@"..//..//Reservation.xml"))
-            {
-                xsResa.Serialize(wrResa, newResa);
-            }
-            wrResa.Close();
+
 
         }
 
