@@ -29,7 +29,7 @@ namespace ProjetInfoS2
         //Méthodes
         public override string ToString()
         {
-            string chaine = "Nombre de places maximum: " + nbPlaceMax +"\nJumelable: ";
+            string chaine = "- Table: \nNombre de places maximum: " + nbPlaceMax +"\nJumelable: ";
             if (jumelable==true)
             {
                 chaine += "oui";
@@ -40,8 +40,9 @@ namespace ProjetInfoS2
 	        }
             for (int i = 0; i < planningResa.Count; i++)
             {
-                chaine += "\n" + planningResa[i]+ "\n";
+                chaine += "\n" + planningResa[i];
             }
+            chaine += "\n";
             return chaine;
         }
 

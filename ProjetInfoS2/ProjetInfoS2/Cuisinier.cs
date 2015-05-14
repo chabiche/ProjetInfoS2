@@ -28,11 +28,12 @@ namespace ProjetInfoS2
         //Méthodes
         public override string ToString()
         {
-            string chaine = "Numéro du cuisinier: " + noCuisinier;
+            string chaine = "- Cuisinier:\nNuméro du cuisinier: " + noCuisinier;
             for (int i = 0; i < planningCuisto.Count; i++)
             {
-                chaine += "\nOccupation:\n" + planningCuisto[i];
+                chaine += "\n" + planningCuisto[i];
             }
+            chaine += "\n";
             return chaine;
         }
 

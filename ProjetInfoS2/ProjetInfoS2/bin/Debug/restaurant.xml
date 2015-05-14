@@ -170,43 +170,57 @@
     </Reservation>
     <Reservation>
       <tableResa>2</tableResa>
-      <nomClient>manon</nomClient>
+      <nomClient>Manon Bezard</nomClient>
       <dateResa>11/06/2015 20:00:00</dateResa>
       <nbConvive>4</nbConvive>
       <formuleResa>Formule Gastronomique</formuleResa>
     </Reservation>
     <Reservation>
       <tableResa>5</tableResa>
-      <nomClient>charlotte</nomClient>
+      <nomClient>Charlotte Habiche</nomClient>
       <dateResa>11/06/2015 20:00:00</dateResa>
       <nbConvive>4</nbConvive>
       <formuleResa>Formule Gastronomique</formuleResa>
     </Reservation>
     <Reservation>
       <tableResa>3</tableResa>
-      <nomClient>caca</nomClient>
+      <nomClient>Nicolas Gosselin</nomClient>
       <dateResa>11/06/2015 20:00:00</dateResa>
       <nbConvive>4</nbConvive>
       <formuleResa>Formule Gastronomique</formuleResa>
     </Reservation>
     <Reservation>
       <tableResa>0</tableResa>
-      <nomClient>Nicolas</nomClient>
-      <numClient>0556986355</numClient>
-      <dateResa>15/05/2015</dateResa>
+      <nomClient>Ted Mosby</nomClient>
+      <numClient>0654855522</numClient>
+      <dateResa>30/06/2015 22:30:00</dateResa>
       <nbConvive>2</nbConvive>
-      <formuleResa>Formule Rapide</formuleResa>
+      <formuleResa>Formule Normale</formuleResa>
     </Reservation>
     <Reservation>
       <tableResa>0</tableResa>
-      <nomClient>
-      </nomClient>
-      <numClient>0542265455</numClient>
-      <dateResa>15/05/2015 21:00:00</dateResa>
+      <nomClient>Redg</nomClient>
+      <numClient>65</numClient>
+      <dateResa>30/06/2015 22:30:00</dateResa>
       <nbConvive>2</nbConvive>
-      <formuleResa>Formule Rapide</formuleResa>
+      <formuleResa>Formule Normale</formuleResa>
+    </Reservation>
+    <Reservation>
+      <tableResa>0</tableResa>
+      <nomClient>Paul Ochon</nomClient>
+      <numClient>0699999999</numClient>
+      <dateResa>31/05/2015 22:00:00</dateResa>
+      <nbConvive>3</nbConvive>
+      <formuleResa>
+      </formuleResa>
+    </Reservation>
+    <Reservation>
+      <tableResa>3</tableResa>
+      <nomClient>Eva Voirailleurs</nomClient>
+      <numClient>0101010101</numClient>
+      <dateResa>31/05/2015 22:00:00</dateResa>
+      <nbConvive>5</nbConvive>
+      <formuleResa>Formule Conso</formuleResa>
     </Reservation>
   </Reservations>
-  <Occupations>
-  </Occupations>
 </Restaurant>

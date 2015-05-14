@@ -49,7 +49,7 @@ namespace ProjetInfoS2
 
         public override string ToString()
         {
-            return "Date de début : "+DateDebutOccupee+"\nDate de fin : "+DateFinOccupee;
+            return "- Occupé pour la date suivante: \n:nDate de début : "+DateDebutOccupee+"\nDate de fin : "+DateFinOccupee+"\n";
         }
 
     }

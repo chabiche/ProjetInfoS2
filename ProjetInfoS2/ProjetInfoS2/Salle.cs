@@ -30,16 +30,24 @@ namespace ProjetInfoS2
         //Méthodes
         public override string ToString()
         {
-            string chaine = "";
+            string chaine = "*********\n* SALLE *\n*********";
             for (int i = 0; i < tables.Count; i++)
             {
-                chaine += "Tables : \n" + tables[i];
+                chaine += "*** Tables ***\n" + tables[i];
             }
             for (int i = 0; i < formules.Count; i++)
             {
-                chaine += "\n\nFormules : \n" + formules[i];
+                chaine += "\n\n*** Formules ***\n" + formules[i];
             }
             return chaine;
+        }
+
+        public void affichePlanningResa()
+        {
+            for (int i = 0; i < reservations.Count; i++)
+            {
+                Console.WriteLine(reservations[i]);
+            }
         }
 
         public void afficheFormule() //il faudrait rajouter nom de la formule dans les attributs
@@ -57,7 +65,7 @@ namespace ProjetInfoS2
             int i = 0;
             while (i<formules.Count)
             {
-                if (noFormule==i)
+                if (noFormule==i+1)
                 {
                     form = formules[i];
                 }
@@ -70,37 +78,70 @@ namespace ProjetInfoS2
 
          public void afficheResaDate()
          {
-             Console.WriteLine("Veuillez saisir la date pour laquelle vous souhaitez consulter les réservations");
-             Console.WriteLine("Le jour:");
-             int day = int.Parse(Console.ReadLine());
-             Console.WriteLine("Le mois:");
-             int month = int.Parse(Console.ReadLine());
-             Console.WriteLine("L'année:");
-             int year = int.Parse(Console.ReadLine());
-             Console.WriteLine("L'heure:");
-             int hour = int.Parse(Console.ReadLine());
-             Console.WriteLine("Les minutes:");
-             int min = int.Parse(Console.ReadLine());
-             DateTime date = new DateTime(year, month, day, hour, min, 0);
-             Console.WriteLine(date);
+             
+             Console.WriteLine("Vous souhaitez consulter une réservation. Entrez la date sous le format AAAA/MM/JJ:");
+             DateTime dateConsult = DateTime.Parse(Console.ReadLine());
+             int annee = dateConsult.Year;
+             int mois = dateConsult.Month;
+             int day = dateConsult.Day;
+
+             Console.WriteLine("Voici les réservations correspondantes:\n");
+
              int i = 0;
+             bool trouve = false;
+             //parcout toutes les réservations de la salle
              while (i<reservations.Count())
              {
-                 if (reservations[i].dateReservation==date)
+                 int anneeR = reservations[i].dateReservation.Year;
+                 int moisR = reservations[i].dateReservation.Month;
+                 int dayR = reservations[i].dateReservation.Day;
+                 if (anneeR==annee && moisR==mois && dayR==day)// cherche quelles réservations correspondent à la date indiquée
                  {
                      Console.WriteLine("Réservation n° {0}:",i+1);
                      Console.WriteLine(reservations[i]);
+                     trouve = true;
                  }
                  i++;
              }
+             if (trouve == false)
+             {
+                 Console.WriteLine("Aucune réservations pour cette date-ci\n");
+             }
          }//fin afficheResaDate
+
+         public void afficheResaDateHeure()
+         {
+             Console.WriteLine("Vous souhaitez consulter une réservation. Entrez la date sous le format AAAA/MM/JJ:");
+             DateTime dateConsult = DateTime.Parse(Console.ReadLine());
+             Console.WriteLine("Entrez l'heure sous le format hh:mm:");
+             TimeSpan heureConsult = TimeSpan.Parse(Console.ReadLine());
+             dateConsult = dateConsult + heureConsult;
+
+             int i = 0;
+             bool trouve = false;
+             //parcout toutes les réservations de la salle
+             while (i < reservations.Count())
+             {
+                 if (reservations[i].dateReservation == dateConsult)// cherche quelles réservations correspondent à la date indiquée
+                 {
+                     Console.WriteLine("Réservation n° {0}:", i + 1);
+                     Console.WriteLine(reservations[i]);
+                     trouve = true;
+                 }
+                 i++;
+             }
+             if (trouve==false)
+             {
+                 Console.WriteLine("Aucune réservations pour ces date et horaire-ci\n");
+             }
+         }// fin afficheDateHeure
 
 
         //voir si la reservation est possible
         public bool verifierResa(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie, Cuisine C)
         {
             DateTime dateDeFin = dateDeDebut + formuleChoisie.dureePresenceClient;
-            //pour l'instant on regarde si il y a une table dispo pour cette horraire
+            //pour l'instant on regarde si il y a une table dispo pour cette horaire
             int i = 0;
 
             int heureDebut = dateDeDebut.Hour;
@@ -117,6 +158,7 @@ namespace ProjetInfoS2
                         {
                             int comparaisonDebut = DateTime.Compare(dateDeDebut, tables[i].planningResa[k].DateDebutOccupee);
                             int comparaisonFin = DateTime.Compare(dateDeFin, tables[i].planningResa[k].DateFinOccupee);
+
                             //l'heure de la résa n'est pas comprise dans le temps pendant lequel la table est occup
                             if ((comparaisonDebut < 0 && comparaisonFin< 0)||(comparaisonDebut>0 && comparaisonFin>0))//la date n'est pas la même
                             {
@@ -124,6 +166,7 @@ namespace ProjetInfoS2
                                 cuisiniersDispo = C.verifierCuisiniersDispo(nbconvive, dateDeDebut, formuleChoisie);
                                 if (cuisiniersDispo == true)
                                 {
+                                    
                                     validerResa(tables[i], dateDeDebut, nbconvive, formuleChoisie);
                                     return true;
                                 }
@@ -245,11 +288,11 @@ namespace ProjetInfoS2
                 }
                 j++;
             }
-            //Création de la réservation dans le preogramme
+            //Création de la réservation dans le programme
             Reservation newResa = new Reservation(table, nomResa, dateResa, nbconvive,formuleChoisie);
             reservations.Add(newResa);
 
-            //Modification du fichier XML: Ajout de la résa
+            //Modification du fichier XML: Ajout de la réservation
             XmlDocument doc = new XmlDocument();
             doc.Load("restaurant.xml");
             XmlNode resaNodes = doc.SelectSingleNode("//Restaurant/Reservations");
@@ -267,8 +310,6 @@ namespace ProjetInfoS2
             numClientNode.InnerText = noClient;
             noeudBase.AppendChild(numClientNode);
             XmlNode dateNode = doc.CreateElement("dateResa");
-            //DateTime dt = DateTime.ParseExact(dateResa, "yyyyMMdd hhmmss", CultureInfo.InvariantCulture);
-           // dt.ToString("yyyyMMdd");
             string date = dateResa.ToString();
             dateNode.InnerText = date;
             noeudBase.AppendChild(dateNode);
@@ -280,16 +321,15 @@ namespace ProjetInfoS2
             noeudBase.AppendChild(formuleNode);
 
             doc.Save("restaurant.xml");
-        }
+        }//fin validerResa
 
         public void creationFormulesXml()
         {
-              //Désérialisation:
             //le logiciel lit le fichier xml correspondant au restaurant
-
            XmlDocument doc = new XmlDocument();
             doc.Load("restaurant.xml");
-            //partie 1
+
+            //Lecture des informations nomFormule et TableRequise de chaque formule du fichier XML
             XmlNodeList itemNodes = doc.SelectNodes("//Restaurant/Formules/Formule");
             List<string> _nomFormule = new List<string>();
             List<bool> _tableRequise = new List<bool>();
@@ -304,7 +344,8 @@ namespace ProjetInfoS2
                     _tableRequise.Add(tablereq);
                 }
             }
-            //partie 2
+
+            //Lecture des durées de préparations et de présence clients pour chaque formule du fichier XML
             XmlNodeList dureePrepaNodes = doc.SelectNodes("//Restaurant/Formules/Formule/dureePreparation");
             List<int> _hDureePrepa = new List<int>();
             List<int> _minDureePrepa = new List<int>();
@@ -352,20 +393,17 @@ namespace ProjetInfoS2
                 TimeSpan dureePreparation = new TimeSpan(_hDureePrepa[i], _minDureePrepa[i], _secDureePrepa[i]);
                 TimeSpan dureePresenceClient = new TimeSpan(_hDureePresence[i], _minDureePresence[i], _secDureePresence[i]);
                 Formule formule = new Formule(_nomFormule[i], dureePreparation, dureePresenceClient, _tableRequise[i]);
-                Console.WriteLine(formule);
                 this.formules.Add(formule);
             }
-
-            //Il faut peut etre quitter le doc
-        }
+        }// fin creationFormulesXml
 
         public void creationTablesXml()
         {
-            //Désérialisation
             //le logiciel lit le fichier xml correspondant au restaurant
-
             XmlDocument doc = new XmlDocument();
             doc.Load("restaurant.xml");
+
+            //Comptage du nombre de tables en fonction de chaque type(carrées, rectangulaires et rondes)
             XmlNodeList tablecarreeNodes = doc.SelectNodes("//Restaurant/Tables/TableCarees/TableCaree");
             XmlNodeList tablerectNodes = doc.SelectNodes("//Restaurant/Tables/TableRectangulaires/TableRectangulaire");
             XmlNodeList tablerondeNodes = doc.SelectNodes("//Restaurant/Tables/TableRondes/TableRonde");
@@ -384,36 +422,32 @@ namespace ProjetInfoS2
             {
                 nbTableRonde++;
             }
-            Console.WriteLine(nbTableCarree);
-            Console.WriteLine(nbTableRect);
-            Console.WriteLine(nbTableRonde);
-            Console.ReadLine();
 
-            //Tables Carrées
+            //Lecture des informations concernants les Tables Carrées
             XmlNodeList occupationsNodes = doc.SelectNodes("//Restaurant/Tables/TableCarees/TableCaree/occupations/occupation");
             List<DateTime> _dateDebutOccupee = new List<DateTime>();
             List<DateTime> _dateFinOccupee = new List<DateTime>();
-            
+
+            //parcours chaque noeuds "occupation"
             foreach (XmlNode occNode in occupationsNodes) 
             {
                 XmlNode dateDebutOccupee = occNode.SelectSingleNode("dateDebutOccupee");
                 XmlNode dateFinOccupee = occNode.SelectSingleNode("dateFinOccupee");
 
-                int count = 0;
                 if (dateDebutOccupee != null)
                 {
                 DateTime datedebut = Convert.ToDateTime(dateDebutOccupee.InnerText);
                 _dateDebutOccupee.Add(datedebut);
                 DateTime datefin = Convert.ToDateTime(dateFinOccupee.InnerText);
                 _dateFinOccupee.Add(datefin);
-                count++;
+
                 }
                 
 
             }
             
             //CREATION DES TABLES CAREES
-            //elles se créent à partir de la lecture du fichier xml, comme ça le logiciel s'adapte à chaque restaurant
+            //elles se créent à partir de la lecture du fichier xml, comme ça le logiciel s'adapte à chaque restaurant disposant de ces trois types de tables
             for (int i = 0; i < nbTableCarree; i++)
             {
                 TableCarree table = new TableCarree();
@@ -426,18 +460,16 @@ namespace ProjetInfoS2
                     hfin = _dateFinOccupee[i];
                     Occupation occ = new Occupation(hdebut, hfin);
                     table.planningResa.Add(occ);
-                    for (int j = 0; j < table.planningResa.Count; j++)
-                    {
-                        Console.WriteLine(table.planningResa[j]);
-                    }
+
                 }
+                //ajout des tables lues à la liste de tables de la salle
                 this.tables.Add(table);
             }
 
 
-            //Tables Rectangulaires
+            //Lecture des informations concernants les Tables Rectangulaires
             XmlNodeList occupationNodes = doc.SelectNodes("//Restaurant/Tables/TableRectangulaires/TableRectangulaire/occupations/occupation");
-
+            //parcours chaque noeuds "occupation"
             foreach (XmlNode occNode in occupationNodes)
             {
                 XmlNode dateDebutOccupee = occNode.SelectSingleNode("dateDebutOccupee");
@@ -466,12 +498,13 @@ namespace ProjetInfoS2
                 table.planningResa.Add(occ);
                 }
                 
-                Console.WriteLine(table);
+                //ajout des tables lues à la liste de tables de la salle
                 this.tables.Add(table);
             }
 
-            //Tables Rondes
+            //Lecture des informations concernants les Tables Rondes
             XmlNodeList occupNodes = doc.SelectNodes("//Restaurant/Tables/TableRondes/TableRonde/occupations/occupation");
+            //parcours chaque noeuds "occupation"
             foreach (XmlNode occNode in occupNodes)
             {
                 XmlNode dateDebutOccupee = occNode.SelectSingleNode("dateDebutOccupee");
@@ -499,28 +532,25 @@ namespace ProjetInfoS2
                     Occupation occ = new Occupation(hdebut, hfin);
                     table.planningResa.Add(occ);
                 }
-
+                //ajout des tables lues à la liste de tables de la salle
                 this.tables.Add(table); 
             }
-
-
-            //Il faut peut etre quitter le doc
-        }
+        }// fin creationTablesXml
 
         public void creationReservationXml()
         {
-
+            //chargement du document
             XmlDocument doc = new XmlDocument();
             doc.Load("restaurant.xml");
-            //partie 1
-
+            
+            //recherche du noeud "reservation"
             XmlNodeList itemNodes = doc.SelectNodes("//Restaurant/Reservations/Reservation");
             List<int> _noTable = new List<int>();
             List<string> _nomClient = new List<string>();
             List<int> _nbConvive = new List<int>();
             List<string> _nomFormule = new List<string>();
             List<DateTime> _dateResa = new List<DateTime>();
-
+            //parcourt tous les noeuds "reservation" du document
             foreach (XmlNode itemNode in itemNodes)
             {
                 XmlNode noTable = itemNode.SelectSingleNode("tableResa");
@@ -544,8 +574,7 @@ namespace ProjetInfoS2
                 }
             }
         
-            //CREATION RESERVATIONS
-
+            //CREATION RESERVATIONS DANS LE PROGRAMME
             for (int i = 0; i < _nomClient.Count(); i++)
             {
 
@@ -600,16 +629,12 @@ namespace ProjetInfoS2
                 j++;
 			        }
 	          
-
-                
                 this.reservations.Add(newResa);
-                Console.WriteLine("Réservation : " + newResa);
-                Console.ReadLine();
             }
         
         
         
-        }
+        }//fin creationReservationXML
 
     }// fin class salle
 }

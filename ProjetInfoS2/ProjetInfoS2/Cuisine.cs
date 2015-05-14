@@ -38,15 +38,16 @@ namespace ProjetInfoS2
         //Méthodes
         public override string ToString()
         {
-            string chaine = "Nombre de Cuisiniers Total: "+nbCuistoTotal+"\nNombre de cuisiniers disponibles: "+nbCuistoDispo+"\nBrigade: \n";
+            string chaine = "*** Cuisine ***:\nNombre de Cuisiniers Total: "+nbCuistoTotal+"\nNombre de cuisiniers disponibles: "+nbCuistoDispo+"\nBrigade: \n";
             for (int i = 0; i < brigade.Count; i++)
             {
                 chaine += "\n"+brigade[i];
             }
+            chaine += "\n";
             return chaine;
         }
 
-        public void ajoutCuisto(int noCuisto)
+       /* public void ajoutCuisto(int noCuisto)
         {
             Cuisinier cuisto = new Cuisinier(noCuisto);
             brigade.Add(cuisto);
@@ -55,7 +56,7 @@ namespace ProjetInfoS2
             //Verifie que le cuisto est crée
             Console.WriteLine(cuisto);
             Console.ReadLine();
-        }
+        }*/
 
         public bool verifierCuisiniersDispo(int nbConvives, DateTime dateDeDebut, Formule formuleChoisie) //ca marche pas, pas la foi de le faire 
         {
@@ -90,19 +91,17 @@ namespace ProjetInfoS2
                         }
                         k++;
                     }
-                }
-                
-                
+                }    
             }
 
             if (nbConvives>nbDispo)
             {
-                Console.WriteLine("La cuisine est occupée, la reservation n'est pas possible. Veuillez essayer à une autre horaire");
+                Console.WriteLine("La cuisine est occupée, la reservation n'est pas possible. Veuillez essayer à un autre horaire");
                 return false;
             }
             else
             {
-                Console.WriteLine("Il y a assez de cuisiniers disponibles");
+                Console.WriteLine("Il y a assez de cuisiniers disponibles pour effectuer la réservation");
                 return true;
             }
 
