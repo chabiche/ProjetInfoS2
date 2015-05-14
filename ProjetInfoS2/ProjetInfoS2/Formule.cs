@@ -11,7 +11,47 @@ namespace ProjetInfoS2
     public class Formule
     {
         //Variables d'instance
-        //public int noFormule;
+        public int noFormule;
+
+        //private string nomFormule;
+
+        //public string NomFormule
+        //{
+        //    get { return nomFormule; }
+        //    set { nomFormule = value; }
+        //}
+
+        //private TimeSpan dureePreparation;
+
+        //public TimeSpan DureePreparation
+        //{
+        //    public get { return dureePreparation; }
+        //    set { dureePreparation = value; }
+        //}
+
+        //private TimeSpan dureePresenceClient;
+
+        //public TimeSpan DureePresenceClient
+        //{
+        //    public get { return dureePresenceClient; }
+        //    set { dureePresenceClient = value; }
+        //}
+
+        //private TimeSpan horaireLimiteService;
+
+        //public TimeSpan HoraireLimiteService
+        //{
+        //    public get { return horaireLimiteService; }
+        //    set { horaireLimiteService = value; }
+        //}
+        //private bool tableRequise;
+
+        //public bool TableRequise
+        //{
+        //    get { return tableRequise; }
+        //    set { tableRequise = value; }
+        //}
+
 
         public string nomFormule;
 

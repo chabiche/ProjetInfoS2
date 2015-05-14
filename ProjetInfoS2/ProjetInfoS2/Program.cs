@@ -91,7 +91,7 @@ Entrez le chiffre correspondant à l'action que vous souhaitez réaliser");
                         //int noCuisto = int.Parse(chaine);
                         //C.ajoutCuisto(noCuisto);
 
-                        Console.WriteLine("Appuvez sur ENTREE afin de retoourner au menu");
+                        Console.WriteLine("Appuyez sur une touche afin de retourner au menu");
                         Console.ReadLine();
                         choix = 0;
                         break;
@@ -120,9 +120,10 @@ Entrez le chiffre correspondant à l'action que vous souhaitez réaliser");
                             }
                         }
                         ok = false;
-                        Console.WriteLine("Entrez l'heure sous le format hh:mm:");
+                        Console.WriteLine("Entrez l'heure sous le format hhmm:");
                         while (ok == false)
-                        {
+                        {   
+                            
                             try
                             {
                                 heureResa = TimeSpan.Parse(Console.ReadLine());
@@ -133,6 +134,21 @@ Entrez le chiffre correspondant à l'action que vous souhaitez réaliser");
                                 Console.WriteLine("Le format n'est pas bon veuillez recommencer la saisie.");
                                 ok = false;
                             }
+                            TimeSpan max = new TimeSpan(23, 59, 00);
+                            do
+                            {
+                                Console.WriteLine("L'heure de réservation n'est pas correcte. Veuillez recommencer.");
+                                try
+                                {
+                                    heureResa = TimeSpan.Parse(Console.ReadLine());
+                                    ok = true;
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Le format n'est pas bon veuillez recommencer la saisie.");
+                                    ok = false;
+                                }
+                             } while (heureResa>max || ok==false);
                         }
                         
                         dateResa = dateResa + heureResa;
@@ -190,7 +206,7 @@ Entrez le chiffre correspondant à l'action que vous souhaitez réaliser");
                             restau.verifierResa(dateResa, nbConvive, formuleResa, C);
                         }
 
-                        Console.WriteLine("Appuvez sur ENTREE afin de retourner au menu");
+                        Console.WriteLine("Appuyez sur une touche afin de retourner au menu");
                         Console.ReadLine();
                         choix = 0;// permet de retourner au menu
                         break;
@@ -201,7 +217,7 @@ Entrez le chiffre correspondant à l'action que vous souhaitez réaliser");
                         
                         restau.afficheResaDate();
 
-                        Console.WriteLine("Appuvez sur ENTREE afin de retourner au menu");
+                        Console.WriteLine("Appuyez sur une touche afin de retourner au menu");
                         Console.ReadLine();
                         choix = 0;// permet de retourner au menu
                         break;
@@ -211,7 +227,7 @@ Entrez le chiffre correspondant à l'action que vous souhaitez réaliser");
                         
                         restau.afficheResaDateHeure();
 
-                        Console.WriteLine("Appuvez sur ENTREE afin de retourner au menu");
+                        Console.WriteLine("Appuyez sur une touche afin de retourner au menu");
                         Console.ReadLine();
                         choix = 0;// permet de retourner au menu
                         break;
