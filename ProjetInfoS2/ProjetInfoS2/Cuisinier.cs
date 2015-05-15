@@ -7,18 +7,34 @@ using System.Xml.Serialization;
 
 namespace ProjetInfoS2
 {
-    public class Cuisinier
+    class Cuisinier
     {
-        public List<Occupation> planningCuisto;
-
         //Variables d'instance
-        public int noCuisinier { get; set; }
+        private List<Occupation> planningCuisto;
+
+        public List<Occupation> PlanningCuisto
+        {
+            get { return planningCuisto; }
+            private set { planningCuisto = value; }
+        }
+        
+        //public List<Occupation> planningCuisto;
+
+        private int noCuisinier;
+
+        public int NoCuisinier
+        {
+            get { return noCuisinier; }
+            private set { noCuisinier = value; }
+        }
+
+       // public int noCuisinier { get; set; }
 
         //Constructeur
         public Cuisinier(int _noCuisinier)
         {
-            noCuisinier = _noCuisinier;
-            planningCuisto = new List<Occupation>();
+            NoCuisinier = _noCuisinier;
+            PlanningCuisto = new List<Occupation>();
         }
 
         //constructeur par defaut

@@ -7,21 +7,44 @@ using System.Xml.Serialization;
 
 namespace ProjetInfoS2
 {
-    public abstract class Table
-    {
-        public List<Occupation> planningResa;
-
+    abstract class Table
+    {  
         //variables d'instances
-        public int nbPlaceMax { get; set; }
+        private List<Occupation> planningResa;
 
-        public bool jumelable { get; set; }
+        public List<Occupation> PlanningResa
+        {
+            get { return planningResa; }
+            protected set { planningResa = value; }
+        }
+        
+      //  public List<Occupation> planningResa;
+
+        private int nbPlaceMax;
+
+        public int NbPlaceMax
+        {
+            get { return nbPlaceMax; }
+            protected set { nbPlaceMax = value; }
+        }
+        
+       // public int nbPlaceMax { get; set; }
+        private bool jumelable;
+
+        public bool Jumelable
+        {
+            get { return jumelable; }
+            protected set { jumelable = value; }
+        }
+        
+        //public bool jumelable { get; set; }
 
         //Constructeur
         public Table(int _nbPlaceMax, bool _jumelable)
         {
-            nbPlaceMax = _nbPlaceMax;
-            jumelable = _jumelable;
-            planningResa = new List<Occupation>();
+            NbPlaceMax = _nbPlaceMax;
+            Jumelable = _jumelable;
+            PlanningResa = new List<Occupation>();
         }
         //Constructeur par defaut
         public Table() { }

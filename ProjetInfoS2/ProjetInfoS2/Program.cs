@@ -120,7 +120,7 @@ Entrez le chiffre correspondant à l'action que vous souhaitez réaliser");
                             }
                         }
                         ok = false;
-                        Console.WriteLine("Entrez l'heure sous le format hhmm:");
+                        Console.WriteLine("Entrez l'heure sous le format hh:mm:");
                         while (ok == false)
                         {   
                             
@@ -134,21 +134,23 @@ Entrez le chiffre correspondant à l'action que vous souhaitez réaliser");
                                 Console.WriteLine("Le format n'est pas bon veuillez recommencer la saisie.");
                                 ok = false;
                             }
-                            TimeSpan max = new TimeSpan(23, 59, 00);
-                            do
-                            {
-                                Console.WriteLine("L'heure de réservation n'est pas correcte. Veuillez recommencer.");
-                                try
-                                {
-                                    heureResa = TimeSpan.Parse(Console.ReadLine());
-                                    ok = true;
-                                }
-                                catch (Exception)
-                                {
-                                    Console.WriteLine("Le format n'est pas bon veuillez recommencer la saisie.");
-                                    ok = false;
-                                }
-                             } while (heureResa>max || ok==false);
+                            //TimeSpan max = new TimeSpan(22, 59, 00);
+                            //bool heureService = false;
+                            
+                            //do
+                            //{
+                                
+                            //    try
+                            //    {
+                            //        heureResa = TimeSpan.Parse(Console.ReadLine());
+                            //        heureService = true;
+                            //    }
+                            //    catch (Exception)
+                            //    {
+                            //        Console.WriteLine("L'heure de réservation n'est pas correcte. Veuillez recommencer.");
+                            //        heureService = false;
+                            //    }
+                            // } while (heureResa>max || heureService==false);
                         }
                         
                         dateResa = dateResa + heureResa;
@@ -195,16 +197,25 @@ Entrez le chiffre correspondant à l'action que vous souhaitez réaliser");
                                     ok = false;
                                 }
                             }
-                            
 
                             formuleResa = restau.retourneFormule(formuleChoisie); //--> permet de retouver la formule par rapport au numéro rentré
-                            Console.WriteLine(formuleResa);
-                            pb = true;
-                        } while (formuleResa.dureePreparation == null);
-                        if (formuleResa.dureePreparation != null)
-                        {
-                            restau.verifierResa(dateResa, nbConvive, formuleResa, C);
-                        }
+
+                            if (heureResa > formuleResa.HoraireLimiteService)
+                            {
+                                Console.WriteLine("Malheureusement, cette formule n'est plus servie à cette heure-ci. Veuillez recommencer");
+                            }
+                            else
+                            {
+
+                                if (formuleResa.DureePreparation != null)
+                                {
+                                    restau.verifierResa(dateResa, nbConvive, formuleResa, C);
+                                }
+                                pb = true;
+                            }
+
+                        } while (formuleResa.DureePreparation == null);
+                        
 
                         Console.WriteLine("Appuyez sur une touche afin de retourner au menu");
                         Console.ReadLine();

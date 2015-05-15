@@ -78,8 +78,8 @@
       </TableCaree>
       <TableCaree>
         <occupations>
-            <dateDebutOccupee>2015/04/01 20:30:00</dateDebutOccupee>
-            <dateFinOccupee>2015/04/01 21:00:00</dateFinOccupee>
+          <dateDebutOccupee>2015/04/01 20:30:00</dateDebutOccupee>
+          <dateFinOccupee>2015/04/01 21:00:00</dateFinOccupee>
           <occupation>
           </occupation>
         </occupations>
@@ -89,7 +89,7 @@
       <TableRectangulaire>
         <occupations>
           <occupation>
-	    <dateDebutOccupee>2015/10/09 20:30:00</dateDebutOccupee>
+            <dateDebutOccupee>2015/10/09 20:30:00</dateDebutOccupee>
             <dateFinOccupee>2015/10/09 21:00:00</dateFinOccupee>
           </occupation>
         </occupations>
@@ -221,6 +221,14 @@
       <nomClient>Ginette Bompard</nomClient>
       <numClient>0786957432</numClient>
       <dateResa>13/12/2015 12:00:00</dateResa>
+      <nbConvive>6</nbConvive>
+      <formuleResa>Formule Normale</formuleResa>
+    </Reservation>
+    <Reservation>
+      <tableResa>3</tableResa>
+      <nomClient>Edwidge Clermont</nomClient>
+      <numClient>0788888888</numClient>
+      <dateResa>15/05/2015 20:00:00</dateResa>
       <nbConvive>6</nbConvive>
       <formuleResa>Formule Normale</formuleResa>
     </Reservation>

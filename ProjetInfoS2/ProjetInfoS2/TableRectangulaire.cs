@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace ProjetInfoS2
 {
-    public class TableRectangulaire:Table
+    class TableRectangulaire:Table
     {
 
         //Constructeur

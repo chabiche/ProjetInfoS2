@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace ProjetInfoS2
 {
-    public class TableRonde: Table
+    class TableRonde: Table
     {
 
         //Constructeur

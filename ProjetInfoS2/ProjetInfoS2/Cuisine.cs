@@ -8,37 +8,58 @@ using System.Xml.Serialization;
 
 namespace ProjetInfoS2
 {
-    public class Cuisine
+    class Cuisine
     {
         //Varibles d'instance
+        private List<Cuisinier> brigade;
 
-        public List<Cuisinier> brigade { get; set; }
+        public List<Cuisinier> Brigade
+        {
+            get { return brigade; }
+            private set { brigade = value; }
+        }
+        
+        //public List<Cuisinier> brigade { get; set; }
+        private int nbCuistoTotal;
 
-        public int nbCuistoTotal { get; set; }
+        public int NbCuistoTotal
+        {
+            get { return nbCuistoTotal; }
+            private set { nbCuistoTotal = value; }
+        }
+        
+        //public int nbCuistoTotal { get; set; }
+        //private int nbCuistoDispo;
 
-        public int nbCuistoDispo { get; set; }
+        //public int NbCuistoDispo
+        //{
+        //    get { return nbCuistoDispo; }
+        //    private set { nbCuistoDispo = value; }
+        //}
+        
+        //public int nbCuistoDispo { get; set; }
 
         private List<Occupation> planning;// plus besoin non plus car les occupations sont intégré dans les cuisto
 
         public List<Occupation> Planning
         {
             get { return planning; }
-            set { planning = value; }
+            private set { planning = value; }
         }
         
         //Constructeur
         public Cuisine()
         {
-            brigade = new List<Cuisinier>();
-            nbCuistoTotal = brigade.Count;
-            nbCuistoDispo = nbCuistoTotal;
+            Brigade = new List<Cuisinier>();
+            NbCuistoTotal = brigade.Count;
+            //nbCuistoDispo = nbCuistoTotal;
         }
 
 
         //Méthodes
         public override string ToString()
         {
-            string chaine = "*** Cuisine ***:\nNombre de Cuisiniers Total: "+nbCuistoTotal+"\nNombre de cuisiniers disponibles: "+nbCuistoDispo+"\nBrigade: \n";
+            string chaine = "*** Cuisine ***:\nNombre de Cuisiniers Total: "+nbCuistoTotal+"\nBrigade: \n";
             for (int i = 0; i < brigade.Count; i++)
             {
                 chaine += "\n"+brigade[i];
@@ -61,30 +82,34 @@ namespace ProjetInfoS2
         public bool verifierCuisiniersDispo(int nbConvives, DateTime dateDeDebut, Formule formuleChoisie) //ca marche pas, pas la foi de le faire 
         {
            // On regarde combien de cuisiniers sont disponibles
-            DateTime dateDeFin = dateDeDebut + formuleChoisie.dureePreparation;
+            DateTime dateDeFin = dateDeDebut + formuleChoisie.DureePreparation;
             int nbDispo = 0;
+            List<int> cuistoDispo= new List<int>();
             for (int i = 0; i < brigade.Count; i++) //on regarde les cuisiniers un par un
             {
-                if (brigade[i].planningCuisto.Count==0)
+                if (brigade[i].PlanningCuisto.Count==0)
                 {
                     nbDispo++;
+                    cuistoDispo.Add(i);
                 }
                 else
                 {
                     int k = 0;
-                    while (k < brigade[i].planningCuisto.Count)//on regarde toutes les heures où les cuisiniers peuvent être occupés
+                    while (k < brigade[i].PlanningCuisto.Count)//on regarde toutes les heures où les cuisiniers peuvent être occupés
                     {
-                        int comparaisonDebut = DateTime.Compare(dateDeDebut, brigade[i].planningCuisto[k].DateDebutOccupee);
-                        int comparaisonFin = DateTime.Compare(dateDeFin, brigade[i].planningCuisto[k].DateFinOccupee);
+                        int comparaisonDebut = DateTime.Compare(dateDeDebut, brigade[i].PlanningCuisto[k].DateDebutOccupee);
+                        int comparaisonFin = DateTime.Compare(dateDeFin, brigade[i].PlanningCuisto[k].DateFinOccupee);
                         if ((comparaisonDebut < 0 && comparaisonFin < 0) || (comparaisonDebut > 0 && comparaisonFin > 0))//la date n'est pas la même
                         {
                             nbDispo++;
+                            cuistoDispo.Add(i);
                         }
                         else
                         {
                             if ((comparaisonDebut < 0 && comparaisonFin > 0) || (comparaisonDebut > 0 && comparaisonFin < 0))
                             {
                                 nbDispo++;
+                                cuistoDispo.Add(i);
 
                             }
 
@@ -102,6 +127,17 @@ namespace ProjetInfoS2
             else
             {
                 Console.WriteLine("Il y a assez de cuisiniers disponibles pour effectuer la réservation");
+                //Création de l'occupation du cuisinier attribué à la réservation
+                for (int n = 0; n < cuistoDispo.Count; n++)
+			{
+			    DateTime datefincuisto = new DateTime();
+                datefincuisto = dateDeDebut + formuleChoisie.DureePreparation;
+                Occupation occCuisto = new Occupation(dateDeDebut, datefincuisto);
+                this.Brigade[n].PlanningCuisto.Add(occCuisto);
+			}
+                
+            
+            
                 return true;
             }
 
@@ -153,7 +189,7 @@ namespace ProjetInfoS2
                     DateTime hfin = new DateTime();
                     hfin = _dateFinOccupee[i];
                     Occupation occ = new Occupation(hdebut, hfin);
-                    cuisto.planningCuisto.Add(occ);
+                    cuisto.PlanningCuisto.Add(occ);
                 }
                 this.brigade.Add(cuisto);
             }

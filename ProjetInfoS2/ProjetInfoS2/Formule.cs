@@ -8,72 +8,71 @@ using System.Xml.Serialization;
 
 namespace ProjetInfoS2
 {
-    public class Formule
+    class Formule
     {
         //Variables d'instance
-        public int noFormule;
+        //public int noFormule;
 
-        //private string nomFormule;
+        private string nomFormule;
 
-        //public string NomFormule
-        //{
-        //    get { return nomFormule; }
-        //    set { nomFormule = value; }
-        //}
+        public string NomFormule
+        {
+            get { return nomFormule; }
+            private set { nomFormule = value; }
+        }
 
-        //private TimeSpan dureePreparation;
+        private TimeSpan dureePreparation;
 
-        //public TimeSpan DureePreparation
-        //{
-        //    public get { return dureePreparation; }
-        //    set { dureePreparation = value; }
-        //}
+        public TimeSpan DureePreparation
+        {
+            get { return dureePreparation; }
+            private set { dureePreparation = value; }
+        }
 
-        //private TimeSpan dureePresenceClient;
+        private TimeSpan dureePresenceClient;
 
-        //public TimeSpan DureePresenceClient
-        //{
-        //    public get { return dureePresenceClient; }
-        //    set { dureePresenceClient = value; }
-        //}
+        public TimeSpan DureePresenceClient
+        {
+            get { return dureePresenceClient; }
+            private set { dureePresenceClient = value; }
+        }
 
-        //private TimeSpan horaireLimiteService;
+        private TimeSpan horaireLimiteService;
 
-        //public TimeSpan HoraireLimiteService
-        //{
-        //    public get { return horaireLimiteService; }
-        //    set { horaireLimiteService = value; }
-        //}
-        //private bool tableRequise;
+        public TimeSpan HoraireLimiteService
+        {
+            get { return horaireLimiteService; }
+            private set { horaireLimiteService = value; }
+        }
+        private bool tableRequise;
 
-        //public bool TableRequise
-        //{
-        //    get { return tableRequise; }
-        //    set { tableRequise = value; }
-        //}
+        public bool TableRequise
+        {
+            get { return tableRequise; }
+            private set { tableRequise = value; }
+        }
 
 
-        public string nomFormule;
+        //public string nomFormule;
 
-        public TimeSpan dureePreparation { get; set; } //en min
+        //public TimeSpan dureePreparation { get; set; } //en min
 
-        public TimeSpan dureePresenceClient { get; set; } //en min
+        //public TimeSpan dureePresenceClient { get; set; } //en min
 
-        public DateTime horaireLimiteService { get; set; }
+        //public DateTime horaireLimiteService { get; set; }
 
-        public bool tableRequise { get; set; }
+        //public bool tableRequise { get; set; }
         
         
         //Constructeur
         public Formule(string nomFormule, TimeSpan dureePreparation, TimeSpan dureePresenceClient, bool tableRequise)
         {
-            this.nomFormule = nomFormule;
-            DateTime maintenant = DateTime.Now;
-            this.dureePreparation = dureePreparation;
-            this.dureePresenceClient = dureePresenceClient;
-            horaireLimiteService= new DateTime(maintenant.Year, maintenant.Month, maintenant.Day, 23, 0, 0);
-            horaireLimiteService-=dureePreparation;
-            this.tableRequise = tableRequise;
+            this.NomFormule = nomFormule;
+            this.DureePreparation = dureePreparation;
+            this.DureePresenceClient = dureePresenceClient;
+            HoraireLimiteService= new TimeSpan(23, 0, 0);
+            HoraireLimiteService-=DureePreparation;
+            this.TableRequise = tableRequise;
         }
 
         //constructeur par defaut

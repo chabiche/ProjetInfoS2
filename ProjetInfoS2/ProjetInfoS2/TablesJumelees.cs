@@ -7,15 +7,15 @@ using System.Xml.Serialization;
 
 namespace ProjetInfoS2
 {
-    public class TablesJumelees: Table
+    class TablesJumelees: Table
     {
 
         //Constructeur
         public TablesJumelees(Table table1, Table table2)
         {
-            nbPlaceMax = table1.nbPlaceMax + table2.nbPlaceMax -2;
+            NbPlaceMax = table1.NbPlaceMax + table2.NbPlaceMax -2;
             // On supprime également les places en bout de table car les tables seront accolées
-            jumelable = true;
+            Jumelable = true;
             //Les tables sont à nouveau jumelable afin de ne pas limiter à deux le nombre de tables jumelées
             //table1.remplirTable(table1.nbPlaceMax); --> methode a changer
             //table2.remplirTable(table2.nbPlaceMax);

@@ -5,14 +5,14 @@ using System.Text;
 
 namespace ProjetInfoS2
 {
-    public class Occupation
+    class Occupation
     {
         private DateTime dateDebutOccupee;
 
         public DateTime DateDebutOccupee
         {
             get { return dateDebutOccupee; }
-            set { dateDebutOccupee = value; }
+            private set { dateDebutOccupee = value; }
         }
 
 
@@ -21,7 +21,7 @@ namespace ProjetInfoS2
         public DateTime DateFinOccupee
         {
             get { return dateFinOccupee; }
-            set { dateFinOccupee = value; }
+            private set { dateFinOccupee = value; }
         }
 
 

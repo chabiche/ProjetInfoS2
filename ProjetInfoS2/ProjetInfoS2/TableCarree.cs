@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace ProjetInfoS2
 {
-    public class TableCarree:Table
+    class TableCarree:Table
     {
         //Constructeur
         public TableCarree(): base (4, true)

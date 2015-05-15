@@ -8,22 +8,46 @@ using System.Xml.Serialization;
 
 namespace ProjetInfoS2
 {
-    public class Salle
+    class Salle
     {
-        public List<Table> tables{ get; set; }
+        private List<Table> tables;
 
-        public List<Formule> formules { get; set; }
+        public List<Table> Tables
+        {
+            get { return tables; }
+            private set { tables = value; }
+        }
+        
+        //public List<Table> tables{ get; set; }
 
-        public List<Reservation> reservations { get; set; }
+        private List<Formule> formules;
+
+        public List<Formule> Formules
+        {
+            get { return formules; }
+            private set { formules = value; }
+        }
+        
+        //public List<Formule> formules { get; set; }
+
+        private List<Reservation> reservations;
+
+        public List<Reservation> Reservations
+        {
+            get { return reservations; }
+            private set { reservations = value; }
+        }
+        
+        //public List<Reservation> reservations { get; set; }
         
 
 
         //Constructeur
         public Salle()
         {
-            tables = new List<Table>();
-            formules = new List<Formule>();
-            reservations = new List<Reservation>();
+            Tables = new List<Table>();
+            Formules = new List<Formule>();
+            Reservations = new List<Reservation>();
         }
 
 
@@ -54,7 +78,7 @@ namespace ProjetInfoS2
         {
             for (int i = 0; i < formules.Count; i++)
             {
-                Console.WriteLine("n°"+(i+1) + " "+ formules[i].nomFormule);
+                Console.WriteLine("n°"+(i+1) + " "+ formules[i].NomFormule);
             }
         
         }
@@ -105,9 +129,9 @@ namespace ProjetInfoS2
              //parcout toutes les réservations de la salle
              while (i<reservations.Count())
              {
-                 int anneeR = reservations[i].dateReservation.Year;
-                 int moisR = reservations[i].dateReservation.Month;
-                 int dayR = reservations[i].dateReservation.Day;
+                 int anneeR = reservations[i].DateReservation.Year;
+                 int moisR = reservations[i].DateReservation.Month;
+                 int dayR = reservations[i].DateReservation.Day;
                  if (anneeR==annee && moisR==mois && dayR==day)// cherche quelles réservations correspondent à la date indiquée
                  {
                      Console.WriteLine("Réservation n° {0}:",i+1);
@@ -164,7 +188,7 @@ namespace ProjetInfoS2
              //parcout toutes les réservations de la salle
              while (i < reservations.Count())
              {
-                 if (reservations[i].dateReservation == dateConsult)// cherche quelles réservations correspondent à la date indiquée
+                 if (reservations[i].DateReservation == dateConsult)// cherche quelles réservations correspondent à la date indiquée
                  {
                      Console.WriteLine("Réservation n° {0}:", i + 1);
                      Console.WriteLine(reservations[i]);
@@ -183,9 +207,9 @@ namespace ProjetInfoS2
              int nbPlacesMax=0;
              for (int i = 0; i < tables.Count; i++)
              {
-                 if (tables[i].nbPlaceMax>nbPlacesMax)
+                 if (tables[i].NbPlaceMax>nbPlacesMax)
                  {
-                     nbPlacesMax = tables[i].nbPlaceMax;
+                     nbPlacesMax = tables[i].NbPlaceMax;
                  }
              }
 
@@ -196,7 +220,7 @@ namespace ProjetInfoS2
         //voir si la reservation est possible
         public bool verifierResa(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie, Cuisine C)
         {
-            DateTime dateDeFin = dateDeDebut + formuleChoisie.dureePresenceClient;
+            DateTime dateDeFin = dateDeDebut + formuleChoisie.DureePresenceClient;
             //pour l'instant on regarde si il y a une table dispo pour cette horaire
             int i = 0;
 
@@ -211,13 +235,13 @@ namespace ProjetInfoS2
             {
                 while (i < tables.Count) //on parcoure la liste des tables
                 {
-                    if (tables[i].nbPlaceMax >= nbconvive) //on regarde si la table peut accueillir toute les personnes
+                    if (tables[i].NbPlaceMax >= nbconvive) //on regarde si la table peut accueillir toute les personnes
                     {
                         int k = 0;
-                        while (k < tables[i].planningResa.Count)//parcoure la liste des occupations
+                        while (k < tables[i].PlanningResa.Count)//parcoure la liste des occupations
                         {
-                            int comparaisonDebut = DateTime.Compare(dateDeDebut, tables[i].planningResa[k].DateDebutOccupee);
-                            int comparaisonFin = DateTime.Compare(dateDeFin, tables[i].planningResa[k].DateFinOccupee);
+                            int comparaisonDebut = DateTime.Compare(dateDeDebut, tables[i].PlanningResa[k].DateDebutOccupee);
+                            int comparaisonFin = DateTime.Compare(dateDeFin, tables[i].PlanningResa[k].DateFinOccupee);
 
                             //l'heure de la résa n'est pas comprise dans le temps pendant lequel la table est occup
                             if ((comparaisonDebut < 0 && comparaisonFin < 0) || (comparaisonDebut > 0 && comparaisonFin > 0))//la date n'est pas la même
@@ -268,7 +292,7 @@ namespace ProjetInfoS2
             {
                 if (nbconvive<nbMaxPlaceTable+4)
                 {
-                    jumelage(dateDeDebut, nbconvive, formuleChoisie, C);
+                    Jumelage(dateDeDebut, nbconvive, formuleChoisie, C);
                 }
                 else
                 {
@@ -340,33 +364,33 @@ Recommencez en tapant sur ENTREE.");
 //                    }
 
 
-        public bool jumelage(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie, Cuisine C)
+        public bool Jumelage(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie, Cuisine C)
         {
-            DateTime dateDeFin = dateDeDebut + formuleChoisie.dureePresenceClient;
+            DateTime dateDeFin = dateDeDebut + formuleChoisie.DureePresenceClient;
             int i = 0;
             while (i < tables.Count) //on parcoure la liste des tables
             {
                 int k = 0;
-                if (tables[i].jumelable == true)//on verifie si la premiere table est jumelable
+                if (tables[i].Jumelable == true)//on verifie si la premiere table est jumelable
                 {
-                    while (k < tables[k].planningResa.Count) //on verifie qu'elle est dispo
+                    while (k < tables[k].PlanningResa.Count) //on verifie qu'elle est dispo
                     {
-                        int comparaisonDebut1 = DateTime.Compare(dateDeDebut, tables[i].planningResa[k].DateDebutOccupee);
-                        int comparaisonFin1 = DateTime.Compare(dateDeFin, tables[i].planningResa[k].DateFinOccupee);
+                        int comparaisonDebut1 = DateTime.Compare(dateDeDebut, tables[i].PlanningResa[k].DateDebutOccupee);
+                        int comparaisonFin1 = DateTime.Compare(dateDeFin, tables[i].PlanningResa[k].DateFinOccupee);
                         //l'heure de la résa n'est pas comprise dans le temps pendant lequel la table est occup
                         int j = i + 1;
 
                         if ((comparaisonDebut1 < 0 && comparaisonFin1 < 0) || (comparaisonDebut1 > 0 && comparaisonFin1 > 0))//la date n'est pas la même
                         {
-                            while (j < tables.Count) //on parcoure une deuxieme fois la liste pour trouver une deuxieme table jumelable et dispo
+                            while (j < tables.Count) //on parcourt une deuxieme fois la liste pour trouver une deuxieme table jumelable et dispo
                             {
-                                if (tables[j].jumelable == true)//on verifie si la deuxième table est jumelable
+                                if (tables[j].Jumelable == true)//on verifie si la deuxième table est jumelable
                                 {
                                     int l = 0;
-                                    while (l < tables[l].planningResa.Count) //on verifie qu'elle est dispo
+                                    while (l < tables[l].PlanningResa.Count) //on verifie qu'elle est dispo
                                     {
-                                        int comparaisonDebut2 = DateTime.Compare(dateDeDebut, tables[j].planningResa[l].DateDebutOccupee);
-                                        int comparaisonFin2 = DateTime.Compare(dateDeFin, tables[j].planningResa[l].DateFinOccupee);
+                                        int comparaisonDebut2 = DateTime.Compare(dateDeDebut, tables[j].PlanningResa[l].DateDebutOccupee);
+                                        int comparaisonFin2 = DateTime.Compare(dateDeFin, tables[j].PlanningResa[l].DateFinOccupee);
 
                                         if ((comparaisonDebut2 < 0 && comparaisonFin2 < 0) || (comparaisonDebut2 > 0 && comparaisonFin2 > 0))
                                         //la date n'est pas la même
@@ -422,13 +446,13 @@ Recommencez en tapant sur ENTREE.");
                             if ((comparaisonDebut1 < 0 && comparaisonFin1 > 0) || (comparaisonDebut1 > 0 && comparaisonFin1 < 0))
                                 //la date est la même mais les horaires ne se mélangent pas
                                 {
-                                    if (tables[j].jumelable == true)//on verifie si la deuxième table est jumelable
+                                    if (tables[j].Jumelable == true)//on verifie si la deuxième table est jumelable
                                     {
                                         int m = 0;
-                                        while (m < tables[m].planningResa.Count) //on verifie qu'elle est dispo
+                                        while (m < tables[m].PlanningResa.Count) //on verifie qu'elle est dispo
                                         {
-                                            int comparaisonDebut2 = DateTime.Compare(dateDeDebut, tables[j].planningResa[m].DateDebutOccupee);
-                                            int comparaisonFin2 = DateTime.Compare(dateDeFin, tables[j].planningResa[m].DateFinOccupee);
+                                            int comparaisonDebut2 = DateTime.Compare(dateDeDebut, tables[j].PlanningResa[m].DateDebutOccupee);
+                                            int comparaisonFin2 = DateTime.Compare(dateDeFin, tables[j].PlanningResa[m].DateFinOccupee);
 
                                             if ((comparaisonDebut2 < 0 && comparaisonFin2 < 0) || (comparaisonDebut2 > 0 && comparaisonFin2 > 0))
                                             //la date n'est pas la même
@@ -496,12 +520,14 @@ Recommencez en tapant sur ENTREE.");
             int numClient = int.Parse(noClient);
             int i=0;
             string noTable="";
+            int notable=0;
             //Recherche du numéro de la table
             while (i<tables.Count)
             {
                 if (tables[i]==table)
                 {
-                    noTable = i.ToString(); 
+                    noTable = i.ToString();
+                    notable = i;
                 }
                 i++;
             }
@@ -512,13 +538,19 @@ Recommencez en tapant sur ENTREE.");
             {
                 if (formules[j] == formuleChoisie)
                 {
-                    nomFormule = formules[j].nomFormule.ToString();
+                    nomFormule = formules[j].NomFormule.ToString();
                 }
                 j++;
             }
             //Création de la réservation dans le programme
-            Reservation newResa = new Reservation(table, nomResa, numClient, dateResa, nbconvive,formuleChoisie);
+            Reservation newResa = new Reservation(table, nomResa, numClient, dateResa, nbconvive, formuleChoisie);
             reservations.Add(newResa);
+            //Création de l'occupation de la table réservée
+            DateTime datefinresa = new DateTime();
+            datefinresa = dateResa + formuleChoisie.DureePresenceClient;
+            Occupation occTable = new Occupation(dateResa, datefinresa);
+            tables[notable].PlanningResa.Add(occTable);
+           
 
             //Modification du fichier XML: Ajout de la réservation
             XmlDocument doc = new XmlDocument();
@@ -690,7 +722,7 @@ Recommencez en tapant sur ENTREE.");
                     DateTime hfin = new DateTime();
                     hfin = _dateFinOccupee[i];
                     Occupation occ = new Occupation(hdebut, hfin);
-                    table.planningResa.Add(occ);
+                    table.PlanningResa.Add(occ);
 
                 }
                 //ajout des tables lues à la liste de tables de la salle
@@ -726,7 +758,7 @@ Recommencez en tapant sur ENTREE.");
                 DateTime hfin = new DateTime();
                 hfin = _dateFinOccupee[i];
                 Occupation occ = new Occupation(hdebut, hfin);
-                table.planningResa.Add(occ);
+                table.PlanningResa.Add(occ);
                 }
                 
                 //ajout des tables lues à la liste de tables de la salle
@@ -761,7 +793,7 @@ Recommencez en tapant sur ENTREE.");
                     DateTime hfin = new DateTime();
                     hfin = _dateFinOccupee[i];
                     Occupation occ = new Occupation(hdebut, hfin);
-                    table.planningResa.Add(occ);
+                    table.PlanningResa.Add(occ);
                 }
                 //ajout des tables lues à la liste de tables de la salle
                 this.tables.Add(table); 
@@ -820,7 +852,7 @@ Recommencez en tapant sur ENTREE.");
 			        {
                         for (int k = 0; k < formules.Count; k++)
 			            {
-			                if (_nomFormule[i].Equals(formules[k].nomFormule))
+			                if (_nomFormule[i].Equals(formules[k].NomFormule))
 	                        {
 		                        formuleChoisie=formules[k];
 	                        }
@@ -834,7 +866,7 @@ Recommencez en tapant sur ENTREE.");
   
 			            if (j==_noTable[i])
 	                     {
-                            if (tables[j].nbPlaceMax==4)
+                            if (tables[j].NbPlaceMax==4)
 	                            {
 		                            TableCarree tableResa = new TableCarree();
                                     tableResa=tables[j] as TableCarree;
@@ -843,7 +875,7 @@ Recommencez en tapant sur ENTREE.");
 	                            }
                             else
                             {
-                                if (tables[j].nbPlaceMax == 6)
+                                if (tables[j].NbPlaceMax == 6)
                                 {
                                     TableRectangulaire tableResa = new TableRectangulaire();
                                     tableResa = tables[j] as TableRectangulaire;

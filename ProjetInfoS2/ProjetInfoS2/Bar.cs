@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace ProjetInfoS2
 {
-    public class Bar:Table
+    class Bar:Table
     {
         //Constructeur
         public Bar(): base (15, false)
