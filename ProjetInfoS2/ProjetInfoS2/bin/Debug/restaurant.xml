@@ -93,6 +93,10 @@
             <dateFinOccupee>2015/10/09 21:00:00</dateFinOccupee>
           </occupation>
         </occupations>
+        <occupations>
+          <dateDebutOccupee>09/09/2015 18:00:00</dateDebutOccupee>
+          <dateFinOccupee>09/09/2015 18:05:00</dateFinOccupee>
+        </occupations>
       </TableRectangulaire>
       <TableRectangulaire>
         <occupations>
@@ -113,6 +117,10 @@
           <occupation>
           </occupation>
         </occupations>
+        <occupations>
+          <dateDebutOccupee>04/04/2015 12:00:00</dateDebutOccupee>
+          <dateFinOccupee>04/04/2015 12:30:00</dateFinOccupee>
+        </occupations>
       </TableRonde>
     </TableRondes>
   </Tables>
@@ -123,25 +131,105 @@
         <dateDebutOccupee>2015/07/12 20:00:00</dateDebutOccupee>
         <dateFinOccupee>2015/07/12 20:20:00</dateFinOccupee>
       </occupations>
+      <occupations>
+        <dateDebutOccupee>06/05/2015 13:00:00</dateDebutOccupee>
+        <dateFinOccupee>06/05/2015 13:10:00</dateFinOccupee>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>06/03/2015 13:00:00</dateDebutOccupee>
+        <dateFinOccupee>06/03/2015 13:20:00</dateFinOccupee>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>04/04/2015 12:00:00</dateDebutOccupee>
+        <dateFinOccupee>04/04/2015 12:30:00</dateFinOccupee>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>09/09/2015 18:00:00</dateDebutOccupee>
+        <dateFinOccupee>09/09/2015 18:05:00</dateFinOccupee>
+      </occupations>
     </Cuisinier>
     <Cuisinier>
       <noCuisto>2</noCuisto>
       <occupations>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>06/05/2015 13:00:00</dateDebutOccupee>
+        <dateFinOccupee>06/05/2015 13:10:00</dateFinOccupee>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>06/03/2015 13:00:00</dateDebutOccupee>
+        <dateFinOccupee>06/03/2015 13:20:00</dateFinOccupee>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>04/04/2015 12:00:00</dateDebutOccupee>
+        <dateFinOccupee>04/04/2015 12:30:00</dateFinOccupee>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>09/09/2015 18:00:00</dateDebutOccupee>
+        <dateFinOccupee>09/09/2015 18:05:00</dateFinOccupee>
       </occupations>
     </Cuisinier>
     <Cuisinier>
       <noCuisto>3</noCuisto>
       <occupations>
       </occupations>
+      <occupations>
+        <dateDebutOccupee>06/05/2015 13:00:00</dateDebutOccupee>
+        <dateFinOccupee>06/05/2015 13:10:00</dateFinOccupee>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>06/03/2015 13:00:00</dateDebutOccupee>
+        <dateFinOccupee>06/03/2015 13:20:00</dateFinOccupee>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>04/04/2015 12:00:00</dateDebutOccupee>
+        <dateFinOccupee>04/04/2015 12:30:00</dateFinOccupee>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>09/09/2015 18:00:00</dateDebutOccupee>
+        <dateFinOccupee>09/09/2015 18:05:00</dateFinOccupee>
+      </occupations>
     </Cuisinier>
     <Cuisinier>
       <noCuisto>4</noCuisto>
       <occupations>
       </occupations>
+      <occupations>
+        <dateDebutOccupee>06/05/2015 13:00:00</dateDebutOccupee>
+        <dateFinOccupee>06/05/2015 13:10:00</dateFinOccupee>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>06/03/2015 13:00:00</dateDebutOccupee>
+        <dateFinOccupee>06/03/2015 13:20:00</dateFinOccupee>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>04/04/2015 12:00:00</dateDebutOccupee>
+        <dateFinOccupee>04/04/2015 12:30:00</dateFinOccupee>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>09/09/2015 18:00:00</dateDebutOccupee>
+        <dateFinOccupee>09/09/2015 18:05:00</dateFinOccupee>
+      </occupations>
     </Cuisinier>
     <Cuisinier>
       <noCuisto>5</noCuisto>
       <occupations>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>06/05/2015 13:00:00</dateDebutOccupee>
+        <dateFinOccupee>06/05/2015 13:10:00</dateFinOccupee>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>06/03/2015 13:00:00</dateDebutOccupee>
+        <dateFinOccupee>06/03/2015 13:20:00</dateFinOccupee>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>04/04/2015 12:00:00</dateDebutOccupee>
+        <dateFinOccupee>04/04/2015 12:30:00</dateFinOccupee>
+      </occupations>
+      <occupations>
+        <dateDebutOccupee>09/09/2015 18:00:00</dateDebutOccupee>
+        <dateFinOccupee>09/09/2015 18:05:00</dateFinOccupee>
       </occupations>
     </Cuisinier>
     <Cuisinier>
@@ -231,6 +319,54 @@
       <dateResa>15/05/2015 20:00:00</dateResa>
       <nbConvive>6</nbConvive>
       <formuleResa>Formule Normale</formuleResa>
+    </Reservation>
+    <Reservation>
+      <tableResa>3</tableResa>
+      <nomClient>Marie Lebrisse</nomClient>
+      <numClient>0676859409</numClient>
+      <dateResa>08/10/2015 12:00:00</dateResa>
+      <nbConvive>5</nbConvive>
+      <formuleResa>Formule Rapide</formuleResa>
+    </Reservation>
+    <Reservation>
+      <tableResa>0</tableResa>
+      <nomClient>Marie Lebrisse</nomClient>
+      <numClient>0624567656</numClient>
+      <dateResa>05/11/2015 20:00:00</dateResa>
+      <nbConvive>3</nbConvive>
+      <formuleResa>Formule Rapide</formuleResa>
+    </Reservation>
+    <Reservation>
+      <tableResa>0</tableResa>
+      <nomClient>Sarah Egea</nomClient>
+      <numClient>0555555555</numClient>
+      <dateResa>01/06/2015 19:00:00</dateResa>
+      <nbConvive>3</nbConvive>
+      <formuleResa>Formule Normale</formuleResa>
+    </Reservation>
+    <Reservation>
+      <tableResa>3</tableResa>
+      <nomClient>Johnny Haliday</nomClient>
+      <numClient>0987654321</numClient>
+      <dateResa>06/05/2015 13:00:00</dateResa>
+      <nbConvive>5</nbConvive>
+      <formuleResa>Formule Rapide</formuleResa>
+    </Reservation>
+    <Reservation>
+      <tableResa>3</tableResa>
+      <nomClient>Rata Touille</nomClient>
+      <numClient>0123456789</numClient>
+      <dateResa>04/04/2015 12:00:00</dateResa>
+      <nbConvive>5</nbConvive>
+      <formuleResa>Formule Gastronomique</formuleResa>
+    </Reservation>
+    <Reservation>
+      <tableResa>3</tableResa>
+      <nomClient>Mimi Mati</nomClient>
+      <numClient>0677889944</numClient>
+      <dateResa>09/09/2015 18:00:00</dateResa>
+      <nbConvive>6</nbConvive>
+      <formuleResa>Formule Conso</formuleResa>
     </Reservation>
   </Reservations>
 </Restaurant>

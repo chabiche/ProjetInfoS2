@@ -251,7 +251,7 @@ namespace ProjetInfoS2
                                 cuisiniersDispo = C.verifierCuisiniersDispo(nbconvive, dateDeDebut, formuleChoisie);
                                 if (cuisiniersDispo == true)
                                 {
-
+                                    tables[i].newOccupationTableXml(dateDeDebut, formuleChoisie, i);
                                     validerResa(tables[i], dateDeDebut, nbconvive, formuleChoisie);
                                     return true;
                                 }
@@ -266,6 +266,7 @@ namespace ProjetInfoS2
                                     cuisiniersDispo = C.verifierCuisiniersDispo(nbconvive, dateDeDebut, formuleChoisie);
                                     if (cuisiniersDispo == true)
                                     {
+                                        tables[i].newOccupationTableXml(dateDeDebut, formuleChoisie, i);
                                         validerResa(tables[i], dateDeDebut, nbconvive, formuleChoisie);
                                         return true;
                                     }
@@ -292,7 +293,10 @@ namespace ProjetInfoS2
             {
                 if (nbconvive<nbMaxPlaceTable+4)
                 {
-                    Jumelage(dateDeDebut, nbconvive, formuleChoisie, C);
+                    Console.WriteLine("La fonction jumelage n'est pas aboutie. Le nombre de convives maximum accepté est "+nbMaxPlaceTable);
+                    Console.WriteLine("Recommencez en tapant sur ENTREE.");
+                    //jumelage(dateDeDebut, nbconvive, formuleChoisie, C);
+                    return false;
                 }
                 else
                 {
@@ -313,58 +317,7 @@ Recommencez en tapant sur ENTREE.");
 
         }
 
-        ////jumelage
-
-//            i = 0;
-//            while (i<tables.Count)  // cad qu'il n'y a pas de table dispo avec assez de place --> on regarde le jumelage
-//            {
-//                            int j = i + 1;
-//                            while (j < tables.Count)
-//                            {
-//                                int k = 0;
-//                                while (k<planning.Count)
-//                                {
-//                                    if (tables[j].planningResa[k].DateDebutOccupee > dateEtHeure && tables[j].planningResa[k].DateFinOccupee < dateEtHeure)
-//                                    {
-//                                        if (tables[i].jumelable == true && tables[j].jumelable == true)
-//                                        {
-//                                            Console.WriteLine(@"Il est possible d'effectuer un jumelable de table 
-//afin de pouvoir placer tous les convives
-//Possibilité d'association de la table: " + tables[i] + " et " + tables[j]
-//            + ". Voulez vous associer ces deux tables? (oui/non)");
-//                                            string reponse = Console.ReadLine();
-//                                            if (reponse == "oui")
-//                                            {
-//                                                //jumelage de tables
-//                                                TablesJumelees jumelage = new TablesJumelees(tables[i], tables[j]);
-//                                                ValiderResa(jumelage, dateEtHeure, nbconvive, formuleChoisie);
-//                                                return true;
-
-//                                            }
-//                                            else
-//                                            {
-//                                                Console.WriteLine("Les deux tables n'ont pas été assemblées");
-//                                                Console.WriteLine("La reservation n'est pas possible. Recommencez en tapant sur ENTREE.");
-//                                                Console.ReadLine();
-//                                                return false;
-
-
-//                                            }
-//                                        }
-//                                    }
-//                                    k++;
-//                                }
-                                    
-//                                j++;
-//                            }
-
-                            
-//                         i++;
-
-//                    }
-
-
-        public bool Jumelage(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie, Cuisine C)
+        public bool jumelage(DateTime dateDeDebut, int nbconvive, Formule formuleChoisie, Cuisine C)
         {
             DateTime dateDeFin = dateDeDebut + formuleChoisie.DureePresenceClient;
             int i = 0;
@@ -510,7 +463,6 @@ Recommencez en tapant sur ENTREE.");
             return false;
             }
 
-
         public void validerResa(Table table, DateTime dateResa, int nbconvive, Formule formuleChoisie)
         {
             Console.WriteLine("Quel est le nom du client pour la réservation?");
@@ -581,6 +533,9 @@ Recommencez en tapant sur ENTREE.");
             noeudBase.AppendChild(formuleNode);
 
             doc.Save("restaurant.xml");
+
+            //sauvegarder les occupations dans le xml (classes table et cuisiniers)
+
 
             Console.WriteLine("La réservation a été réalisée avec succès!");
 

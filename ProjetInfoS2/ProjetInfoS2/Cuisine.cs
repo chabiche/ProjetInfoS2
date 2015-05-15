@@ -134,10 +134,45 @@ namespace ProjetInfoS2
                 datefincuisto = dateDeDebut + formuleChoisie.DureePreparation;
                 Occupation occCuisto = new Occupation(dateDeDebut, datefincuisto);
                 this.Brigade[n].PlanningCuisto.Add(occCuisto);
+
+                //Modification du fichier XML: Ajout de la réservation
+                XmlDocument doc = new XmlDocument();
+                doc.Load("restaurant.xml");
+                XmlNodeList cuistoNodes = doc.SelectNodes("//Restaurant/Cuisiniers/Cuisinier");
+                XmlNodeList noCuistoNodes = doc.SelectNodes("//Restaurant/Cuisiniers/Cuisinier/noCuisto");
+                string noCuisto= n.ToString();
+                int j = 0;
+                while (j<noCuistoNodes.Count)
+                {
+                    if (noCuistoNodes[j].InnerText == noCuisto)
+                    {
+                        XmlNode noeudBase = doc.CreateElement("occupations");
+                        XmlNode occupationNode = doc.CreateElement("dateDebutOccupee");
+                        cuistoNodes[j].AppendChild(noeudBase);
+
+                        string dateDebut = dateDeDebut.ToString();
+                        occupationNode.InnerText = dateDebut;
+                        noeudBase.AppendChild(occupationNode);
+                        
+
+                        XmlNode occupation2Node = doc.CreateElement("dateFinOccupee");
+                        string dateFin = datefincuisto.ToString();
+                        occupation2Node.InnerText = dateFin;
+                        noeudBase.AppendChild(occupation2Node);
+
+                        doc.Save("restaurant.xml");
+                    }
+                    j++;
+                }
+               
+
 			}
-                
-            
-            
+
+
+               
+
+
+
                 return true;
             }
 
